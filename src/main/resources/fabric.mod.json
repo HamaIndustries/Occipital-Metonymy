@@ -1,0 +1,44 @@
+{
+  "schemaVersion": 1,
+  "id": "occmy",
+  "version": "${version}",
+  "name": "Occipital Metonymy",
+  "description": "a slight shift in perspective",
+  "authors": [
+    "Me!"
+  ],
+  "contact": {
+    "homepage": "https://fabricmc.net/",
+    "sources": "https://github.com/FabricMC/fabric-example-mod"
+  },
+  "license": "CC0-1.0",
+  "icon": "assets/occmy/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "symbolics.division.occmy.OCCMY"
+    ],
+    "client": [
+      "symbolics.division.occmy.client.OCCMYClient"
+    ],
+    "fabric-datagen": [
+      "symbolics.division.occmy.client.OCCMYDataGen"
+    ]
+  },
+  "mixins": [
+    "occmy.mixins.json",
+    {
+      "config": "occmy.client.mixins.json",
+      "environment": "client"
+    }
+  ],
+  "depends": {
+    "fabricloader": ">=0.16.14",
+    "minecraft": "~1.21.8",
+    "java": ">=21",
+    "fabric-api": "*"
+  },
+  "suggests": {
+    "another-mod": "*"
+  }
+}
