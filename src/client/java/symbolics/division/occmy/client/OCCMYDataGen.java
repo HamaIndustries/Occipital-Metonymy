@@ -32,7 +32,5 @@ public class OCCMYDataGen implements DataGeneratorEntrypoint {
             itemModelGenerator.register(OccItems.THETISCOPE, Models.GENERATED);
             itemModelGenerator.register(OccItems.DISK_PROJECTION, Models.GENERATED);
         }
-
-
     }
 }

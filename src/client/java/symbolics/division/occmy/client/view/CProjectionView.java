@@ -1,5 +1,6 @@
 package symbolics.division.occmy.client.view;
 
+import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.entity.player.PlayerEntity;
@@ -8,6 +9,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import symbolics.division.occmy.client.OCCMYClient;
+import symbolics.division.occmy.net.C2SProjectionPayload;
 
 public class CProjectionView {
 
@@ -89,7 +91,7 @@ public class CProjectionView {
 
             if (score > 0) {
                 final Vec3d p = new BlockPos(best[0], best[1], best[2]).toCenterPos().add(relative);
-                OCCMYClient.nextTick(() -> OCCMYClient.player().setPosition(p));
+                ClientPlayNetworking.send(new C2SProjectionPayload(p));
             }
         }
     }
