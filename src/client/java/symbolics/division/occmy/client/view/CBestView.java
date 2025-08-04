@@ -5,7 +5,6 @@ import net.minecraft.world.World;
 import symbolics.division.occmy.client.OCCMYClient;
 
 public class CBestView {
-
     private static boolean shouldFixMinecraft;
 
     public static boolean fixMinecraft() {

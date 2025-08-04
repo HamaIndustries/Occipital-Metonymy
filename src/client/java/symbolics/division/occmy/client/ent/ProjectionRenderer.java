@@ -1,6 +1,7 @@
 package symbolics.division.occmy.client.ent;
 
 import com.mojang.blaze3d.buffers.GpuBuffer;
+import com.mojang.blaze3d.pipeline.RenderPipeline;
 import com.mojang.blaze3d.systems.RenderPass;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.textures.GpuTexture;
@@ -17,9 +18,11 @@ import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.util.BufferAllocator;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.LazyEntityReference;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import org.joml.Quaternionf;
 import org.joml.Vector3f;
+import symbolics.division.occmy.OCCMY;
 import symbolics.division.occmy.client.gfx.OccPipelines;
 import symbolics.division.occmy.ent.ProjectionEntity;
 
@@ -32,11 +35,13 @@ public class ProjectionRenderer extends EntityRenderer<ProjectionEntity, Project
 
     private static final Map<LazyEntityReference<ProjectionEntity>, Image> GALLERY = new Object2ReferenceArrayMap<>();
 
-    private static class Image {
+    public static class Image {
         public final GpuTexture texture;
         public final GpuTextureView textureView;
         public final int width;
         public final int height;
+        public boolean baked = false;
+        public float[] uvs = new float[8]; // 00 01 11 10
 
         public Image(int width, int height, GpuTextureView tex) {
             texture = RenderSystem.getDevice().createTexture(
@@ -141,18 +146,26 @@ public class ProjectionRenderer extends EntityRenderer<ProjectionEntity, Project
         if (!GALLERY.containsKey(key)) {
             GALLERY.put(key, new Image(width, height, textureView));
         }
-        state.textureView = GALLERY.get(key).textureView;
+
+        state.image = GALLERY.get(key);
         float yaw = entity.getYaw();
         float pitch = entity.getPitch();
         state.rot = new Quaternionf().rotationYXZ((float) Math.PI - yaw * (float) (Math.PI / 180.0), -pitch * (float) (Math.PI / 180.0), 0.0F);
         state.pos = entity.getPos();
-        state.eye = MinecraftClient.getInstance().gameRenderer.getCamera().getCameraPos();
+//        state.eye = MinecraftClient.getInstance().gameRenderer.getCamera().getCameraPos();
+        state.eye = MinecraftClient.getInstance().cameraEntity.getClientCameraPosVec(tickProgress);
+        state.feet = MinecraftClient.getInstance().cameraEntity.getPos();
+        state.age = entity.age;
         super.updateRenderState(entity, state, tickProgress);
     }
 
-    private void transform(MatrixStack matrices, float x, float y, Vector3f in, ProjectionRenderState state) {
+    private static void transform(MatrixStack matrices, float x, float y, Vector3f in, ProjectionRenderState state) {
         in.set(0);
         matrices.peek().getPositionMatrix().transformPosition(x, y, 0f, in);
+    }
+
+    private static Vec3d textureProjection(Vector3f in) {
+        return MinecraftClient.getInstance().gameRenderer.project(new Vec3d(in));
     }
 
     @Override
@@ -167,10 +180,40 @@ public class ProjectionRenderer extends EntityRenderer<ProjectionEntity, Project
         return should;
     }
 
+    public static void drawVertex(BufferBuilder bb, ProjectionRenderState state, MatrixStack matrices, Vector3f posTransform, Vector3f texTransform, int uvOffset, int u, int v) {
+        transform(matrices, u, v, posTransform, state);
+        if (state.age % 20 == 0 && u == 1 && v == 1) OCCMY.LOGGER.info(posTransform.toString());
+        if (!state.image.baked) {
+
+
+//            // project
+            GameRenderer gr = MinecraftClient.getInstance().gameRenderer;
+//            Vec3d vec3d = gr.getCamera().getPos();
+            Vec3d sourcePos = new Vec3d(posTransform);//.add(vec3d);//.add(state.eye);
+//            Matrix4f matrix4f = gr.getBasicProjectionMatrix(MinecraftClient.getInstance().options.getFov().getValue()); //(MinecraftClient.getInstance().options.getFov().getValue() * ((GameRendererAccessor) gr).getFovMultiplier());
+//            Quaternionf quaternionf = gr.getCamera().getRotation().conjugate(new Quaternionf());
+//            Matrix4f matrix4f2 = new Matrix4f().rotation(quaternionf);
+//            Matrix4f matrix4f3 = matrix4f.mul(matrix4f2);
+////            Vec3d vec3d2 = sourcePos.subtract(vec3d);
+//            Vector3f tex = matrix4f3.transformProject(sourcePos.toVector3f());
+////            return new Vec3d(vector3f);
+//
+//
+//            // a
+
+//            RenderSystem.getModelViewMatrix();
+
+
+            Vec3d tex = MinecraftClient.getInstance().gameRenderer.project(state.eye.add(sourcePos));
+//            Vec3d tex = textureProjection(posTransform.add((float) state.eye.x, (float) state.eye.y, (float) state.eye.z, texTransform));
+            state.image.uvs[uvOffset] = ((float) tex.x + 1) / 2;
+            state.image.uvs[uvOffset + 1] = ((float) tex.y + 1) / 2;
+        }
+        bb.vertex(posTransform.x, posTransform.y, posTransform.z).texture(state.image.uvs[uvOffset], state.image.uvs[uvOffset + 1]);
+    }
+
     @Override
     public void render(ProjectionRenderState state, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light) {
-        Vector3f v = new Vector3f();
-
         RenderSystem.ShapeIndexBuffer indices = RenderSystem.getSequentialBuffer(VertexFormat.DrawMode.QUADS);
 
         matrices.push();
@@ -180,22 +223,26 @@ public class ProjectionRenderer extends EntityRenderer<ProjectionEntity, Project
 
         matrices.scale(3, 3, 0);
         GpuBuffer vertexBuffer;
+        Vector3f tempTex = new Vector3f();
+        Vector3f tempPos = new Vector3f();
 
-        try (BufferAllocator ba = BufferAllocator.method_72201(VertexFormats.POSITION.getVertexSize() * 4)) {
-            BufferBuilder bufferBuilder = new BufferBuilder(ba, VertexFormat.DrawMode.QUADS, VertexFormats.POSITION);
-            transform(matrices, 0, 0, v, state);
-            bufferBuilder.vertex(v.x, v.y, v.z).color(1, 1, 1, 1);
-            transform(matrices, 0, 1, v, state);
-            bufferBuilder.vertex(v.x, v.y, v.z).color(1, 1, 1, 1);
-            transform(matrices, 1, 1, v, state);
-            bufferBuilder.vertex(v.x, v.y, v.z).color(1, 1, 1, 1);
-            transform(matrices, 1, 0, v, state);
-            bufferBuilder.vertex(v.x, v.y, v.z).color(1, 1, 1, 1);
+        boolean simple = false;
+        VertexFormat format = simple ? VertexFormats.POSITION : VertexFormats.POSITION_TEXTURE;
+        RenderPipeline pipeline = simple ? OccPipelines.PROJECTION_SIMPLE : OccPipelines.PROJECTION;
+
+        try (BufferAllocator ba = BufferAllocator.method_72201(format.getVertexSize() * 4)) {
+            BufferBuilder bufferBuilder = new BufferBuilder(ba, VertexFormat.DrawMode.QUADS, format);
+
+            drawVertex(bufferBuilder, state, matrices, tempPos, tempTex, 0, 0, 0);
+            drawVertex(bufferBuilder, state, matrices, tempPos, tempTex, 2, 0, 1);
+            drawVertex(bufferBuilder, state, matrices, tempPos, tempTex, 4, 1, 1);
+            drawVertex(bufferBuilder, state, matrices, tempPos, tempTex, 6, 1, 0);
 
             try (BuiltBuffer builtBuffer = bufferBuilder.end()) {
                 vertexBuffer = RenderSystem.getDevice().createBuffer(() -> "Quad", 32, builtBuffer.getBuffer());
             }
         }
+        state.image.baked = true;
         matrices.pop();
 
         GpuBuffer indexBuffer = indices.getIndexBuffer(6);
@@ -205,10 +252,10 @@ public class ProjectionRenderer extends EntityRenderer<ProjectionEntity, Project
                 () -> "wtf", MinecraftClient.getInstance().getFramebuffer().getColorAttachmentView(), OptionalInt.empty(),
                 MinecraftClient.getInstance().getFramebuffer().getDepthAttachmentView(), OptionalDouble.empty()
         )) {
-            pass.setPipeline(OccPipelines.PROJECTION);
+            pass.setPipeline(pipeline);
             pass.setVertexBuffer(0, vertexBuffer);
             pass.setIndexBuffer(indexBuffer, indices.getIndexType());
-            pass.bindSampler("Sampler0", state.textureView);
+            pass.bindSampler("Sampler0", state.image.textureView);
             RenderSystem.bindDefaultUniforms(pass);
             pass.drawIndexed(0, 0, 6, 1);
         }

@@ -19,7 +19,8 @@ public class Views {
     public static ProjectionView PROJECTION = register("projection", new ProjectionView());
     public static ExteriorityView EXTERIORITY = register("exteriority", new ExteriorityView());
     public static BestView BEST = register("but_if_you_close_your_eyes", new BestView());
-
+    // left right never odd or even // stop pots
+    // up down Name now one man // race car
 
     private static <T extends View> T register(String id, T v) {
         entries.put(OCCMY.id(id), v);

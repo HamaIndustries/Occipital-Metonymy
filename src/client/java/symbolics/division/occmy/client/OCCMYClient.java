@@ -80,7 +80,10 @@ public class OCCMYClient implements ClientModInitializer {
         };
 
         ClientWorldEvents.AFTER_CLIENT_WORLD_CHANGE.register(
-                (minecraftClient, clientWorld) -> CBestView.reset()
+                (minecraftClient, clientWorld) -> {
+                    CBestView.reset();
+                    CExteriorityView.reset();
+                }
         );
     }
 

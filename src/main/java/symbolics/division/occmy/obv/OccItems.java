@@ -33,8 +33,7 @@ public class OccItems {
     public static final Item DISK_BEST = register("disk_but_if_you_close_your_eyes", Item::new, new Item.Settings()
             .component(OccComponents.VIEW, Views.BEST)
     );
-
-
+    
     public static Item register(String name, Function<Item.Settings, Item> itemFactory, Item.Settings settings) {
         RegistryKey<Item> itemKey = RegistryKey.of(RegistryKeys.ITEM, Identifier.of(OCCMY.ID, name));
         Item item = itemFactory.apply(settings.registryKey(itemKey));

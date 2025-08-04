@@ -13,6 +13,7 @@ import net.minecraft.entity.mob.PathAwareEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.Hand;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import org.apache.commons.lang3.NotImplementedException;
 import symbolics.division.occmy.OCCMY;
@@ -70,11 +71,16 @@ public class MarionetteEntity extends HostileEntity {
         knockback(target);
     }
 
+    private PlayerEntity control;
+
     public MarionetteEntity(EntityType<? extends HostileEntity> entityType, World world) {
         super(entityType, world);
         this.initGoals();
     }
 
+    public void setControl(PlayerEntity player) {
+        this.control = player;
+    }
 
     @Override
     protected void initGoals() {
@@ -87,7 +93,6 @@ public class MarionetteEntity extends HostileEntity {
             this.goalSelector.add(2, new MeleeAttackGoal(this, 0.2, false));
         }
     }
-
 
     @Override
     public boolean isLogicalSideForUpdatingMovement() {
@@ -117,8 +122,10 @@ public class MarionetteEntity extends HostileEntity {
     @Override
     public void tick() {
         super.tick();
-        if (this.age % 20 == 0) {
-//            OCCMY.LOGGER.info("ghosty at {}", this.getPos().toString());
+        if (this.control != null) {
+            Vec3d p = this.getPos();
+            control.updateTrackedPositionAndAngles(p, this.bodyYaw, this.getPitch());
+            control.setHeadYaw(this.headYaw);
         }
     }
 }

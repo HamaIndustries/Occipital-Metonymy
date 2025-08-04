@@ -5,8 +5,10 @@
   "client": [
     "ClientPlayNetworkHandlerMixin",
     "EntityRendererMixin",
+    "GameRendererAccessor",
     "MinecraftClientMixin",
-    "OtherClientPlayerEntityMixin"
+    "OtherClientPlayerEntityMixin",
+    "WorldRendererMixin"
   ],
   "injectors": {
     "defaultRequire": 1

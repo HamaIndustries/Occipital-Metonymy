@@ -10,6 +10,17 @@ public class OccPipelines {
     public static final RenderPipeline PROJECTION = RenderPipelines.register(
             RenderPipeline.builder(RenderPipelines.TRANSFORMS_PROJECTION_FOG_LIGHTING_SNIPPET, RenderPipelines.GLOBALS_SNIPPET)
                     .withLocation(OCCMY.id("pipeline/projection"))
+                    .withVertexShader("core/position_tex")
+                    .withFragmentShader(OCCMY.id("core/position_tex_but_good"))
+                    .withVertexFormat(VertexFormats.POSITION_TEXTURE, VertexFormat.DrawMode.QUADS)
+                    .withSampler("Sampler0")
+                    .withDepthWrite(true)
+                    .build()
+    );
+
+    public static final RenderPipeline PROJECTION_SIMPLE = RenderPipelines.register(
+            RenderPipeline.builder(RenderPipelines.TRANSFORMS_PROJECTION_FOG_LIGHTING_SNIPPET, RenderPipelines.GLOBALS_SNIPPET)
+                    .withLocation(OCCMY.id("pipeline/projection_simple"))
                     .withVertexShader("core/position")
                     .withFragmentShader(OCCMY.id("core/projection"))
                     .withVertexFormat(VertexFormats.POSITION, VertexFormat.DrawMode.QUADS)
