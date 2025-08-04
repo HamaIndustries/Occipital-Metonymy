@@ -17,8 +17,8 @@ import java.util.Optional;
 @Mixin(EntityRenderer.class
 )
 public class EntityRendererMixin<T extends Entity, S extends EntityRenderState> {
-    private boolean checked = false;
-    private boolean bad = false;
+    private boolean occmy$checked = false;
+    private boolean occmy$bad = false;
 
     @Inject(
             method = "shouldRender",
@@ -26,14 +26,14 @@ public class EntityRendererMixin<T extends Entity, S extends EntityRenderState> 
             cancellable = true
     )
     private void butIfYouCloseYourEyes(T entity, Frustum frustum, double x, double y, double z, CallbackInfoReturnable<Boolean> cir) {
-        if (!checked) {
-            checked = true;
+        if (!occmy$checked) {
+            occmy$checked = true;
             Optional<RegistryKey<EntityType<?>>> key = entity.getType().getRegistryEntry().getKey();
             if (key.isPresent() && !key.get().getValue().getNamespace().equals("minecraft")) {
-                bad = true;
+                occmy$bad = true;
             }
         }
-        if (bad && CBestView.fixMinecraft()) {
+        if (occmy$bad && CBestView.fixMinecraft()) {
             cir.setReturnValue(false);
             cir.cancel();
         }

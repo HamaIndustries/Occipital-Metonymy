@@ -8,6 +8,8 @@
     "GameRendererAccessor",
     "MinecraftClientMixin",
     "OtherClientPlayerEntityMixin",
+    "PlayerEntityRendererMixin",
+    "SoundSystemMixin",
     "WorldRendererMixin"
   ],
   "injectors": {

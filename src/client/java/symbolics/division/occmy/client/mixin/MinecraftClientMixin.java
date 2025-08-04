@@ -1,8 +1,9 @@
 package symbolics.division.occmy.client.mixin;
 
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gl.Framebuffer;
-import net.minecraft.client.render.GameRenderer;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -14,25 +15,20 @@ import symbolics.division.occmy.client.view.Perspectives;
 
 @Mixin(MinecraftClient.class)
 public class MinecraftClientMixin {
-    @Shadow
-    @Final
-    public GameRenderer gameRenderer;
 
     @Final
     @Shadow
     private Framebuffer framebuffer;
 
-    @Shadow
-    public boolean skipGameRender;
-
-    @Inject(
+    @WrapOperation(
             method = "render",
-            at = @At("HEAD")
+            at = @At(value = "FIELD", target = "Lnet/minecraft/client/MinecraftClient;skipGameRender:Z")
     )
-    private void tick(boolean tick, CallbackInfo ci) {
+    public boolean orly(MinecraftClient instance, Operation<Boolean> original) {
         if (Perspectives.OBSCURED.living()) {
-            this.skipGameRender = !Perspectives.OBSCURED.complete();
+            return original.call(instance) || !Perspectives.OBSCURED.complete();
         }
+        return original.call(instance);
     }
 
     @Inject(

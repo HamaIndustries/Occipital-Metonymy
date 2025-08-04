@@ -61,6 +61,7 @@ public class OCCMYClient implements ClientModInitializer {
                     Entity subject = world.getEntity(payload.subject());
                     if (subject != null) {
                         subject.setAttached(OccEntities.PROJECTING, true);
+                        subject.setAttached(OccEntities.OBSCURED, true);
                     }
                     spawnImage(world, payload.from());
                     spawnImage(world, payload.to());

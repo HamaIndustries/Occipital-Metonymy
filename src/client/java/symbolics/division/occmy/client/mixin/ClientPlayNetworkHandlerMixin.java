@@ -24,10 +24,10 @@ public class ClientPlayNetworkHandlerMixin {
     }
 
     @WrapOperation(
-            method = "Lnet/minecraft/client/network/ClientPlayNetworkHandler;onEntityPositionSync(Lnet/minecraft/network/packet/s2c/play/EntityPositionSyncS2CPacket;)V",
+            method = "onEntityPositionSync(Lnet/minecraft/network/packet/s2c/play/EntityPositionSyncS2CPacket;)V",
             at = @At(value = "INVOKE", target = "Lnet/minecraft/client/world/ClientWorld;hasEntity(Lnet/minecraft/entity/Entity;)Z")
     )
-    public boolean a(ClientWorld instance, Entity entity, Operation<Boolean> original) {
+    public boolean desyncOnPurpose(ClientWorld instance, Entity entity, Operation<Boolean> original) {
         if (entity instanceof PlayerEntity player) {
             boolean proj = player.getAttachedOrSet(OccEntities.PROJECTING, false);
             return original.call(instance, entity) && !proj;
@@ -40,7 +40,7 @@ public class ClientPlayNetworkHandlerMixin {
             at = @At(value = "INVOKE", target = "Lnet/minecraft/network/packet/s2c/play/EntityPositionSyncS2CPacket;values()Lnet/minecraft/entity/player/PlayerPosition;"),
             cancellable = true
     )
-    public void cancelPositionSync(EntityPositionSyncS2CPacket packet, CallbackInfo ci, @Local(ordinal = 0) Entity entity) {
+    public void desyncOnAccident(EntityPositionSyncS2CPacket packet, CallbackInfo ci, @Local(ordinal = 0) Entity entity) {
         if (occmy$stringed(entity)) {
             ci.cancel();
         }

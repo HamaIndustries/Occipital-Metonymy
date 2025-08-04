@@ -22,7 +22,6 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import org.joml.Quaternionf;
 import org.joml.Vector3f;
-import symbolics.division.occmy.OCCMY;
 import symbolics.division.occmy.client.gfx.OccPipelines;
 import symbolics.division.occmy.ent.ProjectionEntity;
 
@@ -93,8 +92,6 @@ public class ProjectionRenderer extends EntityRenderer<ProjectionEntity, Project
     private static GpuTextureView textureView = RenderSystem.getDevice().createTextureView(texture);
     private static int width = 100;
     private static int height = 100;
-
-    private static GpuBuffer AWA;
 
     public ProjectionRenderer(EntityRendererFactory.Context context) {
         super(context);
@@ -182,30 +179,9 @@ public class ProjectionRenderer extends EntityRenderer<ProjectionEntity, Project
 
     public static void drawVertex(BufferBuilder bb, ProjectionRenderState state, MatrixStack matrices, Vector3f posTransform, Vector3f texTransform, int uvOffset, int u, int v) {
         transform(matrices, u, v, posTransform, state);
-        if (state.age % 20 == 0 && u == 1 && v == 1) OCCMY.LOGGER.info(posTransform.toString());
         if (!state.image.baked) {
-
-
-//            // project
-            GameRenderer gr = MinecraftClient.getInstance().gameRenderer;
-//            Vec3d vec3d = gr.getCamera().getPos();
-            Vec3d sourcePos = new Vec3d(posTransform);//.add(vec3d);//.add(state.eye);
-//            Matrix4f matrix4f = gr.getBasicProjectionMatrix(MinecraftClient.getInstance().options.getFov().getValue()); //(MinecraftClient.getInstance().options.getFov().getValue() * ((GameRendererAccessor) gr).getFovMultiplier());
-//            Quaternionf quaternionf = gr.getCamera().getRotation().conjugate(new Quaternionf());
-//            Matrix4f matrix4f2 = new Matrix4f().rotation(quaternionf);
-//            Matrix4f matrix4f3 = matrix4f.mul(matrix4f2);
-////            Vec3d vec3d2 = sourcePos.subtract(vec3d);
-//            Vector3f tex = matrix4f3.transformProject(sourcePos.toVector3f());
-////            return new Vec3d(vector3f);
-//
-//
-//            // a
-
-//            RenderSystem.getModelViewMatrix();
-
-
+            Vec3d sourcePos = new Vec3d(posTransform);
             Vec3d tex = MinecraftClient.getInstance().gameRenderer.project(state.eye.add(sourcePos));
-//            Vec3d tex = textureProjection(posTransform.add((float) state.eye.x, (float) state.eye.y, (float) state.eye.z, texTransform));
             state.image.uvs[uvOffset] = ((float) tex.x + 1) / 2;
             state.image.uvs[uvOffset + 1] = ((float) tex.y + 1) / 2;
         }
@@ -226,7 +202,7 @@ public class ProjectionRenderer extends EntityRenderer<ProjectionEntity, Project
         Vector3f tempTex = new Vector3f();
         Vector3f tempPos = new Vector3f();
 
-        boolean simple = false;
+        boolean simple = true;
         VertexFormat format = simple ? VertexFormats.POSITION : VertexFormats.POSITION_TEXTURE;
         RenderPipeline pipeline = simple ? OccPipelines.PROJECTION_SIMPLE : OccPipelines.PROJECTION;
 
