@@ -2,3 +2,5 @@ accessWidener v2 named
 
 accessible field net/minecraft/client/world/ClientWorld entityManager Lnet/minecraft/world/entity/ClientEntityManager;
 accessible field net/minecraft/world/entity/ClientEntityManager index Lnet/minecraft/world/entity/EntityIndex;
+
+extendable method net/minecraft/entity/Entity isLogicalSideForUpdatingMovement ()Z

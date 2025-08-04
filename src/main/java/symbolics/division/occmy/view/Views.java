@@ -17,6 +17,7 @@ public class Views {
     );
 
     public static ProjectionView PROJECTION = register("projection", new ProjectionView());
+    public static ExteriorityView EXTERIORITY = register("exteriority", new ExteriorityView());
 
     private static <T extends View> T register(String id, T v) {
         entries.put(OCCMY.id(id), v);

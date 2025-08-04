@@ -157,6 +157,9 @@ public class ProjectionRenderer extends EntityRenderer<ProjectionEntity, Project
     @Override
     public boolean shouldRender(ProjectionEntity entity, Frustum frustum, double x, double y, double z) {
         boolean should = super.shouldRender(entity, frustum, x, y, z);
+        if (MinecraftClient.getInstance().player != null) {
+            should &= MinecraftClient.getInstance().player.getRotationVecClient().dotProduct(entity.getRotationVecClient()) < 0;
+        }
         if (!should) {
             entity.remove = true;
         }
@@ -172,9 +175,9 @@ public class ProjectionRenderer extends EntityRenderer<ProjectionEntity, Project
         matrices.push();
 
         matrices.multiply(state.rot);
-        matrices.translate(-0.5, 0, -1);
+        matrices.translate(-1.5, -0.5, -1);
 
-        matrices.scale(2, 2, 0);
+        matrices.scale(3, 3, 0);
         GpuBuffer vertexBuffer;
 
         try (BufferAllocator ba = BufferAllocator.method_72201(VertexFormats.POSITION.getVertexSize() * 4)) {

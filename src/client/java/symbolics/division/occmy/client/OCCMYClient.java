@@ -6,12 +6,16 @@ import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayerEntity;
+import net.minecraft.client.render.entity.EmptyEntityRenderer;
+import net.minecraft.client.render.item.property.bool.BooleanProperties;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.command.argument.EntityAnchorArgumentType;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.util.math.Vec3d;
+import symbolics.division.occmy.OCCMY;
 import symbolics.division.occmy.client.ent.ProjectionRenderer;
+import symbolics.division.occmy.client.gfx.ThetiscopeFullnessProperty;
 import symbolics.division.occmy.client.view.CProjectionView;
 import symbolics.division.occmy.ent.ProjectionEntity;
 import symbolics.division.occmy.net.S2CCaptureImagePayload;
@@ -38,6 +42,11 @@ public class OCCMYClient implements ClientModInitializer {
                 ProjectionRenderer::new
         );
 
+        EntityRendererRegistry.register(
+                OccEntities.MARIONETTE,
+                EmptyEntityRenderer::new
+        );
+
         ClientPlayNetworking.registerGlobalReceiver(
                 S2CCaptureImagePayload.ID,
                 (payload, context) -> {
@@ -49,6 +58,13 @@ public class OCCMYClient implements ClientModInitializer {
                     spawnImage(world, payload.from());
                     spawnImage(world, payload.to());
                 }
+        );
+
+        OCCMY.interiority = () -> MinecraftClient.getInstance().player;
+
+        BooleanProperties.ID_MAPPER.put(
+                OCCMY.id("thetiscope_fullness"),
+                ThetiscopeFullnessProperty.CODEC
         );
     }
 

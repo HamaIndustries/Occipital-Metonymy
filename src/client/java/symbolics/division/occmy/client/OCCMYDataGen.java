@@ -6,7 +6,9 @@ import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.minecraft.client.data.BlockStateModelGenerator;
 import net.minecraft.client.data.ItemModelGenerator;
+import net.minecraft.client.data.ItemModels;
 import net.minecraft.client.data.Models;
+import symbolics.division.occmy.client.gfx.ThetiscopeFullnessProperty;
 import symbolics.division.occmy.obv.OccItems;
 
 public class OCCMYDataGen implements DataGeneratorEntrypoint {
@@ -29,8 +31,19 @@ public class OCCMYDataGen implements DataGeneratorEntrypoint {
 
         @Override
         public void generateItemModels(ItemModelGenerator itemModelGenerator) {
-            itemModelGenerator.register(OccItems.THETISCOPE, Models.GENERATED);
             itemModelGenerator.register(OccItems.DISK_PROJECTION, Models.GENERATED);
+            itemModelGenerator.output.accept(
+                    OccItems.THETISCOPE,
+                    ItemModels.condition(
+                            new ThetiscopeFullnessProperty(),
+                            ItemModels.basic(
+                                    itemModelGenerator.registerSubModel(OccItems.THETISCOPE, "_full", Models.GENERATED)
+                            ),
+                            ItemModels.basic(
+                                    itemModelGenerator.registerSubModel(OccItems.THETISCOPE, "_empty", Models.GENERATED)
+                            )
+                    )
+            );
         }
     }
 }

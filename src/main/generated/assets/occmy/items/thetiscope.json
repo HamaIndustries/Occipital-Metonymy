@@ -1,6 +1,14 @@
 {
   "model": {
-    "type": "minecraft:model",
-    "model": "occmy:item/thetiscope"
+    "type": "minecraft:condition",
+    "on_false": {
+      "type": "minecraft:model",
+      "model": "occmy:item/thetiscope_empty"
+    },
+    "on_true": {
+      "type": "minecraft:model",
+      "model": "occmy:item/thetiscope_full"
+    },
+    "property": "occmy:thetiscope_fullness"
   }
 }

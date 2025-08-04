@@ -2,8 +2,10 @@ package symbolics.division.occmy;
 
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.network.packet.CustomPayload;
 import net.minecraft.util.Identifier;
+import org.apache.commons.lang3.NotImplementedException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import symbolics.division.occmy.net.C2SProjectionPayload;
@@ -11,6 +13,8 @@ import symbolics.division.occmy.obv.OccComponents;
 import symbolics.division.occmy.obv.OccEntities;
 import symbolics.division.occmy.obv.OccItems;
 import symbolics.division.occmy.obv.OccNetworking;
+
+import java.util.function.Supplier;
 
 public class OCCMY implements ModInitializer {
     public static final String ID = "occmy";
@@ -36,5 +40,13 @@ public class OCCMY implements ModInitializer {
                 C2SProjectionPayload.ID,
                 C2SProjectionPayload::HANDLER
         );
+    }
+
+    public static Supplier<PlayerEntity> interiority = () -> {
+        throw new NotImplementedException("attempted external self reference");
+    };
+
+    public static PlayerEntity self() {
+        return interiority.get();
     }
 }

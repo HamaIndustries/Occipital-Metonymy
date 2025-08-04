@@ -9,6 +9,7 @@ import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.util.Identifier;
 import symbolics.division.occmy.OCCMY;
+import symbolics.division.occmy.ent.MarionetteEntity;
 import symbolics.division.occmy.ent.ProjectionEntity;
 
 public class OccEntities {
@@ -28,4 +29,15 @@ public class OccEntities {
             PROJECTION_KEY.getValue(),
             EntityType.Builder.create(ProjectionEntity::new, SpawnGroup.MISC).dimensions(0.75f, 0.75f)
                     .build(PROJECTION_KEY));
+
+    public static final RegistryKey<EntityType<?>> MARIONETTE_KEY = RegistryKey.of(
+            Registries.ENTITY_TYPE.getKey(),
+            Identifier.of(OCCMY.ID, "marionette")
+    );
+
+    public static final EntityType<MarionetteEntity> MARIONETTE = Registry.register(
+            Registries.ENTITY_TYPE,
+            MARIONETTE_KEY.getValue(),
+            EntityType.Builder.create(MarionetteEntity::new, SpawnGroup.MISC).dimensions(0.75f, 0.75f)
+                    .build(MARIONETTE_KEY));
 }

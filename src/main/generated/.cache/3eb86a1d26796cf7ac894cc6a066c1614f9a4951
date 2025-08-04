@@ -1,5 +1,6 @@
 // 1.21.8	-999999999-01-01T00:00:00	Occipital Metonymy/Model Definitions
 0143d354a33c6d665c2f3267911615803a5d2c6d assets/occmy/items/disk_projection.json
-4041ac097bc7626704c85bc43bbe6392e1e9a733 assets/occmy/items/thetiscope.json
+d344c79f5cafb1cc693ecc717df5c404a653cfb8 assets/occmy/items/thetiscope.json
 ee642f0d5d0abe7d32121e9cc44c8327b68835ba assets/occmy/models/item/disk_projection.json
-1380dc48f7b6c3c1996467f180c981daa9342dcd assets/occmy/models/item/thetiscope.json
+2d49f46b0eef781b6534de2836c536b29b3cb536 assets/occmy/models/item/thetiscope_empty.json
+3118a776ea4d5234a29b0bb96b04fabbe48d2685 assets/occmy/models/item/thetiscope_full.json
