@@ -2,6 +2,7 @@ package symbolics.division.occmy.client;
 
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
+import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientWorldEvents;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.minecraft.client.MinecraftClient;
@@ -16,8 +17,12 @@ import net.minecraft.util.math.Vec3d;
 import symbolics.division.occmy.OCCMY;
 import symbolics.division.occmy.client.ent.ProjectionRenderer;
 import symbolics.division.occmy.client.gfx.ThetiscopeFullnessProperty;
+import symbolics.division.occmy.client.view.CBestView;
+import symbolics.division.occmy.client.view.CExteriorityView;
 import symbolics.division.occmy.client.view.CProjectionView;
+import symbolics.division.occmy.ent.MarionetteEntity;
 import symbolics.division.occmy.ent.ProjectionEntity;
+import symbolics.division.occmy.net.C2SHollowingPayload;
 import symbolics.division.occmy.net.S2CCaptureImagePayload;
 import symbolics.division.occmy.obv.OccEntities;
 import symbolics.division.occmy.state.Necessity;
@@ -30,6 +35,8 @@ public class OCCMYClient implements ClientModInitializer {
     @Override
     public void onInitializeClient() {
         Views.PROJECTION.setCallback(c -> c.ap(CProjectionView::open));
+        Views.EXTERIORITY.setCallback(c -> c.ap(CExteriorityView::open));
+        Views.BEST.setCallback(c -> c.ap(CBestView::open));
 
         ClientTickEvents.START_CLIENT_TICK.register(
                 client -> {
@@ -66,6 +73,15 @@ public class OCCMYClient implements ClientModInitializer {
                 OCCMY.id("thetiscope_fullness"),
                 ThetiscopeFullnessProperty.CODEC
         );
+
+        MarionetteEntity.signal = () -> {
+            cutStrings(MinecraftClient.getInstance().world);
+            ClientPlayNetworking.send(new C2SHollowingPayload());
+        };
+
+        ClientWorldEvents.AFTER_CLIENT_WORLD_CHANGE.register(
+                (minecraftClient, clientWorld) -> CBestView.reset()
+        );
     }
 
     private void spawnImage(ClientWorld world, Vec3d pos) {
@@ -89,5 +105,14 @@ public class OCCMYClient implements ClientModInitializer {
 
     public static ClientPlayerEntity player() {
         return MinecraftClient.getInstance().player;
+    }
+
+    private void cutStrings(ClientWorld world) {
+        if (world == null) return;
+        for (Entity e : world.getEntities()) {
+            if (e instanceof MarionetteEntity) {
+                e.remove(Entity.RemovalReason.DISCARDED);
+            }
+        }
     }
 }

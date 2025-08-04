@@ -2,6 +2,7 @@ package symbolics.division.occmy.obv;
 
 import net.fabricmc.fabric.api.attachment.v1.AttachmentRegistry;
 import net.fabricmc.fabric.api.attachment.v1.AttachmentType;
+import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnGroup;
 import net.minecraft.registry.Registries;
@@ -14,7 +15,7 @@ import symbolics.division.occmy.ent.ProjectionEntity;
 
 public class OccEntities {
     public static void init() {
-
+        FabricDefaultAttributeRegistry.register(MARIONETTE, MarionetteEntity.createAttributes());
     }
 
     public static final AttachmentType<Boolean> PROJECTING = AttachmentRegistry.create(OCCMY.id("projecting"));

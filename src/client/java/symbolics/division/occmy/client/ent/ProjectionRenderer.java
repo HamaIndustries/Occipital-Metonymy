@@ -122,6 +122,7 @@ public class ProjectionRenderer extends EntityRenderer<ProjectionEntity, Project
             for (var ref : toRemove) GALLERY.remove(ref);
         }
 
+        // TODO probably should make this only run once rather than all the time
         RenderSystem.ShapeIndexBuffer shapeIndexBuffer = RenderSystem.getSequentialBuffer(VertexFormat.DrawMode.QUADS);
         GpuBuffer gpuBuffer = shapeIndexBuffer.getIndexBuffer(6);
 

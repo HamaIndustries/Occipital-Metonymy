@@ -32,6 +32,8 @@ public class OCCMYDataGen implements DataGeneratorEntrypoint {
         @Override
         public void generateItemModels(ItemModelGenerator itemModelGenerator) {
             itemModelGenerator.register(OccItems.DISK_PROJECTION, Models.GENERATED);
+            itemModelGenerator.registerWithTextureSource(OccItems.DISK_EXTERIORITY, OccItems.DISK_PROJECTION, Models.GENERATED);
+            itemModelGenerator.registerWithTextureSource(OccItems.DISK_BEST, OccItems.DISK_PROJECTION, Models.GENERATED);
             itemModelGenerator.output.accept(
                     OccItems.THETISCOPE,
                     ItemModels.condition(

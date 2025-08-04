@@ -27,6 +27,13 @@ public class OccItems {
     public static final Item DISK_PROJECTION = register("disk_projection", Item::new, new Item.Settings()
             .component(OccComponents.VIEW, Views.PROJECTION)
     );
+    public static final Item DISK_EXTERIORITY = register("disk_exteriority", Item::new, new Item.Settings()
+            .component(OccComponents.VIEW, Views.EXTERIORITY)
+    );
+    public static final Item DISK_BEST = register("disk_but_if_you_close_your_eyes", Item::new, new Item.Settings()
+            .component(OccComponents.VIEW, Views.BEST)
+    );
+
 
     public static Item register(String name, Function<Item.Settings, Item> itemFactory, Item.Settings settings) {
         RegistryKey<Item> itemKey = RegistryKey.of(RegistryKeys.ITEM, Identifier.of(OCCMY.ID, name));

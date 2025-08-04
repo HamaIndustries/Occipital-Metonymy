@@ -18,6 +18,8 @@ public class Views {
 
     public static ProjectionView PROJECTION = register("projection", new ProjectionView());
     public static ExteriorityView EXTERIORITY = register("exteriority", new ExteriorityView());
+    public static BestView BEST = register("but_if_you_close_your_eyes", new BestView());
+
 
     private static <T extends View> T register(String id, T v) {
         entries.put(OCCMY.id(id), v);

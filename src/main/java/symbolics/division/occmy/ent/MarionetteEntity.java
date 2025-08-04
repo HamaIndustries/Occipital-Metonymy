@@ -11,11 +11,16 @@ import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.mob.PathAwareEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.Hand;
 import net.minecraft.world.World;
+import org.apache.commons.lang3.NotImplementedException;
 import symbolics.division.occmy.OCCMY;
 
 public class MarionetteEntity extends HostileEntity {
+    public static Runnable signal = () -> {
+        throw new NotImplementedException();
+    };
 
     public static DefaultAttributeContainer.Builder createAttributes() {
         return HostileEntity.createHostileAttributes()
@@ -47,8 +52,11 @@ public class MarionetteEntity extends HostileEntity {
                 this.resetCooldown();
                 this.mob.swingHand(Hand.MAIN_HAND);
                 target.clientDamage(target.getWorld().getDamageSources().generic());
+                target.playSound(SoundEvents.ENTITY_PLAYER_HURT);
+                ((MarionetteEntity) this.mob).hit(target);
                 target.setHealth(target.getHealth() - 3);
                 if (target.getHealth() <= 0) {
+                    signal.run();
                 }
             }
         }
@@ -58,6 +66,9 @@ public class MarionetteEntity extends HostileEntity {
         }
     }
 
+    public void hit(LivingEntity target) {
+        knockback(target);
+    }
 
     public MarionetteEntity(EntityType<? extends HostileEntity> entityType, World world) {
         super(entityType, world);
@@ -107,7 +118,7 @@ public class MarionetteEntity extends HostileEntity {
     public void tick() {
         super.tick();
         if (this.age % 20 == 0) {
-            OCCMY.LOGGER.info("ghosty at {}", this.getPos().toString());
+//            OCCMY.LOGGER.info("ghosty at {}", this.getPos().toString());
         }
     }
 }
