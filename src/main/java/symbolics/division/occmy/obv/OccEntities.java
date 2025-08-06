@@ -20,6 +20,7 @@ public class OccEntities {
 
     public static final AttachmentType<Boolean> PROJECTING = AttachmentRegistry.create(OCCMY.id("projecting"));
     public static final AttachmentType<Boolean> OBSCURED = AttachmentRegistry.create(OCCMY.id("obscured"));
+    public static final AttachmentType<Boolean> INVERTED = AttachmentRegistry.create(OCCMY.id("inverted"));
 
     public static final RegistryKey<EntityType<?>> PROJECTION_KEY = RegistryKey.of(
             Registries.ENTITY_TYPE.getKey(),

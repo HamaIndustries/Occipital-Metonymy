@@ -1,0 +1,12 @@
+{
+  "sfx.shutter": {
+    "subtitle": "subtitles.occmy.shutter",
+    "sounds": [
+      "occmy:sfx/click_1",
+      "occmy:sfx/click_2",
+      "occmy:sfx/click_3",
+      "occmy:sfx/click_4",
+      "occmy:sfx/click_5"
+    ]
+  }
+}

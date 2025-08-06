@@ -2,6 +2,7 @@ package symbolics.division.occmy.state;
 
 public class Sufficiency extends Gestalt {
     private boolean complete = true;
+    protected boolean check = true;
 
     @Override
     public void enableFor(int ticks) {
@@ -20,6 +21,12 @@ public class Sufficiency extends Gestalt {
             onEnd();
         }
         return complete;
+    }
+
+    @Override
+    public void tick() {
+        super.tick();
+        if (ticksLeft == 0 && !check) complete();
     }
 
     protected void onStart() {

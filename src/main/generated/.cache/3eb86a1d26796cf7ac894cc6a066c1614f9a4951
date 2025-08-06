@@ -1,8 +1,10 @@
 // 1.21.8	-999999999-01-01T00:00:00	Occipital Metonymy/Model Definitions
+230636bb9c2756f4ae9c1dc540f044171d4afbf0 assets/occmy/blockstates/thetiscope.json
 9604ffd4ea9667c3cafde85a35a32b25daf81437 assets/occmy/items/disk_but_if_you_close_your_eyes.json
 c540f9bd7862477014b358616f5851558b5c76e5 assets/occmy/items/disk_exteriority.json
 0143d354a33c6d665c2f3267911615803a5d2c6d assets/occmy/items/disk_projection.json
 d344c79f5cafb1cc693ecc717df5c404a653cfb8 assets/occmy/items/thetiscope.json
+860a61564c3b750804bbe64197eeb931ba7ac0e5 assets/occmy/models/block/thetiscope.json
 ee642f0d5d0abe7d32121e9cc44c8327b68835ba assets/occmy/models/item/disk_but_if_you_close_your_eyes.json
 ee642f0d5d0abe7d32121e9cc44c8327b68835ba assets/occmy/models/item/disk_exteriority.json
 ee642f0d5d0abe7d32121e9cc44c8327b68835ba assets/occmy/models/item/disk_projection.json

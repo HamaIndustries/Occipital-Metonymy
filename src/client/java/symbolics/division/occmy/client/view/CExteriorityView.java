@@ -34,7 +34,7 @@ public class CExteriorityView {
         }
     }
 
-    public boolean active() {
+    public static boolean active() {
         return complex;
     }
 }

@@ -14,6 +14,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import symbolics.division.occmy.client.ent.IStringedEntity;
+import symbolics.division.occmy.client.view.CExteriorityView;
 import symbolics.division.occmy.ent.MarionetteEntity;
 import symbolics.division.occmy.obv.OccEntities;
 
@@ -28,24 +29,14 @@ public abstract class OtherClientPlayerEntityMixin extends AbstractClientPlayerE
     }
 
     @Inject(
-            method = "tick",
-            at = @At("HEAD")
-    )
-    private void hackTick(CallbackInfo ci) {
-
-
-    }
-
-    @Inject(
             method = "onSpawnPacket",
             at = @At("TAIL")
     )
     private void afterSpawn(EntitySpawnS2CPacket packet, CallbackInfo ci) {
-//        MarionetteEntity doll = OccEntities.MARIONETTE.create(this.getWorld(), SpawnReason.LOAD);
-//        ref = new LazyEntityReference<>(doll);
-//        doll.setPos(this.getX(), this.getY(), this.getZ());
-//        this.clientWorld.addEntity(doll);
-//        doll.setControl(this);
+        occmy$cut();
+        if (CExteriorityView.active()) {
+            occmy$rig();
+        }
     }
 
     @Unique

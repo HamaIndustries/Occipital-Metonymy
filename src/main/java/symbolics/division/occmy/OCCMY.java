@@ -7,10 +7,7 @@ import net.minecraft.util.Identifier;
 import org.apache.commons.lang3.NotImplementedException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import symbolics.division.occmy.obv.OccComponents;
-import symbolics.division.occmy.obv.OccEntities;
-import symbolics.division.occmy.obv.OccItems;
-import symbolics.division.occmy.obv.OccNetworking;
+import symbolics.division.occmy.obv.*;
 
 import java.util.function.Supplier;
 
@@ -28,10 +25,12 @@ public class OCCMY implements ModInitializer {
 
     @Override
     public void onInitialize() {
+        OccBloccs.init();
         OccItems.init();
         OccComponents.init();
         OccNetworking.init();
         OccEntities.init();
+        OccSounds.init();
     }
 
     public static Supplier<PlayerEntity> interiority = () -> {

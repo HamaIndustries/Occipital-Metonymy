@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "occmy:block/thetiscope",
+      "y": 180
+    },
+    "facing=east": {
+      "model": "occmy:block/thetiscope",
+      "y": 270
+    },
+    "facing=south": {
+      "model": "occmy:block/thetiscope"
+    },
+    "facing=west": {
+      "model": "occmy:block/thetiscope",
+      "y": 90
+    }
+  }
+}

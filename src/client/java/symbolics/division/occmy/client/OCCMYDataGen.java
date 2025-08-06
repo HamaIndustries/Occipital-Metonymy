@@ -9,6 +9,7 @@ import net.minecraft.client.data.ItemModelGenerator;
 import net.minecraft.client.data.ItemModels;
 import net.minecraft.client.data.Models;
 import symbolics.division.occmy.client.gfx.ThetiscopeFullnessProperty;
+import symbolics.division.occmy.obv.OccBloccs;
 import symbolics.division.occmy.obv.OccItems;
 
 public class OCCMYDataGen implements DataGeneratorEntrypoint {
@@ -26,7 +27,7 @@ public class OCCMYDataGen implements DataGeneratorEntrypoint {
 
         @Override
         public void generateBlockStateModels(BlockStateModelGenerator blockStateModelGenerator) {
-
+            blockStateModelGenerator.registerRotatable(OccBloccs.THETISCOPE);
         }
 
         @Override
@@ -34,6 +35,7 @@ public class OCCMYDataGen implements DataGeneratorEntrypoint {
             itemModelGenerator.register(OccItems.DISK_PROJECTION, Models.GENERATED);
             itemModelGenerator.registerWithTextureSource(OccItems.DISK_EXTERIORITY, OccItems.DISK_PROJECTION, Models.GENERATED);
             itemModelGenerator.registerWithTextureSource(OccItems.DISK_BEST, OccItems.DISK_PROJECTION, Models.GENERATED);
+            itemModelGenerator.registerWithTextureSource(OccItems.DISK_INVERSION, OccItems.DISK_PROJECTION, Models.GENERATED);
             itemModelGenerator.output.accept(
                     OccItems.THETISCOPE,
                     ItemModels.condition(

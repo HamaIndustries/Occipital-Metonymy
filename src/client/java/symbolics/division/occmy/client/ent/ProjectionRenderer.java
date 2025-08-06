@@ -89,7 +89,8 @@ public class ProjectionRenderer extends EntityRenderer<ProjectionEntity, Project
     }
 
     private static GpuTexture texture = makeTexture(100, 100);
-    private static GpuTextureView textureView = RenderSystem.getDevice().createTextureView(texture);
+    public static GpuTextureView
+            textureView = RenderSystem.getDevice().createTextureView(texture);
     private static int width = 100;
     private static int height = 100;
 
@@ -128,7 +129,7 @@ public class ProjectionRenderer extends EntityRenderer<ProjectionEntity, Project
         RenderSystem.ShapeIndexBuffer shapeIndexBuffer = RenderSystem.getSequentialBuffer(VertexFormat.DrawMode.QUADS);
         GpuBuffer gpuBuffer = shapeIndexBuffer.getIndexBuffer(6);
 
-        try (RenderPass renderPass = RenderSystem.getDevice().createCommandEncoder().createRenderPass(() -> "blit", textureView, OptionalInt.of(0))) {
+        try (RenderPass renderPass = RenderSystem.getDevice().createCommandEncoder().createRenderPass(() -> "blit", textureView, OptionalInt.empty())) {
             renderPass.setPipeline(RenderPipelines.TRACY_BLIT);
             renderPass.setVertexBuffer(0, RenderSystem.getQuadVertexBuffer());
             renderPass.setIndexBuffer(gpuBuffer, shapeIndexBuffer.getIndexType());

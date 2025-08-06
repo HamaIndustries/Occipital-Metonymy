@@ -19,6 +19,7 @@ import symbolics.division.occmy.client.ent.ProjectionRenderer;
 import symbolics.division.occmy.client.gfx.ThetiscopeFullnessProperty;
 import symbolics.division.occmy.client.view.CBestView;
 import symbolics.division.occmy.client.view.CExteriorityView;
+import symbolics.division.occmy.client.view.CInversionView;
 import symbolics.division.occmy.client.view.CProjectionView;
 import symbolics.division.occmy.ent.MarionetteEntity;
 import symbolics.division.occmy.ent.ProjectionEntity;
@@ -34,9 +35,10 @@ public class OCCMYClient implements ClientModInitializer {
 
     @Override
     public void onInitializeClient() {
-        Views.PROJECTION.setCallback(c -> c.ap(CProjectionView::open));
+        Views.PROJECTION.setCallback(c -> CProjectionView.open(c.world(), c.user(), c.anchor()));
         Views.EXTERIORITY.setCallback(c -> c.ap(CExteriorityView::open));
         Views.BEST.setCallback(c -> c.ap(CBestView::open));
+        Views.INVERSION.setCallback(c -> c.ap(CInversionView::open));
 
         ClientTickEvents.START_CLIENT_TICK.register(
                 client -> {
