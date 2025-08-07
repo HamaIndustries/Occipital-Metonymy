@@ -60,10 +60,10 @@ public class ProjectionRenderer extends EntityRenderer<ProjectionEntity, Project
             GpuBuffer gpuBuffer = shapeIndexBuffer.getIndexBuffer(6);
 
             try (RenderPass renderPass = RenderSystem.getDevice().createCommandEncoder().createRenderPass(() -> "blit", textureView, OptionalInt.of(0))) {
-                renderPass.setPipeline(RenderPipelines.TRACY_BLIT);
+                renderPass.setPipeline(OccPipelines.PLEASE_BLIT);
                 renderPass.setVertexBuffer(0, RenderSystem.getQuadVertexBuffer());
                 renderPass.setIndexBuffer(gpuBuffer, shapeIndexBuffer.getIndexType());
-                renderPass.bindSampler("InSampler", tex);
+                renderPass.bindSampler("BlitSampler", tex);
                 renderPass.drawIndexed(0, 0, 6, 1);
             }
         }

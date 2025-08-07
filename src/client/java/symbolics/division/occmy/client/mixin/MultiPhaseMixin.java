@@ -5,12 +5,15 @@ import org.spongepowered.asm.mixin.Mixin;
 
 @Mixin(RenderLayer.MultiPhase.class)
 public class MultiPhaseMixin {
+
 //    @WrapOperation(
 //            method = "draw",
-//            at = @At(value = "INVOKE", target = "Lcom/mojang/blaze3d/systems/RenderSystem;getShaderTexture(I)Lcom/mojang/blaze3d/textures/GpuTextureView;")
+//            at = @At(value = "INVOKE", target = "Lcom/mojang/blaze3d/systems/CommandEncoder;createRenderPass(Ljava/util/function/Supplier;Lcom/mojang/blaze3d/textures/GpuTextureView;Ljava/util/OptionalInt;Lcom/mojang/blaze3d/textures/GpuTextureView;Ljava/util/OptionalDouble;)Lcom/mojang/blaze3d/systems/RenderPass;")
 //    )
-//    public GpuTextureView a(int index, Operation<GpuTextureView> original) {
-//        return ProjectionRenderer.textureView;
-////        return null;
+//    public RenderPass a(CommandEncoder instance, Supplier<String> stringSupplier, GpuTextureView colorTextureView, OptionalInt optionalInt, @Nullable GpuTextureView depthTextureView, OptionalDouble optionalDouble, Operation<RenderPass> original) {
+//        if (CInversionView.active()) {
+//            return original.call(instance, stringSupplier, colorTextureView, optionalInt, colorTextureView, optionalDouble);
+//        }
+//        return original.call(instance, stringSupplier, colorTextureView, optionalInt, depthTextureView, optionalDouble);
 //    }
 }

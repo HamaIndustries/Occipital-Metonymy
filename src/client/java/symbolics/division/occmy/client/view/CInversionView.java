@@ -11,7 +11,7 @@ import java.util.function.Consumer;
 
 public class CInversionView {
 
-    public static Sufficiency INVERTED_STATE = new Sufficiency() {
+    private static Sufficiency INVERTED_STATE = new Sufficiency() {
         {
             check = false;
         }
@@ -40,5 +40,10 @@ public class CInversionView {
         } else {
             OCCMYClient.AFFAIRS.enableFor(INVERTED_STATE, 200);
         }
+    }
+
+    public static boolean active() {
+        PlayerEntity player = MinecraftClient.getInstance().player;
+        return player != null && player.getAttachedOrElse(OccEntities.INVERTED, false);
     }
 }

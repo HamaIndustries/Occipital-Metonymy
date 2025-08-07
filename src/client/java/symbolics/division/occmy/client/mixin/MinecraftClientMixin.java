@@ -11,11 +11,11 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import symbolics.division.occmy.client.ent.ProjectionRenderer;
+import symbolics.division.occmy.client.gfx.DepthRenderer;
 import symbolics.division.occmy.client.view.Perspectives;
 
 @Mixin(MinecraftClient.class)
 public class MinecraftClientMixin {
-
     @Final
     @Shadow
     private Framebuffer framebuffer;
@@ -37,5 +37,16 @@ public class MinecraftClientMixin {
     )
     public void capture(boolean tick, CallbackInfo ci) {
         ProjectionRenderer.capture(framebuffer);
+    }
+
+    @WrapOperation(
+            method = "render",
+            at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gl/Framebuffer;blitToScreen()V")
+    )
+    public void aaaaa(Framebuffer instance, Operation<Void> original) {
+        if (MinecraftClient.getInstance().player != null && !MinecraftClient.getInstance().player.isOnGround()) {
+            DepthRenderer.apply(instance);
+        }
+        original.call(instance);
     }
 }
