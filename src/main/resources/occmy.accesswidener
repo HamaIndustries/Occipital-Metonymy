@@ -4,3 +4,5 @@ accessible field net/minecraft/client/world/ClientWorld entityManager Lnet/minec
 accessible field net/minecraft/world/entity/ClientEntityManager index Lnet/minecraft/world/entity/EntityIndex;
 
 extendable method net/minecraft/entity/Entity isLogicalSideForUpdatingMovement ()Z
+accessible class net/minecraft/client/render/chunk/RenderedChunk
+accessible class net/minecraft/world/chunk/PalettedContainer$Data

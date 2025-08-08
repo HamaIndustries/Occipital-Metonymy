@@ -2,6 +2,8 @@ package symbolics.division.occmy.client.mixin;
 
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
+import com.llamalad7.mixinextras.sugar.Local;
+import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gl.Framebuffer;
 import org.spongepowered.asm.mixin.Final;
@@ -11,7 +13,6 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import symbolics.division.occmy.client.ent.ProjectionRenderer;
-import symbolics.division.occmy.client.gfx.DepthRenderer;
 import symbolics.division.occmy.client.view.Perspectives;
 
 @Mixin(MinecraftClient.class)
@@ -22,13 +23,13 @@ public class MinecraftClientMixin {
 
     @WrapOperation(
             method = "render",
-            at = @At(value = "FIELD", target = "Lnet/minecraft/client/MinecraftClient;skipGameRender:Z")
+            at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gl/Framebuffer;blitToScreen()V")
     )
-    public boolean orly(MinecraftClient instance, Operation<Boolean> original) {
-        if (Perspectives.OBSCURED.living()) {
-            return original.call(instance) || !Perspectives.OBSCURED.complete();
+    public void orly2(Framebuffer instance, Operation<Void> original, @Local(ordinal = 0) Framebuffer frameBuffer) {
+        if (Perspectives.OBSCURED.living() && !Perspectives.OBSCURED.complete()) {
+            RenderSystem.getDevice().createCommandEncoder().clearColorAndDepthTextures(frameBuffer.getColorAttachment(), 0, frameBuffer.getDepthAttachment(), 1.0);
         }
-        return original.call(instance);
+        original.call(instance);
     }
 
     @Inject(
@@ -37,16 +38,5 @@ public class MinecraftClientMixin {
     )
     public void capture(boolean tick, CallbackInfo ci) {
         ProjectionRenderer.capture(framebuffer);
-    }
-
-    @WrapOperation(
-            method = "render",
-            at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gl/Framebuffer;blitToScreen()V")
-    )
-    public void aaaaa(Framebuffer instance, Operation<Void> original) {
-        if (MinecraftClient.getInstance().player != null && !MinecraftClient.getInstance().player.isOnGround()) {
-            DepthRenderer.apply(instance);
-        }
-        original.call(instance);
     }
 }

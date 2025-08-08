@@ -10,7 +10,9 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.network.packet.s2c.play.EntityPositionSyncS2CPacket;
 import net.minecraft.network.packet.s2c.play.EntityS2CPacket;
+import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -19,6 +21,7 @@ import symbolics.division.occmy.obv.OccEntities;
 
 @Mixin(ClientPlayNetworkHandler.class)
 public class ClientPlayNetworkHandlerMixin {
+    @Unique
     private boolean occmy$stringed(Entity entity) {
         return entity instanceof IStringedEntity other && other.occmy$isStringed();
     }
@@ -52,7 +55,8 @@ public class ClientPlayNetworkHandlerMixin {
             cancellable = true
     )
     public void cancelEntity(EntityS2CPacket packet, CallbackInfo ci) {
-        if (occmy$stringed(packet.getEntity(MinecraftClient.getInstance().world))) {
+        World world = MinecraftClient.getInstance().world;
+        if (world != null && occmy$stringed(packet.getEntity(world))) {
             ci.cancel();
         }
     }

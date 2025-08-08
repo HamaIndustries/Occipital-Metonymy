@@ -3,6 +3,7 @@ package symbolics.division.occmy.obv;
 import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityTypeBuilder;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
+import net.minecraft.block.Blocks;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.block.piston.PistonBehavior;
@@ -12,6 +13,7 @@ import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.util.Identifier;
 import symbolics.division.occmy.OCCMY;
+import symbolics.division.occmy.block.ParadoxBlock;
 import symbolics.division.occmy.block.ThetiscopeBlock;
 import symbolics.division.occmy.block.ThetiscopeBlockEntity;
 
@@ -24,6 +26,22 @@ public class OccBloccs {
     public static final ThetiscopeBlock THETISCOPE = register("thetiscope", ThetiscopeBlock::new, AbstractBlock.Settings.create()
             .pistonBehavior(PistonBehavior.DESTROY)
             .nonOpaque()
+            .strength(0.1f));
+
+    public static final ParadoxBlock PARADOX = register("paradox", ParadoxBlock.of(true), AbstractBlock.Settings.create()
+            .nonOpaque()
+            .solidBlock(Blocks::never)
+            .suffocates(Blocks::never)
+            .blockVision(Blocks::never)
+            .noBlockBreakParticles()
+            .strength(0.1f));
+
+    public static final ParadoxBlock COROLLARY = register("corollary", ParadoxBlock.of(false), AbstractBlock.Settings.create()
+            .nonOpaque()
+            .solidBlock(Blocks::never)
+            .suffocates(Blocks::never)
+            .blockVision(Blocks::never)
+            .noBlockBreakParticles()
             .strength(0.1f));
 
     public static final BlockEntityType<ThetiscopeBlockEntity> THETISCOPE_BLOCK_ENTITY =

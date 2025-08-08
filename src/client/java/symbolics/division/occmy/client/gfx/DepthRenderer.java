@@ -39,7 +39,7 @@ public class DepthRenderer {
             renderPass.setVertexBuffer(0, RenderSystem.getQuadVertexBuffer());
             renderPass.setIndexBuffer(gpuBuffer, shapeIndexBuffer.getIndexType());
             renderPass.bindSampler("DepthSampler", buffer.getColorAttachmentView());
-//            renderPass.bindSampler("D2Sampler", buffer.getDepthAttachmentView());
+            renderPass.bindSampler("D2Sampler", buffer.getDepthAttachmentView());
             RenderSystem.bindDefaultUniforms(renderPass);
             renderPass.drawIndexed(0, 0, 6, 1);
         }

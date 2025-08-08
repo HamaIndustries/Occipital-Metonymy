@@ -3,20 +3,22 @@
   "package": "symbolics.division.occmy.client.mixin",
   "compatibilityLevel": "JAVA_21",
   "client": [
+    "ClientCommonNetworkHandlerMixin",
     "ClientPlayerEntityMixin",
     "ClientPlayNetworkHandlerMixin",
     "EntityRendererMixin",
-    "GameRendererAccessor",
     "GameRendererMixin",
     "MinecraftClientMixin",
     "MouseMixin",
-    "MultiPhaseMixin",
     "OtherClientPlayerEntityMixin",
     "PlayerEntityRendererMixin",
-    "SoundSystemMixin",
-    "WorldRendererMixin"
+    "RenderedChunkMixin"
   ],
   "injectors": {
     "defaultRequire": 1
-  }
+  },
+  "mixins": [
+    "PalettedContainerAccessor",
+    "PalettedContainerDataAccessor"
+  ]
 }

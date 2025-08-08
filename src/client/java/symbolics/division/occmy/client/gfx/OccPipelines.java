@@ -36,7 +36,7 @@ public class OccPipelines {
                     .withVertexShader(OCCMY.id("core/blit_screen"))
                     .withFragmentShader(OCCMY.id("core/depth"))
                     .withSampler("DepthSampler")
-//                    .withSampler("D2Sampler")
+                    .withSampler("D2Sampler")
                     .withVertexFormat(VertexFormats.POSITION, VertexFormat.DrawMode.QUADS)
                     .withDepthWrite(false)
                     .withDepthTestFunction(DepthTestFunction.NO_DEPTH_TEST)

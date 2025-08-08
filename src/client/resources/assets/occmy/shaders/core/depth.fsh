@@ -3,7 +3,7 @@
 #moj_import <minecraft:globals.glsl>
 
 uniform sampler2D DepthSampler;
-//uniform sampler2D D2Sampler;
+uniform sampler2D D2Sampler;
 in vec4 gl_FragCoord;
 
 out vec4 fragColor;
@@ -22,5 +22,8 @@ float linearizeDepth(float depth)
 
 void main() {
     //fragColor = vec4(gl_FragCoord.z, gl_FragCoord.z, gl_FragCoord.z, 1);
-    fragColor = texture(DepthSampler, gl_FragCoord.yx / ScreenSize);
+    float d = linearizeDepth(texture(D2Sampler, gl_FragCoord.xy / ScreenSize).x);
+    d = clamp(d*5, 0.0, 1.0);
+    fragColor = texture(DepthSampler, gl_FragCoord.xy / ScreenSize) * (1.0-clamp(d, 0.0, 1.0));
+    //fragColor = vec4(d, d, d, 0.0);
 }

@@ -3,15 +3,17 @@
   "id": "occmy",
   "version": "${version}",
   "name": "Occipital Metonymy",
-  "description": "a slight shift in perspective",
+  "description": "physical homology",
   "authors": [
-    "Me!"
+    "hama",
+    "keyberries",
+    "Nulb"
   ],
   "contact": {
-    "homepage": "https://fabricmc.net/",
-    "sources": "https://github.com/FabricMC/fabric-example-mod"
+    "homepage": "",
+    "sources": ""
   },
-  "license": "CC0-1.0",
+  "license": "MIT",
   "icon": "assets/occmy/icon.png",
   "environment": "*",
   "entrypoints": {

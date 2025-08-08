@@ -20,6 +20,7 @@ public class Views {
     public static ExteriorityView EXTERIORITY = register("exteriority", new ExteriorityView());
     public static BestView BEST = register("but_if_you_close_your_eyes", new BestView());
     public static InversionView INVERSION = register("inversion", new InversionView());
+    public static AntimonicView ANTIMONY = register("antimony", new AntimonicView());
     // left right never odd or even // stop pots
     // up down Name now one man // race car
 

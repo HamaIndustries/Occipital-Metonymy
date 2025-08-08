@@ -2,13 +2,13 @@ package symbolics.division.occmy.obv;
 
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.ContainerComponent;
+import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.Unit;
 import symbolics.division.occmy.OCCMY;
 import symbolics.division.occmy.item.Thetiscope;
 import symbolics.division.occmy.view.View;
@@ -21,7 +21,7 @@ public class OccItems {
     }
 
     public static final Item THETISCOPE = register("thetiscope", Thetiscope::new, new Item.Settings()
-            .component(DataComponentTypes.UNBREAKABLE, Unit.INSTANCE)
+            .maxCount(1)
             .component(DataComponentTypes.CONTAINER, ContainerComponent.DEFAULT)
     );
 
@@ -29,6 +29,9 @@ public class OccItems {
     public static final Item DISK_EXTERIORITY = disk("disk_exteriority", Views.EXTERIORITY);
     public static final Item DISK_BEST = disk("disk_but_if_you_close_your_eyes", Views.BEST);
     public static final Item DISK_INVERSION = disk("disk_inversion", Views.INVERSION);
+    public static final Item DISK_ANTIMONY = disk("disk_antimony", Views.ANTIMONY);
+    public static final Item BLOCK_PARADOX = register("paradox", settings -> new BlockItem(OccBloccs.PARADOX, settings), new Item.Settings());
+    public static final Item BLOCK_COROLLARY = register("corollary", settings -> new BlockItem(OccBloccs.COROLLARY, settings), new Item.Settings());
 
     public static Item register(String name, Function<Item.Settings, Item> itemFactory, Item.Settings settings) {
         RegistryKey<Item> itemKey = RegistryKey.of(RegistryKeys.ITEM, Identifier.of(OCCMY.ID, name));

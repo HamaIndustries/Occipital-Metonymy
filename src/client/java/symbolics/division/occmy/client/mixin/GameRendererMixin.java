@@ -2,10 +2,16 @@ package symbolics.division.occmy.client.mixin;
 
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.GameRenderer;
+import net.minecraft.client.render.RenderTickCounter;
 import org.joml.Matrix4f;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import symbolics.division.occmy.client.gfx.DepthRenderer;
+import symbolics.division.occmy.client.view.CExteriorityView;
 import symbolics.division.occmy.client.view.CInversionView;
 
 @Mixin(GameRenderer.class)
@@ -19,5 +25,15 @@ public class GameRendererMixin {
             return original.call(instance, fovDegrees).scale(-1);
         }
         return original.call(instance, fovDegrees);
+    }
+
+    @Inject(
+            method = "renderWorld",
+            at = @At(value = "INVOKE", target = "Lcom/mojang/blaze3d/systems/CommandEncoder;clearDepthTexture(Lcom/mojang/blaze3d/textures/GpuTexture;D)V")
+    )
+    public void deepen(RenderTickCounter renderTickCounter, CallbackInfo ci) {
+        if (MinecraftClient.getInstance().player != null && CExteriorityView.active()) {
+            DepthRenderer.apply(MinecraftClient.getInstance().getFramebuffer());
+        }
     }
 }

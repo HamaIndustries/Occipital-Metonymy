@@ -2,11 +2,13 @@ package symbolics.division.occmy.client;
 
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
-import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientWorldEvents;
+import net.fabricmc.fabric.api.client.networking.v1.ClientPlayConnectionEvents;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
+import net.fabricmc.fabric.api.client.rendering.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayerEntity;
+import net.minecraft.client.render.BlockRenderLayer;
 import net.minecraft.client.render.entity.EmptyEntityRenderer;
 import net.minecraft.client.render.item.property.bool.BooleanProperties;
 import net.minecraft.client.world.ClientWorld;
@@ -15,16 +17,16 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.util.math.Vec3d;
 import symbolics.division.occmy.OCCMY;
+import symbolics.division.occmy.block.ParadoxBlock;
 import symbolics.division.occmy.client.ent.ProjectionRenderer;
+import symbolics.division.occmy.client.gfx.AntimonicConsistencyProperty;
 import symbolics.division.occmy.client.gfx.ThetiscopeFullnessProperty;
-import symbolics.division.occmy.client.view.CBestView;
-import symbolics.division.occmy.client.view.CExteriorityView;
-import symbolics.division.occmy.client.view.CInversionView;
-import symbolics.division.occmy.client.view.CProjectionView;
+import symbolics.division.occmy.client.view.*;
 import symbolics.division.occmy.ent.MarionetteEntity;
 import symbolics.division.occmy.ent.ProjectionEntity;
 import symbolics.division.occmy.net.C2SHollowingPayload;
 import symbolics.division.occmy.net.S2CCaptureImagePayload;
+import symbolics.division.occmy.obv.OccBloccs;
 import symbolics.division.occmy.obv.OccEntities;
 import symbolics.division.occmy.state.Necessity;
 import symbolics.division.occmy.state.Sachverhalten;
@@ -39,6 +41,7 @@ public class OCCMYClient implements ClientModInitializer {
         Views.EXTERIORITY.setCallback(c -> c.ap(CExteriorityView::open));
         Views.BEST.setCallback(c -> c.ap(CBestView::open));
         Views.INVERSION.setCallback(c -> c.ap(CInversionView::open));
+        Views.ANTIMONY.setCallback(c -> c.ap(CAntimonicView::open));
 
         ClientTickEvents.START_CLIENT_TICK.register(
                 client -> {
@@ -77,17 +80,24 @@ public class OCCMYClient implements ClientModInitializer {
                 ThetiscopeFullnessProperty.CODEC
         );
 
+        BooleanProperties.ID_MAPPER.put(
+                OCCMY.id("antimonic_consistency"),
+                AntimonicConsistencyProperty.CODEC
+        );
+
         MarionetteEntity.signal = () -> {
             cutStrings(MinecraftClient.getInstance().world);
             ClientPlayNetworking.send(new C2SHollowingPayload());
         };
 
-        ClientWorldEvents.AFTER_CLIENT_WORLD_CHANGE.register(
-                (minecraftClient, clientWorld) -> {
-                    CBestView.reset();
-                    CExteriorityView.reset();
-                }
-        );
+        ClientPlayConnectionEvents.DISCONNECT.register((handler, client) -> {
+            CBestView.reset();
+            CExteriorityView.reset();
+            CAntimonicView.reset();
+        });
+
+        ParadoxBlock.solid = CAntimonicView::solidifyParadox;
+        BlockRenderLayerMap.putBlock(OccBloccs.PARADOX, BlockRenderLayer.CUTOUT);
     }
 
     private void spawnImage(ClientWorld world, Vec3d pos) {

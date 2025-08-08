@@ -8,6 +8,7 @@ import net.minecraft.client.world.ClientWorld;
 import net.minecraft.entity.LazyEntityReference;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.network.packet.s2c.play.EntitySpawnS2CPacket;
+import net.minecraft.util.math.Vec3d;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
@@ -53,6 +54,7 @@ public abstract class OtherClientPlayerEntityMixin extends AbstractClientPlayerE
         occmy$controller.setPos(this.getX(), this.getY(), this.getZ());
         this.clientWorld.addEntity(occmy$controller);
         occmy$controller.setControl(this);
+        occmy$setRealPosition(getPos());
     }
 
     @Override
@@ -60,10 +62,19 @@ public abstract class OtherClientPlayerEntityMixin extends AbstractClientPlayerE
         if (occmy$controller == null) return;
         occmy$controller.remove(RemovalReason.DISCARDED);
         occmy$controller = null;
+        setPosition(occmy$realPosition);
     }
 
     @Override
     public boolean occmy$isStringed() {
         return occmy$controller != null;
+    }
+
+    @Unique
+    private Vec3d occmy$realPosition = Vec3d.ZERO;
+
+    @Override
+    public void occmy$setRealPosition(Vec3d pos) {
+        occmy$realPosition = pos;
     }
 }

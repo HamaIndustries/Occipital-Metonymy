@@ -1,0 +1,14 @@
+{
+  "model": {
+    "type": "minecraft:condition",
+    "on_false": {
+      "type": "minecraft:model",
+      "model": "occmy:item/corollary_false"
+    },
+    "on_true": {
+      "type": "minecraft:model",
+      "model": "occmy:item/corollary_true"
+    },
+    "property": "occmy:antimonic_consistency"
+  }
+}
