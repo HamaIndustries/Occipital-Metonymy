@@ -1,6 +1,7 @@
 package symbolics.division.occmy.obv;
 
 import net.fabricmc.fabric.api.attachment.v1.AttachmentRegistry;
+import net.fabricmc.fabric.api.attachment.v1.AttachmentSyncPredicate;
 import net.fabricmc.fabric.api.attachment.v1.AttachmentType;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.minecraft.entity.EntityType;
@@ -9,6 +10,7 @@ import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.math.Vec3d;
 import symbolics.division.occmy.OCCMY;
 import symbolics.division.occmy.ent.MarionetteEntity;
 import symbolics.division.occmy.ent.ProjectionEntity;
@@ -21,6 +23,9 @@ public class OccEntities {
     public static final AttachmentType<Boolean> PROJECTING = AttachmentRegistry.create(OCCMY.id("projecting"));
     public static final AttachmentType<Boolean> OBSCURED = AttachmentRegistry.create(OCCMY.id("obscured"));
     public static final AttachmentType<Boolean> INVERTED = AttachmentRegistry.create(OCCMY.id("inverted"));
+    public static final AttachmentType<Vec3d> BETRAYAL_LOCUS = AttachmentRegistry.create(OCCMY.id("betrayal_locus"),
+            builder -> builder.syncWith(Vec3d.PACKET_CODEC, AttachmentSyncPredicate.targetOnly())
+    );
 
     public static final RegistryKey<EntityType<?>> PROJECTION_KEY = RegistryKey.of(
             Registries.ENTITY_TYPE.getKey(),

@@ -11,8 +11,7 @@ public class Perspectives {
 
     private static void shutter() {
         Vec3d p = OCCMYClient.player().getPos();
-        OCCMYClient.world().playSound(OCCMYClient.player(), p.x, p.y, p.z, SoundEvents.BLOCK_PISTON_CONTRACT, SoundCategory.UI, 1000, 2);
-//        OCCMYClient.player().playSoundToPlayer(SoundEvents.BLOCK_PISTON_CONTRACT, SoundCategory.UI, 1000, 2);
+        OCCMYClient.world().playSound(OCCMYClient.player(), p.x, 1000, p.z, SoundEvents.BLOCK_PISTON_CONTRACT, SoundCategory.UI, 10000, 2);
     }
 
     public static final Obscured OBSCURED = new Obscured();
@@ -39,5 +38,9 @@ public class Perspectives {
         public void trigger(Runnable r) {
             this.trigger = r;
         }
+    }
+
+    public static void reset() {
+        OBSCURED.disable();
     }
 }

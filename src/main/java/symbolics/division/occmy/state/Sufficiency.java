@@ -16,7 +16,7 @@ public class Sufficiency extends Gestalt {
     }
 
     public boolean complete() {
-        if (ticksLeft() <= 0 && !complete) {
+        if (ticksLeft() == 0 && !complete) {
             complete = true;
             onEnd();
         }
@@ -33,5 +33,11 @@ public class Sufficiency extends Gestalt {
     }
 
     protected void onEnd() {
+    }
+
+    @Override
+    public void disable() {
+        super.disable();
+        complete = true;
     }
 }

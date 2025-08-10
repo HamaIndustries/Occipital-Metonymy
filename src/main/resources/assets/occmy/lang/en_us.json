@@ -5,7 +5,10 @@
   "item.occmy.disk_but_if_you_close_your_eyes": "\"Draw, O Coward!\"",
   "item.occmy.disk_inversion": "\"Never Odd or Even\"",
   "item.occmy.disk_antimony": "\"Pseudologic Fantasia\"",
+  "item.occmy.disk_treachery": "\"The Betrayal\"",
+  "item.occmy.disk_nullity": "\"Wisdom from Below\"",
   "item.occmy.paradox": "Paradox",
   "item.occmy.corollary": "Corollary",
-  "subtitles.occmy.shutter": "Thetiscope Shutters"
+  "subtitles.occmy.shutter": "Thetiscope Shutters",
+  "itemGroup.occmy.group": "Occipital Metonymy"
 }

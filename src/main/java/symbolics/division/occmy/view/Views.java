@@ -21,8 +21,8 @@ public class Views {
     public static BestView BEST = register("but_if_you_close_your_eyes", new BestView());
     public static InversionView INVERSION = register("inversion", new InversionView());
     public static AntimonicView ANTIMONY = register("antimony", new AntimonicView());
-    // left right never odd or even // stop pots
-    // up down Name now one man // race car
+    public static TreacherousView TREACHERY = register("treachery", new TreacherousView());
+    public static NullView NULLITY = register("nullity", new NullView());
 
     private static <T extends View> T register(String id, T v) {
         entries.put(OCCMY.id(id), v);

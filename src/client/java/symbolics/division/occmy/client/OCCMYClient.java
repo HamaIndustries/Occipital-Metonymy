@@ -42,6 +42,8 @@ public class OCCMYClient implements ClientModInitializer {
         Views.BEST.setCallback(c -> c.ap(CBestView::open));
         Views.INVERSION.setCallback(c -> c.ap(CInversionView::open));
         Views.ANTIMONY.setCallback(c -> c.ap(CAntimonicView::open));
+        Views.TREACHERY.setCallback(c -> c.ap(CTreacherousView::open));
+        Views.NULLITY.setCallback(c -> c.ap(CNullView::open));
 
         ClientTickEvents.START_CLIENT_TICK.register(
                 client -> {
@@ -94,6 +96,7 @@ public class OCCMYClient implements ClientModInitializer {
             CBestView.reset();
             CExteriorityView.reset();
             CAntimonicView.reset();
+            Perspectives.reset();
         });
 
         ParadoxBlock.solid = CAntimonicView::solidifyParadox;

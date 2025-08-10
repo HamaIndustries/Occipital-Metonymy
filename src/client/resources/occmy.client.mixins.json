@@ -18,6 +18,7 @@
     "defaultRequire": 1
   },
   "mixins": [
+    "PaintingEntityMixin",
     "PalettedContainerAccessor",
     "PalettedContainerDataAccessor"
   ]

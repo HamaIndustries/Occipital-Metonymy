@@ -2,7 +2,10 @@
   "required": true,
   "package": "symbolics.division.occmy.mixin",
   "compatibilityLevel": "JAVA_21",
-  "mixins": [],
+  "mixins": [
+    "LivingEntityMixin",
+    "PlayerEntityMixin"
+  ],
   "injectors": {
     "defaultRequire": 1
   },

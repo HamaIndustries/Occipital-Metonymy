@@ -6,7 +6,9 @@ f156dddd2edb736dabc8f97d3355562ffd777c6c assets/occmy/items/corollary.json
 9604ffd4ea9667c3cafde85a35a32b25daf81437 assets/occmy/items/disk_but_if_you_close_your_eyes.json
 c540f9bd7862477014b358616f5851558b5c76e5 assets/occmy/items/disk_exteriority.json
 d84fb7fa902e1e760cf7c98bfea4a5d82848cfc2 assets/occmy/items/disk_inversion.json
+0feda891eb15697412c1d04600513756c6f76536 assets/occmy/items/disk_nullity.json
 0143d354a33c6d665c2f3267911615803a5d2c6d assets/occmy/items/disk_projection.json
+883dc1193f110ef6e8497720e949a0010a50c8bb assets/occmy/items/disk_treachery.json
 f20e9ca38c2e86ed955e2be360ecf7ec5e012493 assets/occmy/items/paradox.json
 d344c79f5cafb1cc693ecc717df5c404a653cfb8 assets/occmy/items/thetiscope.json
 ea3129eabea65f4a8a8d4b4640ae8eef2085a529 assets/occmy/models/block/corollary.json
@@ -17,7 +19,9 @@ ee642f0d5d0abe7d32121e9cc44c8327b68835ba assets/occmy/models/item/disk_antimony.
 ee642f0d5d0abe7d32121e9cc44c8327b68835ba assets/occmy/models/item/disk_but_if_you_close_your_eyes.json
 ee642f0d5d0abe7d32121e9cc44c8327b68835ba assets/occmy/models/item/disk_exteriority.json
 ee642f0d5d0abe7d32121e9cc44c8327b68835ba assets/occmy/models/item/disk_inversion.json
+ee642f0d5d0abe7d32121e9cc44c8327b68835ba assets/occmy/models/item/disk_nullity.json
 ee642f0d5d0abe7d32121e9cc44c8327b68835ba assets/occmy/models/item/disk_projection.json
+ee642f0d5d0abe7d32121e9cc44c8327b68835ba assets/occmy/models/item/disk_treachery.json
 5ca194fb5467c80f14db36717d441ddd289a1033 assets/occmy/models/item/paradox_false.json
 45844a3d5f065c85337248b2e48faaddf587bcd7 assets/occmy/models/item/paradox_true.json
 2d49f46b0eef781b6534de2836c536b29b3cb536 assets/occmy/models/item/thetiscope_empty.json
