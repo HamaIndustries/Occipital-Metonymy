@@ -3,6 +3,7 @@
   "package": "symbolics.division.occmy.mixin",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
+    "EyeBlossomBlockMixin",
     "LivingEntityMixin",
     "PlayerEntityMixin"
   ],

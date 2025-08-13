@@ -1,5 +1,6 @@
 package symbolics.division.occmy.client.view;
 
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.world.World;
 import symbolics.division.occmy.client.OCCMYClient;
@@ -13,7 +14,9 @@ public class CTreacherousView {
 
     private static boolean wasActive = false;
 
-    public static boolean active(PlayerEntity player) {
+    public static boolean active() {
+        PlayerEntity player = OCCMYClient.player();
+        if (player == null) return false;
         if (player.hasAttached(OccEntities.BETRAYAL_LOCUS)) {
             wasActive = true;
             return true;
@@ -23,6 +26,13 @@ public class CTreacherousView {
             }
             wasActive = false;
             return false;
+        }
+    }
+
+    public static void reset() {
+        if (MinecraftClient.getInstance().player != null) {
+            MinecraftClient.getInstance().player.removeAttached(OccEntities.BETRAYAL_LOCUS);
+            wasActive = false;
         }
     }
 }

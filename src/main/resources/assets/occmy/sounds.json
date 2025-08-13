@@ -8,5 +8,25 @@
       "occmy:sfx/click_4",
       "occmy:sfx/click_5"
     ]
+  },
+  "sfx.marionette": {
+    "subtitle": "subtitles.occmy.marionette",
+    "sounds": [
+      "occmy:sfx/blistered_shadows"
+    ]
+  },
+  "music.thousand_eyes.stereo": {
+    "subtitle": "subtitles.occmy.thousand_eyes",
+    "sounds": [
+      "occmy:music/thousand_eyes_stereo"
+    ],
+    "stream": true
+  },
+  "music.thousand_eyes": {
+    "subtitle": "subtitles.occmy.thousand_eyes",
+    "sounds": [
+      "occmy:music/thousand_eyes"
+    ],
+    "stream": true
   }
 }

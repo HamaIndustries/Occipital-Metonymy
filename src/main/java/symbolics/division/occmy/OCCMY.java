@@ -33,6 +33,7 @@ public class OCCMY implements ModInitializer {
         OccNetworking.init();
         OccEntities.init();
         OccSounds.init();
+        OccEtc.init();
 
         ServerTickEvents.START_SERVER_TICK.register(server -> {
             server.getPlayerManager().getPlayerList().forEach(TreacherousView::tick);

@@ -17,6 +17,7 @@ public class OCCMYDataGen implements DataGeneratorEntrypoint {
     public void onInitializeDataGenerator(FabricDataGenerator fabricDataGenerator) {
         var pack = fabricDataGenerator.createPack();
         pack.addProvider(OccModels::new);
+//        pack.addProvider(OccRecipes::new);
     }
 
     private static class OccModels extends FabricModelProvider {
@@ -74,4 +75,34 @@ public class OCCMYDataGen implements DataGeneratorEntrypoint {
             );
         }
     }
+
+//    private static class OccRecipes extends FabricRecipeProvider {
+//        public OccRecipes(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> registriesFuture) {
+//            super(output, registriesFuture);
+//        }
+//
+//        @Override
+//        protected RecipeGenerator getRecipeGenerator(RegistryWrapper.WrapperLookup registryLookup, RecipeExporter exporter) {
+//            return new RecipeGenerator(registryLookup, exporter) {
+//                @Override
+//                public void generate() {
+//                    RegistryWrapper.Impl<Item> itemLookup = registries.getOrThrow(RegistryKeys.ITEM);
+//                    offerStonecuttingRecipe();
+//                }
+//
+//                private void offerRetrospection(ItemConvertible output, ItemConvertible input) {
+//                    CookingRecipeJsonBuilder.createSmelting(Ingredient.ofItem(input), RecipeCategory.BUILDING_BLOCKS, output, 0.1F, 200)
+//                            .criterion(hasItem(input), this.conditionsFromItem(input))
+//                            .offerTo(this.exporter);
+//                }
+//            };
+//
+//
+//        }
+//
+//        @Override
+//        public String getName() {
+//            return "OCCMYRECIPES";
+//        }
+//    }
 }

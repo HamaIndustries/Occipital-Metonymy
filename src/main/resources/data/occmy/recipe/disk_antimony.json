@@ -1,0 +1,7 @@
+{
+  "type": "occmy:retrospection",
+  "ingredient": "minecraft:ender_eye",
+  "result": {
+    "id": "occmy:disk_antimony"
+  }
+}

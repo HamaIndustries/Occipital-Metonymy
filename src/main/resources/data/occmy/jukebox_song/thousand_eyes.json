@@ -1,0 +1,10 @@
+{
+  "comparator_output": 15,
+  "description": {
+    "translate": "jukebox_song.occmy.thousand_eyes"
+  },
+  "length_in_seconds": 190.0,
+  "sound_event": {
+    "sound_id": "occmy:music.thousand_eyes"
+  }
+}

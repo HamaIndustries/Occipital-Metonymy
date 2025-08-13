@@ -1,0 +1,7 @@
+{
+  "type": "occmy:retrospection",
+  "ingredient": "minecraft:open_eyeblossom",
+  "result": {
+    "id": "occmy:disk_projection"
+  }
+}

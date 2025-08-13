@@ -5,6 +5,7 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -12,6 +13,18 @@ import symbolics.division.occmy.client.view.Perspectives;
 
 @Mixin(ClientPlayerEntity.class)
 public abstract class ClientPlayerEntityMixin extends LivingEntity {
+
+    @Shadow
+    public float lastRenderPitch;
+
+    @Shadow
+    public float renderPitch;
+
+    @Shadow
+    public float lastRenderYaw;
+
+    @Shadow
+    public float renderYaw;
 
     protected ClientPlayerEntityMixin(EntityType<? extends LivingEntity> entityType, World world) {
         super(entityType, world);
@@ -27,6 +40,8 @@ public abstract class ClientPlayerEntityMixin extends LivingEntity {
             this.sidewaysSpeed = 0;
             this.forwardSpeed = 0;
             this.jumping = false;
+            this.lastRenderPitch = this.renderPitch = this.getPitch();
+            this.lastRenderYaw = this.renderYaw = this.getYaw();
             ci.cancel();
         }
     }

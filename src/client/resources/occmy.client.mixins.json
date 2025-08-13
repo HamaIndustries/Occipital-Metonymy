@@ -6,11 +6,13 @@
     "ClientCommonNetworkHandlerMixin",
     "ClientPlayerEntityMixin",
     "ClientPlayNetworkHandlerMixin",
+    "ClientWorldMixin",
     "EntityRendererMixin",
     "GameRendererMixin",
     "MinecraftClientMixin",
     "MouseMixin",
     "OtherClientPlayerEntityMixin",
+    "PaintingEntityRendererMixin",
     "PlayerEntityRendererMixin",
     "RenderedChunkMixin"
   ],

@@ -14,7 +14,7 @@ import java.util.function.Supplier;
 
 // its called that because this block does not exist!
 public class ParadoxBlock extends TransparentBlock {
-    //    public static final MapCodec<ParadoxBlock> CODEC = AbstractBlock.createCodec(ParadoxBlock::new);
+
     public static Function<Settings, ParadoxBlock> of(boolean invert) {
         return settings -> new ParadoxBlock(settings, invert);
     }

@@ -46,4 +46,8 @@ public class CInversionView {
         PlayerEntity player = MinecraftClient.getInstance().player;
         return player != null && player.getAttachedOrElse(OccEntities.INVERTED, false);
     }
+
+    public static void reset() {
+        if (INVERTED_STATE.isActive()) INVERTED_STATE.disable();
+    }
 }

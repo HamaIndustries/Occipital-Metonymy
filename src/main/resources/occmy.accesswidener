@@ -6,3 +6,6 @@ accessible field net/minecraft/world/entity/ClientEntityManager index Lnet/minec
 extendable method net/minecraft/entity/Entity isLogicalSideForUpdatingMovement ()Z
 accessible class net/minecraft/client/render/chunk/RenderedChunk
 accessible class net/minecraft/world/chunk/PalettedContainer$Data
+
+accessible method net/minecraft/recipe/SingleStackRecipe$Serializer <init> (Lnet/minecraft/recipe/SingleStackRecipe$RecipeFactory;)V
+extendable method net/minecraft/entity/ai/goal/ActiveTargetGoal getAndUpdateTargetPredicate ()Lnet/minecraft/entity/ai/TargetPredicate;

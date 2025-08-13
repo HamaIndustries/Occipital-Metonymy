@@ -1,0 +1,7 @@
+{
+  "type": "occmy:retrospection",
+  "ingredient": "minecraft:copper_bulb",
+  "result": {
+    "id": "occmy:thetiscope"
+  }
+}

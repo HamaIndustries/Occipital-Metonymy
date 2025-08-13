@@ -16,7 +16,8 @@ public class PaintingEntityMixin {
             method = "render(Lnet/minecraft/client/render/entity/state/PaintingEntityRenderState;Lnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/client/render/VertexConsumerProvider;I)V"
     )
     public void wahoo(PaintingEntityRenderState paintingEntityRenderState, MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i, Operation<Void> original) {
-        if (OCCMYClient.player() != null && !CTreacherousView.active(OCCMYClient.player()))
+        if (OCCMYClient.player() != null && !CTreacherousView.active()) {
             original.call(paintingEntityRenderState, matrixStack, vertexConsumerProvider, i);
+        }
     }
 }

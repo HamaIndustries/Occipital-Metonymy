@@ -1,6 +1,7 @@
 package symbolics.division.occmy.client;
 
 import net.fabricmc.api.ClientModInitializer;
+import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientEntityEvents;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayConnectionEvents;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
@@ -93,14 +94,18 @@ public class OCCMYClient implements ClientModInitializer {
         };
 
         ClientPlayConnectionEvents.DISCONNECT.register((handler, client) -> {
-            CBestView.reset();
-            CExteriorityView.reset();
-            CAntimonicView.reset();
-            Perspectives.reset();
+            resetAll();
+        });
+
+        ClientEntityEvents.ENTITY_UNLOAD.register((entity, clientWorld) -> {
+            if (entity instanceof ClientPlayerEntity) {
+                resetAll();
+            }
         });
 
         ParadoxBlock.solid = CAntimonicView::solidifyParadox;
         BlockRenderLayerMap.putBlock(OccBloccs.PARADOX, BlockRenderLayer.CUTOUT);
+        ClientPlayConnectionEvents.JOIN.register((handler, sender, client) -> CAntimonicView.setup());
     }
 
     private void spawnImage(ClientWorld world, Vec3d pos) {
@@ -133,5 +138,14 @@ public class OCCMYClient implements ClientModInitializer {
                 e.remove(Entity.RemovalReason.DISCARDED);
             }
         }
+    }
+
+    private static void resetAll() {
+        CBestView.reset();
+        CExteriorityView.reset();
+        CAntimonicView.reset();
+        Perspectives.reset();
+        CInversionView.reset();
+        CTreacherousView.reset();
     }
 }

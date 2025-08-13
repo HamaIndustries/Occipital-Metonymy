@@ -1,7 +1,7 @@
 package symbolics.division.occmy.state;
 
 public class Sufficiency extends Gestalt {
-    private boolean complete = true;
+    protected boolean complete = true;
     protected boolean check = true;
 
     @Override

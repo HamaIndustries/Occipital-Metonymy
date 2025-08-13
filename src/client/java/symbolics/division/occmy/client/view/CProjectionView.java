@@ -58,15 +58,20 @@ public class CProjectionView {
         int sx = 2;
         int sy = 2;
         int sz = 2;
-        int threshold = (sx * 2 + 1) * (sy * 2 + 1) * (sz * 2 + 1) / 2;
+        int threshold = 0;
         BlockState[][][] sample = new BlockState[sx * 2 + 1][sy * 2 + 1][sz * 2 + 1];
         for (int i = -sx; i <= sx; i++) {
             for (int j = -sy; j <= sy; j++) {
                 for (int k = -sz; k <= sz; k++) {
                     sample[i + sx][j + sx][k + sx] = area[dx + i][dy + j][dz + k];
+                    BlockState state = sample[i + sx][j + sx][k + sx];
+                    if (!state.isAir()) {
+                        threshold++;
+                    }
                 }
             }
         }
+        threshold /= 2;
 
         int[] best = new int[3];
         int score = 0;
@@ -83,7 +88,7 @@ public class CProjectionView {
                                 int oy = j + m;
                                 int oz = k + n;
                                 if (ox > 0 && oy > 0 && oz > 0 && ox < dx * 2 + 1 && oy < 2 * dy + 1 && oz < 2 * dz + 1
-                                        && area[ox][oy][oz] == sample[l + sx][m + sy][n + sz]) {
+                                        && area[ox][oy][oz] == sample[l + sx][m + sy][n + sz] && !area[ox][oy][oz].isAir()) {
                                     c++;
                                 }
                             }
@@ -106,7 +111,11 @@ public class CProjectionView {
         if (score > 0) {
             OCCMYClient.AFFAIRS.enableFor(Perspectives.OBSCURED, 20);
             final Vec3d p = new BlockPos(best[0], best[1], best[2]).toCenterPos().add(relative);
-            ClientPlayNetworking.send(new C2SProjectionPayload(p));
+            if (CExteriorityView.active()) {
+                player.setPosition(p);
+            } else {
+                ClientPlayNetworking.send(new C2SProjectionPayload(p));
+            }
         }
 
     }

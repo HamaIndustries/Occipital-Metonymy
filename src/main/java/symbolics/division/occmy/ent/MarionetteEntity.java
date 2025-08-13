@@ -2,6 +2,7 @@ package symbolics.division.occmy.ent;
 
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.ai.TargetPredicate;
 import net.minecraft.entity.ai.goal.ActiveTargetGoal;
 import net.minecraft.entity.ai.goal.LookAtEntityGoal;
 import net.minecraft.entity.ai.goal.MeleeAttackGoal;
@@ -11,12 +12,14 @@ import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.mob.PathAwareEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import org.apache.commons.lang3.NotImplementedException;
 import symbolics.division.occmy.OCCMY;
+import symbolics.division.occmy.obv.OccSounds;
 
 public class MarionetteEntity extends HostileEntity {
     public static Runnable signal = () -> {
@@ -39,6 +42,11 @@ public class MarionetteEntity extends HostileEntity {
         @Override
         protected void findClosestTarget() {
             this.targetEntity = OCCMY.self();
+        }
+
+        @Override
+        protected TargetPredicate getAndUpdateTargetPredicate() {
+            return super.getAndUpdateTargetPredicate();
         }
     }
 
@@ -63,7 +71,13 @@ public class MarionetteEntity extends HostileEntity {
         }
 
         protected boolean canAttack(LivingEntity target) {
+//            return this.isCooledDown();
             return this.isCooledDown() && this.mob.isInAttackRange(target);
+        }
+
+        @Override
+        public boolean shouldContinue() {
+            return true;
         }
     }
 
@@ -118,6 +132,7 @@ public class MarionetteEntity extends HostileEntity {
         this.jumpControl.tick();
     }
 
+    int age = 0;
 
     @Override
     public void tick() {
@@ -126,6 +141,17 @@ public class MarionetteEntity extends HostileEntity {
             Vec3d p = this.getPos();
             control.updateTrackedPositionAndAngles(p, this.bodyYaw, this.getPitch());
             control.setHeadYaw(this.headYaw);
+
+            age--;
+            if (age <= 0) {
+                age = 210;
+
+                float distance = this.random.nextTriangular(1, 0.2f);
+                if (this.getTarget() != null) {
+                    distance = (float) Math.max(1 - (this.getTarget().distanceTo(this) / 20) + 0.5, 0.5);
+                }
+                getWorld().playSoundFromEntityClient(this, OccSounds.MARIONETTE, SoundCategory.HOSTILE, 0.8f, distance);
+            }
         }
     }
 }

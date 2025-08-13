@@ -35,12 +35,17 @@ public class Perspectives {
             }
         }
 
+        public void cancel() {
+            this.complete = true;
+            this.disable();
+        }
+
         public void trigger(Runnable r) {
             this.trigger = r;
         }
     }
 
     public static void reset() {
-        OBSCURED.disable();
+        OBSCURED.cancel();
     }
 }
