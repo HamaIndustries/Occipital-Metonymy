@@ -35,8 +35,9 @@ public class CInversionView {
     };
 
     public static void open(World world, PlayerEntity player) {
-        if (INVERTED_STATE.isActive()) {
+        if (active()) {
             INVERTED_STATE.disable();
+            player.setAttached(OccEntities.INVERTED, false);
         } else {
             OCCMYClient.AFFAIRS.enableFor(INVERTED_STATE, 200);
         }

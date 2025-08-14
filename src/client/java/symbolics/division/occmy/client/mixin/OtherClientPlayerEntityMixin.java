@@ -40,7 +40,6 @@ public abstract class OtherClientPlayerEntityMixin extends AbstractClientPlayerE
         }
     }
 
-
     @Unique
     private MarionetteEntity occmy$controller;
 

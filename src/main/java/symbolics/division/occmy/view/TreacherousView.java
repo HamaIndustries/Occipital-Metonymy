@@ -39,7 +39,7 @@ public class TreacherousView extends AbstractView<View.Context<World, PlayerEnti
     public static void depaint(World world, ServerPlayerEntity player) {
         player.setAttached(OccEntities.BETRAYAL_LOCUS, player.getPos());
         for (PaintingEntity paint : world.getEntitiesByClass(PaintingEntity.class, player.getBoundingBox().expand(BETRAYAL_DISTANCE), p -> true)) {
-            Vec3d dir = paint.getRotationVector().multiply(-2);
+            Vec3d dir = paint.getRotationVector().multiply(-0.5);
             if (dir.dotProduct(player.getRotationVector()) <= 0) continue;
             BlockPos.stream(paint.getBoundingBox().contract(0.5).stretch(dir.x, dir.y, dir.z)).forEach(
                     p -> {
