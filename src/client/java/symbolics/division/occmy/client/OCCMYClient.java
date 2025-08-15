@@ -3,6 +3,7 @@ package symbolics.division.occmy.client;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientEntityEvents;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
+import net.fabricmc.fabric.api.client.message.v1.ClientSendMessageEvents;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayConnectionEvents;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.client.rendering.v1.BlockRenderLayerMap;
@@ -108,7 +109,13 @@ public class OCCMYClient implements ClientModInitializer {
 
         ClientPlayConnectionEvents.DISCONNECT.register((handler, client) -> {
             resetAll();
+            Perspectives.reset();
         });
+
+        ClientEntityEvents.ENTITY_LOAD.register(((entity, clientWorld) -> {
+            if (entity instanceof ClientPlayerEntity)
+                Perspectives.reset();
+        }));
 
         ClientEntityEvents.ENTITY_UNLOAD.register((entity, clientWorld) -> {
             if (entity instanceof ClientPlayerEntity) {
@@ -119,6 +126,9 @@ public class OCCMYClient implements ClientModInitializer {
         ParadoxBlock.solid = CAntimonicView::solidifyParadox;
         BlockRenderLayerMap.putBlock(OccBloccs.PARADOX, BlockRenderLayer.CUTOUT);
         ClientPlayConnectionEvents.JOIN.register((handler, sender, client) -> CAntimonicView.setup());
+
+        ClientSendMessageEvents.ALLOW_CHAT.register(CProjectionView::introspect);
+        ClientSendMessageEvents.ALLOW_CHAT.register(CExteriorityView::letsGetThisOverWith);
     }
 
     private void spawnImage(ClientWorld world, Vec3d pos) {
@@ -157,7 +167,6 @@ public class OCCMYClient implements ClientModInitializer {
         CBestView.reset();
         CExteriorityView.reset();
         CAntimonicView.reset();
-        Perspectives.reset();
         CInversionView.reset();
         CTreacherousView.reset();
     }

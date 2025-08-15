@@ -8,7 +8,6 @@ import symbolics.division.occmy.client.OCCMYClient;
 import symbolics.division.occmy.state.Sufficiency;
 
 public class Perspectives {
-
     private static void shutter() {
         Vec3d p = OCCMYClient.player().getPos();
         OCCMYClient.world().playSound(OCCMYClient.player(), p.x, 1000, p.z, SoundEvents.BLOCK_PISTON_CONTRACT, SoundCategory.UI, 10000, 2);

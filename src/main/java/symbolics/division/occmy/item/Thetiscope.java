@@ -50,18 +50,20 @@ public class Thetiscope extends BlockItem {
         return false;
     }
 
+    public static Runnable special = null;
+
     @Override
     public ActionResult use(World world, PlayerEntity user, Hand hand) {
         ItemStack scope = user.getStackInHand(hand);
         ItemStack held = scope.getComponents().get(DataComponentTypes.CONTAINER).copyFirstStack();
         if (held.getComponents().contains(OccComponents.VIEW)) {
             held.get(OccComponents.VIEW).open(world, user);
+            return ActionResult.SUCCESS;
+        } else if (special != null) {
+            special.run();
+            return ActionResult.SUCCESS;
         }
 
         return ActionResult.FAIL;
-    }
-
-    private boolean diskLike(ItemStack stack) {
-        return stack.getComponents().contains(OccComponents.VIEW);
     }
 }

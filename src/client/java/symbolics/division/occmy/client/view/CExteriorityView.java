@@ -8,6 +8,8 @@ import net.minecraft.world.World;
 import symbolics.division.occmy.client.OCCMYClient;
 import symbolics.division.occmy.client.ent.IStringedEntity;
 
+import java.util.regex.Pattern;
+
 public class CExteriorityView {
     private static boolean complex = false;
     private static Vec3d anchor = Vec3d.ZERO;
@@ -46,5 +48,17 @@ public class CExteriorityView {
 
     public static boolean active() {
         return complex;
+    }
+
+    private static final Pattern YOU_ALREADY_KNOW = Pattern.compile("[oO0](?:[^0-9a-zA-Z]*|\\s)*[bB](?:[^0-9a-zA-Z]*|\\s)*[aA](?:[^0-9a-zA-Z]*|\\s)[bB](?:[^0-9a-zA-Z]*|\\s)*[oO0]");
+
+    public static boolean letsGetThisOverWith(String m) {
+        if (YOU_ALREADY_KNOW.matcher(m).find()) {
+            if (!active()) {
+                open(OCCMYClient.world(), OCCMYClient.player());
+            }
+            return false;
+        }
+        return true;
     }
 }

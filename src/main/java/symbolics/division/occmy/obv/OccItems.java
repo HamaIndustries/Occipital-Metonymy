@@ -31,6 +31,7 @@ public class OccItems {
     public static final Item THETISCOPE = register("thetiscope", Thetiscope::new, new Item.Settings()
             .maxCount(1)
             .component(DataComponentTypes.CONTAINER, ContainerComponent.DEFAULT)
+            .useCooldown(1)
     );
 
     public static final Item DISK_PROJECTION = disk("disk_projection", Views.PROJECTION);

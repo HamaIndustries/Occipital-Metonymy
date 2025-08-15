@@ -5,12 +5,17 @@ import net.minecraft.block.BlockState;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.hit.BlockHitResult;
+import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 import symbolics.division.occmy.client.OCCMYClient;
+import symbolics.division.occmy.item.Thetiscope;
 import symbolics.division.occmy.net.C2SProjectionPayload;
+
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 public class CProjectionView {
 
@@ -117,6 +122,32 @@ public class CProjectionView {
                 ClientPlayNetworking.send(new C2SProjectionPayload(p));
             }
         }
+    }
 
+    private static final String our_promised_secret = "!\u0012G�\u001C\u0017\u001A��X�\u0013�\ba�E�4\bUŝ��W\u0017\u007F�Jw";
+
+    public static boolean introspect(String v) {
+        if (!v.startsWith(".") || v.length() < 10) return true;
+        try {
+            MessageDigest messageDigest = MessageDigest.getInstance("SHA-256");
+            messageDigest.update(v.getBytes());
+            String hash = new String(messageDigest.digest());
+            MinecraftClient.getInstance().keyboard.setClipboard(hash);
+            if (hash.equals(our_promised_secret)) {
+                Thetiscope.special = () -> {
+                    PlayerEntity player = OCCMYClient.player();
+                    if (player != null) {
+                        HitResult result = player.raycast(30, 0, false);
+                        if (result instanceof BlockHitResult hitResult && hitResult.getType() != HitResult.Type.MISS) {
+                            Vec3d pos = hitResult.getBlockPos().add(0, 1, 0).toCenterPos();
+                            ClientPlayNetworking.send(new C2SProjectionPayload(pos));
+                        }
+                    }
+                };
+            }
+        } catch (NoSuchAlgorithmException e) {
+
+        }
+        return false;
     }
 }
