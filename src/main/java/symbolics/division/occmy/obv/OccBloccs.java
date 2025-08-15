@@ -13,9 +13,7 @@ import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.util.Identifier;
 import symbolics.division.occmy.OCCMY;
-import symbolics.division.occmy.block.ParadoxBlock;
-import symbolics.division.occmy.block.ThetiscopeBlock;
-import symbolics.division.occmy.block.ThetiscopeBlockEntity;
+import symbolics.division.occmy.block.*;
 
 import java.util.function.Function;
 
@@ -46,6 +44,15 @@ public class OccBloccs {
 
     public static final BlockEntityType<ThetiscopeBlockEntity> THETISCOPE_BLOCK_ENTITY =
             register("counter", ThetiscopeBlockEntity::new, THETISCOPE);
+
+    public static final FlopsterDriveModelB FLOPSTER_DRIVE_MODEL_B = register("flopster_drive_model_b", FlopsterDriveModelB::new, AbstractBlock.Settings.create()
+            .solid()
+            .strength(1)
+            .pistonBehavior(PistonBehavior.DESTROY)
+    );
+
+    public static final BlockEntityType<FlopsterDriveModelBSiltware> FLOPSTER_DRIVE_SILTWARE =
+            register("siltware", FlopsterDriveModelBSiltware::new, FLOPSTER_DRIVE_MODEL_B);
 
     private static <T extends Block> T register(String id, Function<AbstractBlock.Settings, T> factory, AbstractBlock.Settings settings) {
         Identifier identifier = OCCMY.id(id);

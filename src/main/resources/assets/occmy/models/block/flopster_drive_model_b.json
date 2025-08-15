@@ -1,0 +1,9 @@
+{
+  "parent": "minecraft:block/orientable",
+  "textures": {
+    "front": "occmy:block/flopster_drive",
+    "side": "occmy:block/flopster_drive_side",
+    "top": "occmy:block/flopster_drive_top",
+    "back": "occmy:block/flopster_drive_back"
+  }
+}

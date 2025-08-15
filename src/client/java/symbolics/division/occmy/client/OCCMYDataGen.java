@@ -29,6 +29,9 @@ public class OCCMYDataGen implements DataGeneratorEntrypoint {
         public void generateBlockStateModels(BlockStateModelGenerator blockStateModelGenerator) {
             blockStateModelGenerator.registerSimpleCubeAll(OccBloccs.PARADOX);
             blockStateModelGenerator.registerSimpleCubeAll(OccBloccs.COROLLARY);
+//            blockStateModelGenerator.registerItemModel(OccItems.FLOPSTER_DRIVE_MODEL_B, blockStateModelGenerator.uploadBlockItemModel(OccItems.FLOPSTER_DRIVE_MODEL_B, OccBloccs.FLOPSTER_DRIVE_MODEL_B));
+//            blockStateModelGenerator.registerItemModel(OccBloccs.FLOPSTER_DRIVE_MODEL_B);
+//            blockStateModelGenerator.registerItemModel(OccBloccs.FLOPSTER_DRIVE_MODEL_B);
         }
 
         @Override
@@ -56,6 +59,7 @@ public class OCCMYDataGen implements DataGeneratorEntrypoint {
                             )
                     )
             );
+            itemModelGenerator.output.accept(OccItems.FLOPSTER_DRIVE_MODEL_B, ItemModels.basic(ModelIds.getBlockModelId(OccBloccs.FLOPSTER_DRIVE_MODEL_B)));
         }
 
         private static void registerAntimony(ItemModelGenerator itemModelGenerator, Item item, Item other, boolean invert) {

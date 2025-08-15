@@ -42,12 +42,14 @@ public class OccItems {
     public static final Item DISK_NULLITY = register("disk_nullity", Item::new, new Item.Settings().component(OccComponents.VIEW, Views.NULLITY).jukeboxPlayable(RegistryKey.of(RegistryKeys.JUKEBOX_SONG, OCCMY.id("thousand_eyes"))));
     public static final Item BLOCK_PARADOX = register("paradox", settings -> new BlockItem(OccBloccs.PARADOX, settings), new Item.Settings());
     public static final Item BLOCK_COROLLARY = register("corollary", settings -> new BlockItem(OccBloccs.COROLLARY, settings), new Item.Settings());
+    public static final Item FLOPSTER_DRIVE_MODEL_B = register("flopster_drive_model_b", settings -> new BlockItem(OccBloccs.FLOPSTER_DRIVE_MODEL_B, settings), new Item.Settings());
 
     public static final ItemGroup ITEM_GROUP = FabricItemGroup.builder()
             .icon(THETISCOPE::getDefaultStack)
             .displayName(Text.translatable("itemGroup.occmy.group"))
             .entries((context, entries) -> {
                 ITEMS.remove(DISK_NULLITY);
+                ITEMS.remove(FLOPSTER_DRIVE_MODEL_B);
                 ITEMS.forEach(entries::add);
             })
             .build();

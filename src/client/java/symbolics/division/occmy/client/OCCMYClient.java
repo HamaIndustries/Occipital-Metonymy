@@ -16,6 +16,7 @@ import net.minecraft.client.world.ClientWorld;
 import net.minecraft.command.argument.EntityAnchorArgumentType;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.SpawnReason;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.Vec3d;
 import symbolics.division.occmy.OCCMY;
 import symbolics.division.occmy.block.ParadoxBlock;
@@ -26,6 +27,7 @@ import symbolics.division.occmy.client.view.*;
 import symbolics.division.occmy.ent.MarionetteEntity;
 import symbolics.division.occmy.ent.ProjectionEntity;
 import symbolics.division.occmy.net.C2SHollowingPayload;
+import symbolics.division.occmy.net.S2CAnsibleQuale;
 import symbolics.division.occmy.net.S2CCaptureImagePayload;
 import symbolics.division.occmy.obv.OccBloccs;
 import symbolics.division.occmy.obv.OccEntities;
@@ -73,6 +75,17 @@ public class OCCMYClient implements ClientModInitializer {
                     }
                     spawnImage(world, payload.from());
                     spawnImage(world, payload.to());
+                }
+        );
+
+        ClientPlayNetworking.registerGlobalReceiver(
+                S2CAnsibleQuale.ID,
+                (payload, context) -> {
+                    ClientWorld world = world();
+                    PlayerEntity subject = player();
+                    if (world != null && subject != null) {
+                        payload.view().open(world, subject);
+                    }
                 }
         );
 

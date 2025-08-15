@@ -12,6 +12,7 @@ public class OccSounds {
     public static final SoundEvent SHUTTER = register("sfx.shutter");
     public static final SoundEvent THOUSAND_EYES = register("music.thousand_eyes.stereo");
     public static final SoundEvent MARIONETTE = register("sfx.marionette");
+    public static final SoundEvent STARTUP = register("sfx.startup");
 
     private static SoundEvent register(String id) {
         return Registry.register(Registries.SOUND_EVENT, OCCMY.id(id), SoundEvent.of(OCCMY.id(id)));

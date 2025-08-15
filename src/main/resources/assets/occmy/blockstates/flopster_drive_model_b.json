@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "occmy:block/flopster_drive_model_b",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "occmy:block/flopster_drive_model_b"
+    },
+    "facing=south": {
+      "model": "occmy:block/flopster_drive_model_b",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "occmy:block/flopster_drive_model_b",
+      "y": 270
+    }
+  }
+}

@@ -15,6 +15,12 @@
       "occmy:sfx/blistered_shadows"
     ]
   },
+  "sfx.startup": {
+    "subtitle": "subtitles.occmy.startup",
+    "sounds": [
+      "occmy:sfx/startup"
+    ]
+  },
   "music.thousand_eyes.stereo": {
     "subtitle": "subtitles.occmy.thousand_eyes",
     "sounds": [
