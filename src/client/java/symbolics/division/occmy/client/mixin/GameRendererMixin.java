@@ -14,6 +14,7 @@ import symbolics.division.occmy.client.gfx.Effects;
 import symbolics.division.occmy.client.view.CAntimonicView;
 import symbolics.division.occmy.client.view.CExteriorityView;
 import symbolics.division.occmy.client.view.CInversionView;
+import symbolics.division.occmy.client.view.CTreacherousView;
 
 @Mixin(GameRenderer.class)
 public class GameRendererMixin {
@@ -40,6 +41,9 @@ public class GameRendererMixin {
             }
             if (CAntimonicView.solidifyParadox()) {
                 Effects.DISHARMONY.apply(buffer);
+            }
+            if (CTreacherousView.active()) {
+                Effects.DISQUIET.apply(buffer);
             }
         }
     }
