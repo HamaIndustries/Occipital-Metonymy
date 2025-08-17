@@ -77,7 +77,18 @@ public class MarionetteEntity extends HostileEntity {
 
         @Override
         public boolean shouldContinue() {
-            return true;
+            LivingEntity livingEntity = OCCMY.self();
+            if (livingEntity == null) {
+                return false;
+            } else if (!livingEntity.isAlive()) {
+                return false;
+//            } else if (!this.pauseWhenMobIdle) {
+//                return !this.mob.getNavigation().isIdle();
+            } else {
+                return !this.mob.isInPositionTargetRange(livingEntity.getBlockPos())
+                        ? false
+                        : !(livingEntity instanceof PlayerEntity playerEntity && (playerEntity.isSpectator()));
+            }
         }
     }
 
@@ -100,7 +111,7 @@ public class MarionetteEntity extends HostileEntity {
     protected void initGoals() {
         if (this.getWorld().isClient) {
             this.targetSelector.add(1, new MarionetteTargetGoal<>(this, PlayerEntity.class, false));
-            this.goalSelector.add(2, new MarionetteAttackGoal(this, 1, false));
+            this.goalSelector.add(2, new MarionetteAttackGoal(this, 1, true));
         } else {
             this.goalSelector.add(8, new LookAtEntityGoal(this, PlayerEntity.class, 50));
             this.targetSelector.add(1, new ActiveTargetGoal<>(this, PlayerEntity.class, false));
