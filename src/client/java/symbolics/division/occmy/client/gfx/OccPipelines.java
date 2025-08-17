@@ -43,6 +43,20 @@ public class OccPipelines {
                     .build()
     );
 
+    public static final RenderPipeline DISHARMONY = RenderPipelines.register(
+            RenderPipeline.builder(RenderPipelines.TRANSFORMS_PROJECTION_FOG_LIGHTING_SNIPPET, RenderPipelines.GLOBALS_SNIPPET)
+                    .withLocation(OCCMY.id("pipeline/disharmony"))
+                    .withVertexShader(OCCMY.id("core/blit_screen"))
+                    .withFragmentShader(OCCMY.id("core/disharmony"))
+                    .withSampler("DepthSampler")
+                    .withSampler("ColorSampler")
+                    .withVertexFormat(VertexFormats.POSITION, VertexFormat.DrawMode.QUADS)
+                    .withDepthWrite(false)
+                    .withDepthTestFunction(DepthTestFunction.NO_DEPTH_TEST)
+                    .build()
+    );
+
+    // if you don't ask nicely she won't blit
     public static final RenderPipeline PLEASE_BLIT = RenderPipelines.register(
             RenderPipeline.builder()
                     .withLocation(OCCMY.id("pipeline/please_blit"))

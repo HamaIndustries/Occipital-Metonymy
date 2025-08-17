@@ -10,7 +10,8 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import symbolics.division.occmy.client.gfx.DepthRenderer;
+import symbolics.division.occmy.client.gfx.Effects;
+import symbolics.division.occmy.client.view.CAntimonicView;
 import symbolics.division.occmy.client.view.CExteriorityView;
 import symbolics.division.occmy.client.view.CInversionView;
 
@@ -32,8 +33,14 @@ public class GameRendererMixin {
             at = @At(value = "INVOKE", target = "Lcom/mojang/blaze3d/systems/CommandEncoder;clearDepthTexture(Lcom/mojang/blaze3d/textures/GpuTexture;D)V")
     )
     public void deepen(RenderTickCounter renderTickCounter, CallbackInfo ci) {
-        if (MinecraftClient.getInstance().player != null && CExteriorityView.active()) {
-            DepthRenderer.apply(MinecraftClient.getInstance().getFramebuffer());
+        if (MinecraftClient.getInstance().player != null) {
+            var buffer = MinecraftClient.getInstance().getFramebuffer();
+            if (CExteriorityView.active()) {
+                Effects.DEPTH.apply(buffer);
+            }
+            if (CAntimonicView.solidifyParadox()) {
+                Effects.DISHARMONY.apply(buffer);
+            }
         }
     }
 }
