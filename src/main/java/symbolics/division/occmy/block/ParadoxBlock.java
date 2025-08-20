@@ -1,5 +1,6 @@
 package symbolics.division.occmy.block;
 
+import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.ShapeContext;
 import net.minecraft.block.TransparentBlock;
@@ -39,5 +40,18 @@ public class ParadoxBlock extends TransparentBlock {
     @Override
     protected VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
         return context.isHolding(OccItems.BLOCK_COROLLARY) || context.isHolding(OccItems.BLOCK_PARADOX) ? VoxelShapes.fullCube() : VoxelShapes.empty();
+    }
+
+    public static Function<BlockState, BlockRenderType> cb = null;
+
+    @Override
+    protected BlockRenderType getRenderType(BlockState state) {
+        if (cb != null) return cb.apply(state);
+        return super.getRenderType(state);
+    }
+
+    @Override
+    protected float getMaxHorizontalModelOffset() {
+        return super.getMaxHorizontalModelOffset();
     }
 }

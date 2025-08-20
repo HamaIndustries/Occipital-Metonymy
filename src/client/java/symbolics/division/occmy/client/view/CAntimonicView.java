@@ -1,5 +1,6 @@
 package symbolics.division.occmy.client.view;
 
+import net.minecraft.block.BlockRenderType;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.texture.NativeImage;
 import net.minecraft.client.texture.NativeImageBackedTexture;
@@ -7,7 +8,9 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
 import symbolics.division.occmy.OCCMY;
+import symbolics.division.occmy.block.ParadoxBlock;
 import symbolics.division.occmy.client.OCCMYClient;
+import symbolics.division.occmy.obv.OccBloccs;
 
 import javax.swing.*;
 import java.io.File;
@@ -61,6 +64,11 @@ public class CAntimonicView {
             MinecraftClient.getInstance().getTextureManager().registerTexture(id, texture);
             ids.add(id);
         }
+
+        // sodium
+        ParadoxBlock.cb = state ->
+                (solidifyParadox() ^ state.isOf(OccBloccs.PARADOX))
+                        ? BlockRenderType.INVISIBLE : BlockRenderType.MODEL;
     }
 
     public static final Identifier YOU = OCCMY.id("you");
