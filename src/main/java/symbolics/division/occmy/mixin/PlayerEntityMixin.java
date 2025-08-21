@@ -8,6 +8,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
+import symbolics.division.occmy.view.AntimonicView;
 import symbolics.division.occmy.view.TreacherousView;
 
 @Mixin(PlayerEntity.class)
@@ -21,6 +22,6 @@ public abstract class PlayerEntityMixin extends LivingEntity {
             at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/player/PlayerEntity;isSpectator()Z", ordinal = 0)
     )
     public boolean m64(PlayerEntity instance, Operation<Boolean> original) {
-        return original.call(instance) || TreacherousView.active((PlayerEntity) (Object) this);
+        return original.call(instance) || TreacherousView.active((PlayerEntity) (Object) this) || AntimonicView.active((PlayerEntity) (Object) this);
     }
 }

@@ -22,6 +22,5 @@ public class PalettedContainerMixinMixin {
 //            return original.call(instance, Math.max(0, paletteIndex - 1));
 //        }
 //        return (T) (state.isOf(OccBloccs.COROLLARY) ? palette.get(0) : state);
-//
 //    }
 }

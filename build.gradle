@@ -57,8 +57,8 @@ dependencies {
     modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 
     // https://mvnrepository.com/artifact/com.github.jellysquid3/sodium-fabric
-//    modImplementation "maven.modrinth:sodium:mc1.21.6-0.6.13-fabric"
-//    include(implementation(annotationProcessor("com.github.bawnorton.mixinsquared:mixinsquared-fabric:0.3.5-beta.2")))
+    modImplementation "maven.modrinth:sodium:mc1.21.6-0.6.13-fabric"
+    include(implementation(annotationProcessor("com.github.bawnorton.mixinsquared:mixinsquared-fabric:0.3.5-beta.2")))
 }
 
 processResources {

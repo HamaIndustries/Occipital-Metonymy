@@ -10,6 +10,7 @@ import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.Unit;
 import net.minecraft.util.math.Vec3d;
 import symbolics.division.occmy.OCCMY;
 import symbolics.division.occmy.ent.MarionetteEntity;
@@ -23,6 +24,9 @@ public class OccEntities {
     public static final AttachmentType<Boolean> PROJECTING = AttachmentRegistry.create(OCCMY.id("projecting"));
     public static final AttachmentType<Boolean> OBSCURED = AttachmentRegistry.create(OCCMY.id("obscured"));
     public static final AttachmentType<Boolean> INVERTED = AttachmentRegistry.create(OCCMY.id("inverted"));
+    public static final AttachmentType<Unit> CONTRADICTORY = AttachmentRegistry.create(OCCMY.id("contradictory"),
+            builder -> builder.syncWith(Unit.PACKET_CODEC, AttachmentSyncPredicate.targetOnly())
+    );
     public static final AttachmentType<Vec3d> BETRAYAL_LOCUS = AttachmentRegistry.create(OCCMY.id("betrayal_locus"),
             builder -> builder.syncWith(Vec3d.PACKET_CODEC, AttachmentSyncPredicate.targetOnly())
     );

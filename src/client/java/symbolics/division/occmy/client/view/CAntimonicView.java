@@ -11,6 +11,7 @@ import symbolics.division.occmy.OCCMY;
 import symbolics.division.occmy.block.ParadoxBlock;
 import symbolics.division.occmy.client.OCCMYClient;
 import symbolics.division.occmy.obv.OccBloccs;
+import symbolics.division.occmy.obv.OccEntities;
 
 import javax.swing.*;
 import java.io.File;
@@ -22,23 +23,7 @@ import java.util.List;
 
 // HOLE LOGIC
 public class CAntimonicView {
-    public static void reset() {
-        funny = false;
-    }
-
     public static void open(World world, PlayerEntity player) {
-        OCCMYClient.AFFAIRS.enableFor(Perspectives.OBSCURED, 20);
-        OCCMYClient.nextTick(() -> {
-            funny = !funny;
-            MinecraftClient client = MinecraftClient.getInstance();
-            client.worldRenderer.reload();
-        });
-    }
-
-    private static boolean funny = false;
-
-    public static boolean solidifyParadox() {
-        return funny;
     }
 
     // ig it goes here
@@ -93,5 +78,25 @@ public class CAntimonicView {
         return traces.computeIfAbsent(old,
                 k -> ids.get(OCCMYClient.world().getRandom().nextInt(ids.size()))
         );
+    }
+
+    private static boolean contradictory = false;
+
+    public static boolean solidifyParadox() {
+        if (OCCMY.self() == null) return false;
+        boolean result = OCCMY.self().hasAttached(OccEntities.CONTRADICTORY);
+        if (result != contradictory) {
+            OCCMYClient.AFFAIRS.enableFor(Perspectives.OBSCURED, 20);
+            OCCMYClient.nextTick(() -> {
+                MinecraftClient client = MinecraftClient.getInstance();
+                client.worldRenderer.reload();
+            });
+            contradictory = result;
+        }
+        return result;
+    }
+
+    public boolean active() {
+        return contradictory;
     }
 }

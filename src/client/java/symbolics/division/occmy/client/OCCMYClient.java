@@ -166,7 +166,6 @@ public class OCCMYClient implements ClientModInitializer {
     private static void resetAll() {
         CBestView.reset();
         CExteriorityView.reset();
-        CAntimonicView.reset();
         CInversionView.reset();
         CTreacherousView.reset();
     }
