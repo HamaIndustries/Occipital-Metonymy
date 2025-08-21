@@ -10,7 +10,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import symbolics.division.occmy.client.OCCMYClient;
 import symbolics.division.occmy.client.view.CTreacherousView;
 
-@Mixin(PaintingEntityRenderer.class)
+@Mixin(value = PaintingEntityRenderer.class, priority = 1500)
 public class PaintingEntityMixin {
     @WrapMethod(
             method = "render(Lnet/minecraft/client/render/entity/state/PaintingEntityRenderState;Lnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/client/render/VertexConsumerProvider;I)V"

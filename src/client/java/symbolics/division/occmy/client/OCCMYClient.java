@@ -3,6 +3,7 @@ package symbolics.division.occmy.client;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientEntityEvents;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
+import net.fabricmc.fabric.api.client.message.v1.ClientReceiveMessageEvents;
 import net.fabricmc.fabric.api.client.message.v1.ClientSendMessageEvents;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayConnectionEvents;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
@@ -129,6 +130,8 @@ public class OCCMYClient implements ClientModInitializer {
 
         ClientSendMessageEvents.ALLOW_CHAT.register(CProjectionView::introspect);
         ClientSendMessageEvents.ALLOW_CHAT.register(CExteriorityView::letsGetThisOverWith);
+
+        ClientReceiveMessageEvents.ALLOW_CHAT.register(CExteriorityView::silence);
     }
 
     private void spawnImage(ClientWorld world, Vec3d pos) {

@@ -31,6 +31,8 @@ public class OccEntities {
             builder -> builder.syncWith(Vec3d.PACKET_CODEC, AttachmentSyncPredicate.targetOnly())
     );
 
+    public static final AttachmentType<Unit> CURSED = AttachmentRegistry.create(OCCMY.id("cursed"));
+
     public static final RegistryKey<EntityType<?>> PROJECTION_KEY = RegistryKey.of(
             Registries.ENTITY_TYPE.getKey(),
             Identifier.of(OCCMY.ID, "projection")
