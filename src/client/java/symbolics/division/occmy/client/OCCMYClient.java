@@ -129,9 +129,8 @@ public class OCCMYClient implements ClientModInitializer {
         ClientPlayConnectionEvents.JOIN.register((handler, sender, client) -> CAntimonicView.setup());
 
         ClientSendMessageEvents.ALLOW_CHAT.register(CProjectionView::introspect);
-        ClientSendMessageEvents.ALLOW_CHAT.register(CExteriorityView::letsGetThisOverWith);
-
-        ClientReceiveMessageEvents.ALLOW_CHAT.register(CExteriorityView::silence);
+        ClientSendMessageEvents.ALLOW_CHAT.register(CNullView::letsGetThisOverWith);
+        ClientReceiveMessageEvents.ALLOW_CHAT.register(CNullView::silence);
     }
 
     private void spawnImage(ClientWorld world, Vec3d pos) {

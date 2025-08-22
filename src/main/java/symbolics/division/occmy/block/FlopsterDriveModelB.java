@@ -49,11 +49,11 @@ public class FlopsterDriveModelB extends BlockWithEntity {
 
     @Override
     protected ActionResult onUseWithItem(ItemStack stack, BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
-        BlockEntity be = world.getBlockEntity(pos);
-        if (be instanceof FlopsterDriveModelBSiltware siltware) {
-            player.setStackInHand(hand, siltware.insert(player.getStackInHand(hand)));
-            return ActionResult.SUCCESS;
-        }
+//        BlockEntity be = world.getBlockEntity(pos);
+//        if (be instanceof FlopsterDriveModelBSiltware siltware) {
+//            player.setStackInHand(hand, siltware.insert(player.getStackInHand(hand)));
+//            return ActionResult.SUCCESS;
+//        }
         return super.onUseWithItem(stack, state, world, pos, player, hand, hit);
     }
 
