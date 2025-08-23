@@ -16,5 +16,15 @@
   "subtitles.occmy.startup": "FLOPSTER Drive Starts",
   "itemGroup.occmy.group": "Occipital Metonymy",
   "jukebox_song.occmy.thousand_eyes": "soileH - A Thousand Eyes Stare",
-  "item.more_than_a_foxbox.plushie.occmy.thetiscope": "Thetiscope Plushie"
+  "item.more_than_a_foxbox.plushie.occmy.thetiscope": "Thetiscope Plushie",
+  "item.occmy.antimonic_domino": "Antimonic Domino",
+  "lore.occmy.thetiscope": "Anomalous artifact of unknown provenance. Insert a disk to change perspective.",
+  "lore.occmy.disk_projection": "Shows me to something I have already seen. I find myself moved.",
+  "lore.occmy.disk_exteriority": "Takes me to a place where I am without friends. But my friends refuse to be without me.",
+  "lore.occmy.disk_but_if_you_close_your_eyes": "Lets me play Minecraft the way god intended.",
+  "lore.occmy.disk_inversion": "Inverts what is \"normal\".",
+  "lore.occmy.disk_antimony": "Offsets everything by one. Paradoxically, while some things are lost, others are gained.",
+  "lore.occmy.disk_treachery": "Gives cause to reconsider the nature of \"Image\".",
+  "lore.occmy.disk_nullity": "Wisdom from below.",
+  "lore.occmy.antimonic_domino": "mysterious"
 }

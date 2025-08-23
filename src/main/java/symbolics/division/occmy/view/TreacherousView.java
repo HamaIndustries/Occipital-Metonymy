@@ -8,7 +8,6 @@ import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
-import org.jetbrains.annotations.Nullable;
 import symbolics.division.occmy.obv.OccEntities;
 
 import java.util.ArrayList;
@@ -21,10 +20,6 @@ public class TreacherousView extends AbstractView<View.Context<World, PlayerEnti
     public static final int BETRAYAL_DISTANCE = 15;
 
     private static final HashMap<UUID, List<BlockPos>> updates = new HashMap<>();
-
-
-    public record ProjectionContext(World world, PlayerEntity user, @Nullable BlockPos anchor) {
-    }
 
     @Override
     public void open(World world, PlayerEntity user) {

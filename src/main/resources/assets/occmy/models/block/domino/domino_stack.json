@@ -1,0 +1,169 @@
+{
+  "format_version": "1.21.6",
+  "credit": "Made with Blockbench",
+  "parent": "minecraft:generated",
+  "texture_size": [
+    32,
+    32
+  ],
+  "textures": {
+    "0": "occmy:block/antimonic_domino",
+    "particle": "dominoes:block/domino"
+  },
+  "elements": [
+    {
+      "from": [
+        4,
+        0,
+        12
+      ],
+      "to": [
+        12,
+        14,
+        14
+      ],
+      "rotation": {
+        "angle": 0,
+        "axis": "y",
+        "origin": [
+          4,
+          0,
+          12
+        ]
+      },
+      "faces": {
+        "north": {
+          "uv": [
+            1,
+            1,
+            5,
+            8
+          ],
+          "texture": "#0"
+        },
+        "east": {
+          "uv": [
+            0,
+            1,
+            1,
+            8
+          ],
+          "texture": "#0"
+        },
+        "south": {
+          "uv": [
+            6,
+            1,
+            10,
+            8
+          ],
+          "texture": "#0"
+        },
+        "west": {
+          "uv": [
+            5,
+            1,
+            6,
+            8
+          ],
+          "texture": "#0"
+        },
+        "up": {
+          "uv": [
+            5,
+            1,
+            1,
+            0
+          ],
+          "texture": "#0"
+        },
+        "down": {
+          "uv": [
+            9,
+            0,
+            5,
+            1
+          ],
+          "texture": "#0"
+        }
+      }
+    },
+    {
+      "from": [
+        4,
+        0,
+        2
+      ],
+      "to": [
+        12,
+        14,
+        4
+      ],
+      "rotation": {
+        "angle": 0,
+        "axis": "y",
+        "origin": [
+          4,
+          0,
+          2
+        ]
+      },
+      "faces": {
+        "north": {
+          "uv": [
+            1,
+            1,
+            5,
+            8
+          ],
+          "texture": "#0"
+        },
+        "east": {
+          "uv": [
+            0,
+            1,
+            1,
+            8
+          ],
+          "texture": "#0"
+        },
+        "south": {
+          "uv": [
+            6,
+            1,
+            10,
+            8
+          ],
+          "texture": "#0"
+        },
+        "west": {
+          "uv": [
+            5,
+            1,
+            6,
+            8
+          ],
+          "texture": "#0"
+        },
+        "up": {
+          "uv": [
+            5,
+            1,
+            1,
+            0
+          ],
+          "texture": "#0"
+        },
+        "down": {
+          "uv": [
+            9,
+            0,
+            5,
+            1
+          ],
+          "texture": "#0"
+        }
+      }
+    }
+  ]
+}

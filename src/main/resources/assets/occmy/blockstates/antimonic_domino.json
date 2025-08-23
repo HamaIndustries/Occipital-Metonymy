@@ -1,0 +1,142 @@
+{
+  "variants": {
+    "shape=north_south,collapsed=none": {
+      "model": "occmy:block/domino/domino"
+    },
+    "shape=east_west,collapsed=none": {
+      "model": "occmy:block/domino/domino",
+      "y": 90
+    },
+    "shape=north_south_stack,collapsed=none": {
+      "model": "occmy:block/domino/domino_stack"
+    },
+    "shape=east_west_stack,collapsed=none": {
+      "model": "occmy:block/domino/domino_stack",
+      "y": 90
+    },
+    "shape=north_east,collapsed=none": {
+      "model": "occmy:block/domino/domino_corner",
+      "y": 0
+    },
+    "shape=east_south,collapsed=none": {
+      "model": "occmy:block/domino/domino_corner",
+      "y": 90
+    },
+    "shape=south_west,collapsed=none": {
+      "model": "occmy:block/domino/domino_corner",
+      "y": 180
+    },
+    "shape=west_north,collapsed=none": {
+      "model": "occmy:block/domino/domino_corner",
+      "y": 270
+    },
+    "shape=north_east_west,collapsed=none": {
+      "model": "occmy:block/domino/domino_double",
+      "y": 0
+    },
+    "shape=east_south_north,collapsed=none": {
+      "model": "occmy:block/domino/domino_double",
+      "y": 90
+    },
+    "shape=south_west_east,collapsed=none": {
+      "model": "occmy:block/domino/domino_double",
+      "y": 180
+    },
+    "shape=west_north_south,collapsed=none": {
+      "model": "occmy:block/domino/domino_double",
+      "y": 270
+    },
+    "shape=east_west,collapsed=forwards": {
+      "model": "occmy:block/domino/domino_forwards",
+      "y": 90
+    },
+    "shape=north_south,collapsed=forwards": {
+      "model": "occmy:block/domino/domino_forwards"
+    },
+    "shape=north_south_stack,collapsed=forwards": {
+      "model": "occmy:block/domino/domino_double_forwards"
+    },
+    "shape=east_west_stack,collapsed=forwards": {
+      "model": "occmy:block/domino/domino_double_forwards",
+      "y": 90
+    },
+    "shape=north_east,collapsed=forwards": {
+      "model": "occmy:block/domino/domino_corner_forwards",
+      "y": 0
+    },
+    "shape=east_south,collapsed=forwards": {
+      "model": "occmy:block/domino/domino_corner_forwards",
+      "y": 90
+    },
+    "shape=south_west,collapsed=forwards": {
+      "model": "occmy:block/domino/domino_corner_forwards",
+      "y": 180
+    },
+    "shape=west_north,collapsed=forwards": {
+      "model": "occmy:block/domino/domino_corner_forwards",
+      "y": 270
+    },
+    "shape=north_east_west,collapsed=forwards": {
+      "model": "occmy:block/domino/domino_double_forwards",
+      "y": 0
+    },
+    "shape=east_south_north,collapsed=forwards": {
+      "model": "occmy:block/domino/domino_double_forwards",
+      "y": 90
+    },
+    "shape=south_west_east,collapsed=forwards": {
+      "model": "occmy:block/domino/domino_double_forwards",
+      "y": 180
+    },
+    "shape=west_north_south,collapsed=forwards": {
+      "model": "occmy:block/domino/domino_double_forwards",
+      "y": 270
+    },
+    "shape=east_west,collapsed=backwards": {
+      "model": "occmy:block/domino/domino_backwards",
+      "y": 90
+    },
+    "shape=north_south,collapsed=backwards": {
+      "model": "occmy:block/domino/domino_backwards"
+    },
+    "shape=north_south_stack,collapsed=backwards": {
+      "model": "occmy:block/domino/domino_double_backwards"
+    },
+    "shape=east_west_stack,collapsed=backwards": {
+      "model": "occmy:block/domino/domino_double_backwards",
+      "y": 90
+    },
+    "shape=north_east,collapsed=backwards": {
+      "model": "occmy:block/domino/domino_corner_backwards",
+      "y": 0
+    },
+    "shape=east_south,collapsed=backwards": {
+      "model": "occmy:block/domino/domino_corner_backwards",
+      "y": 90
+    },
+    "shape=south_west,collapsed=backwards": {
+      "model": "occmy:block/domino/domino_corner_backwards",
+      "y": 180
+    },
+    "shape=west_north,collapsed=backwards": {
+      "model": "occmy:block/domino/domino_corner_backwards",
+      "y": 270
+    },
+    "shape=north_east_west,collapsed=backwards": {
+      "model": "occmy:block/domino/domino_double_backwards",
+      "y": 0
+    },
+    "shape=east_south_north,collapsed=backwards": {
+      "model": "occmy:block/domino/domino_double_backwards",
+      "y": 90
+    },
+    "shape=south_west_east,collapsed=backwards": {
+      "model": "occmy:block/domino/domino_double_backwards",
+      "y": 180
+    },
+    "shape=west_north_south,collapsed=backwards": {
+      "model": "occmy:block/domino/domino_double_backwards",
+      "y": 270
+    }
+  }
+}

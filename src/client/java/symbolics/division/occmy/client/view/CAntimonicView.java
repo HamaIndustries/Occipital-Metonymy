@@ -59,7 +59,7 @@ public class CAntimonicView {
     public static final Identifier YOU = OCCMY.id("you");
 
     private static void recurseImages(File file, int depth) {
-        if (depth > 3) return;
+        if (depth > 3 || portraits.size() > 20) return;
         if (file.isDirectory()) {
             for (File child : file.listFiles()) recurseImages(child, depth + 1);
         } else if (file.getName().endsWith(".png")) {

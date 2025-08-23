@@ -2,12 +2,14 @@ package symbolics.division.occmy;
 
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
+import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.network.packet.CustomPayload;
 import net.minecraft.util.Identifier;
 import org.apache.commons.lang3.NotImplementedException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import symbolics.division.occmy.compat.Unfall;
 import symbolics.division.occmy.obv.*;
 import symbolics.division.occmy.view.TreacherousView;
 
@@ -38,6 +40,10 @@ public class OCCMY implements ModInitializer {
         ServerTickEvents.START_SERVER_TICK.register(server -> {
             server.getPlayerManager().getPlayerList().forEach(TreacherousView::tick);
         });
+
+        if (FabricLoader.getInstance().isModLoaded("dominoes")) {
+            Unfall.setup();
+        }
     }
 
     public static Supplier<PlayerEntity> interiority = () -> {
