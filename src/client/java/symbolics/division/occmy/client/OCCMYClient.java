@@ -59,6 +59,9 @@ public class OCCMYClient implements ClientModInitializer {
         ClientTickEvents.START_CLIENT_TICK.register(
                 client -> {
                     AFFAIRS.tick();
+                    if (client.player != null) {
+                        client.player.setAttached(OccEntities.PROJECTION_PROTECTION, client.player.getAttachedOrSet(OccEntities.PROJECTION_PROTECTION, 0) - 1);
+                    }
                 }
         );
 

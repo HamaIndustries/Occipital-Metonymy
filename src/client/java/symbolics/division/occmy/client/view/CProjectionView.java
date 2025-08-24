@@ -25,7 +25,8 @@ public class CProjectionView {
         if (player == null) {
             player = client.player;
             int protection = player.getAttachedOrSet(OccEntities.PROJECTION_PROTECTION, 0);
-            if (!player.getBlockPos().isWithinDistance(pos, 4) || protection < 100) return;
+            if (!player.getBlockPos().isWithinDistance(pos, 4) || protection > 0) return;
+            player.setAttached(OccEntities.PROJECTION_PROTECTION, 100);
         }
 
         BlockPos center = pos;
