@@ -9,6 +9,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import symbolics.division.occmy.client.ent.TurnkeyState;
 import symbolics.division.occmy.obv.OccEntities;
 
 @Mixin(PlayerEntityRenderer.class)
@@ -26,6 +27,12 @@ public class PlayerEntityRendererMixin {
                 playerEntityRenderState.playerName = null;
                 playerEntityRenderState.nameLabelPos = null;
             }
+        }
+
+        if (abstractClientPlayerEntity.hasAttached(OccEntities.ENJOINED)) {
+            ((TurnkeyState) playerEntityRenderState).occmy$setTurnkey(true);
+        } else {
+            ((TurnkeyState) playerEntityRenderState).occmy$setTurnkey(false);
         }
     }
 }

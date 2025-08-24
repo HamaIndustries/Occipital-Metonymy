@@ -3,7 +3,7 @@
     "sound_id": "occmy:sfx.shutter"
   },
   "poses": {
-    "sit": "occmy:more_than_a_foxbox/thetiscope_plush_sit",
+    "sit": "occmy:more_than_a_foxbox/thetiscope_plush",
     "stand": "occmy:more_than_a_foxbox/thetiscope_plush",
     "lay": "occmy:more_than_a_foxbox/thetiscope_plush_lay",
     "box": "occmy:more_than_a_foxbox/thetiscope_plush_box"

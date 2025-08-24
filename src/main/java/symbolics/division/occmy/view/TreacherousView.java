@@ -62,7 +62,7 @@ public class TreacherousView extends AbstractView<View.Context<World, PlayerEnti
 
     public static void tick(ServerPlayerEntity player) {
         Vec3d anchor = player.getAttached(OccEntities.BETRAYAL_LOCUS);
-        if (anchor != null && player.getPos().distanceTo(anchor) > 10) {
+        if (anchor != null && player.getPos().distanceTo(anchor) > BETRAYAL_DISTANCE * 3) {
             forgive(player);
         }
     }

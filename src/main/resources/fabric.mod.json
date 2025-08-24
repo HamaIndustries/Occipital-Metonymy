@@ -48,6 +48,9 @@
     "loom:injected_interfaces": {
       "net.minecraft.class_745": [
         "symbolics/division/occmy/client/ent/IStringedEntity.java"
+      ],
+      "net.minecraft.class_10055": [
+        "symbolics/division/occmy/client/ent/TurnkeyState"
       ]
     }
   }

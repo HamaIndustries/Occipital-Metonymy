@@ -14,6 +14,7 @@
     "OtherClientPlayerEntityMixin",
     "PaintingEntityRendererMixin",
     "PlayerEntityRendererMixin",
+    "PlayerEntityRenderStateMixin",
     "RenderedChunkMixin"
   ],
   "injectors": {

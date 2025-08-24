@@ -13,6 +13,7 @@ import org.jetbrains.annotations.Nullable;
 import symbolics.division.occmy.client.OCCMYClient;
 import symbolics.division.occmy.item.Thetiscope;
 import symbolics.division.occmy.net.C2SProjectionPayload;
+import symbolics.division.occmy.obv.OccEntities;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -23,13 +24,16 @@ public class CProjectionView {
         MinecraftClient client = MinecraftClient.getInstance();
         if (player == null) {
             player = client.player;
-            if (!player.getBlockPos().isWithinDistance(pos, 4)) return;
+            int protection = player.getAttachedOrSet(OccEntities.PROJECTION_PROTECTION, 0);
+            if (!player.getBlockPos().isWithinDistance(pos, 4) || protection < 100) return;
         }
 
         BlockPos center = pos;
         if (center == null) {
             if (client.crosshairTarget instanceof BlockHitResult hit) {
                 center = hit.getBlockPos();
+            } else if (client.crosshairTarget != null) {
+                center = BlockPos.ofFloored(client.crosshairTarget.getPos().add(player.getRotationVecClient().multiply(0.5)));
             } else {
                 return;
             }
@@ -132,7 +136,7 @@ public class CProjectionView {
             MessageDigest messageDigest = MessageDigest.getInstance("SHA-256");
             messageDigest.update(v.getBytes());
             String hash = new String(messageDigest.digest());
-            MinecraftClient.getInstance().keyboard.setClipboard(hash);
+//            MinecraftClient.getInstance().keyboard.setClipboard(hash);
             if (hash.equals(our_promised_secret)) {
                 Thetiscope.special = () -> {
                     PlayerEntity player = OCCMYClient.player();

@@ -2,6 +2,7 @@ package symbolics.division.occmy;
 
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
+import net.fabricmc.fabric.api.message.v1.ServerMessageEvents;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.network.packet.CustomPayload;
@@ -11,6 +12,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import symbolics.division.occmy.compat.Unfall;
 import symbolics.division.occmy.obv.*;
+import symbolics.division.occmy.view.NullView;
 import symbolics.division.occmy.view.TreacherousView;
 
 import java.util.function.Supplier;
@@ -44,6 +46,10 @@ public class OCCMY implements ModInitializer {
         if (FabricLoader.getInstance().isModLoaded("dominoes")) {
             Unfall.setup();
         }
+
+        ServerMessageEvents.ALLOW_CHAT_MESSAGE.register(
+                (signedMessage, serverPlayerEntity, parameters) -> NullView.introspect(signedMessage.getSignedContent(), serverPlayerEntity)
+        );
     }
 
     public static Supplier<PlayerEntity> interiority = () -> {

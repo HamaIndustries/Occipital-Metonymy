@@ -8,7 +8,6 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.MapColor;
 import net.minecraft.block.piston.PistonBehavior;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.registry.Registries;
@@ -19,10 +18,8 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
-import net.minecraft.util.ActionResult;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Pair;
-import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
@@ -100,12 +97,12 @@ public class Unfall {
             super(settings);
         }
 
-        @Override
-        protected ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, BlockHitResult hit) {
-            if (state.get(COLLAPSED) == DominoBlock.Collapsed.NONE) {
-                Unfall.unf_all(world, pos);
-            }
-            return super.onUse(state, world, pos, player, hit);
-        }
+//        @Override
+//        protected ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, BlockHitResult hit) {
+//            if (state.get(COLLAPSED) == DominoBlock.Collapsed.NONE) {
+//                Unfall.unf_all(world, pos);
+//            }
+//            return super.onUse(state, world, pos, player, hit);
+//        }
     }
 }

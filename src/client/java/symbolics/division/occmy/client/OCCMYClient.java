@@ -8,21 +8,27 @@ import net.fabricmc.fabric.api.client.message.v1.ClientSendMessageEvents;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayConnectionEvents;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.client.rendering.v1.BlockRenderLayerMap;
+import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
+import net.fabricmc.fabric.api.client.rendering.v1.LivingEntityFeatureRendererRegistrationCallback;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.render.BlockRenderLayer;
 import net.minecraft.client.render.entity.EmptyEntityRenderer;
+import net.minecraft.client.render.entity.PlayerEntityRenderer;
 import net.minecraft.client.render.item.property.bool.BooleanProperties;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.command.argument.EntityAnchorArgumentType;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.Vec3d;
 import symbolics.division.occmy.OCCMY;
 import symbolics.division.occmy.block.ParadoxBlock;
 import symbolics.division.occmy.client.ent.ProjectionRenderer;
+import symbolics.division.occmy.client.ent.TurnkeyFeatureRenderer;
+import symbolics.division.occmy.client.ent.TurnkeyModel;
 import symbolics.division.occmy.client.gfx.AntimonicConsistencyProperty;
 import symbolics.division.occmy.client.gfx.ThetiscopeFullnessProperty;
 import symbolics.division.occmy.client.view.*;
@@ -131,6 +137,19 @@ public class OCCMYClient implements ClientModInitializer {
         ClientSendMessageEvents.ALLOW_CHAT.register(CProjectionView::introspect);
         ClientSendMessageEvents.ALLOW_CHAT.register(CNullView::letsGetThisOverWith);
         ClientReceiveMessageEvents.ALLOW_CHAT.register(CNullView::silence);
+
+        EntityModelLayerRegistry.registerModelLayer(
+                TurnkeyModel.TURNKEY_LAYER,
+                TurnkeyModel::getTexturedModelData
+        );
+
+        LivingEntityFeatureRendererRegistrationCallback.EVENT.register(
+                (entityType, entityRenderer, registrationHelper, context) -> {
+                    if (entityType == EntityType.PLAYER) {
+                        registrationHelper.register(new TurnkeyFeatureRenderer<>((PlayerEntityRenderer) entityRenderer, context.getEntityModels()));
+                    }
+                }
+        );
     }
 
     private void spawnImage(ClientWorld world, Vec3d pos) {
