@@ -8,6 +8,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.MapColor;
 import net.minecraft.block.piston.PistonBehavior;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.registry.Registries;
@@ -85,7 +86,7 @@ public class Unfall {
         BlockState state = world.getBlockState(pos);
         if (state.isOf(MYSTERIOUS_DOMINO_BLOCK)) return true;
         if (state.getProperties().contains(DominoBlock.COLLAPSED) && state.get(DominoBlock.COLLAPSED) != DominoBlock.Collapsed.NONE) {
-            world.setBlockState(pos, (BlockState) ((BlockState) state.with(DominoBlock.COLLAPSED, DominoBlock.Collapsed.NONE)).with(DominoBlock.COLLAPSING, false));
+            world.setBlockState(pos, state.with(DominoBlock.COLLAPSED, DominoBlock.Collapsed.NONE).with(DominoBlock.COLLAPSING, false));
             world.playSound(null, pos.getX(), pos.getY(), pos.getZ(), SoundEvents.BLOCK_STONE_STEP, SoundCategory.BLOCKS);
             return true;
         }
@@ -97,12 +98,14 @@ public class Unfall {
             super(settings);
         }
 
-//        @Override
-//        protected ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, BlockHitResult hit) {
-//            if (state.get(COLLAPSED) == DominoBlock.Collapsed.NONE) {
-//                Unfall.unf_all(world, pos);
-//            }
-//            return super.onUse(state, world, pos, player, hit);
-//        }
+        @Override
+        protected void collapse(BlockState state, World world, BlockPos pos, PlayerEntity player, boolean forwards, boolean initial) {
+            super.collapse(state, world, pos, player, forwards, initial);
+            if (state.get(COLLAPSED) != DominoBlock.Collapsed.NONE) {
+                world.setBlockState(pos, state.with(DominoBlock.COLLAPSED, DominoBlock.Collapsed.NONE).with(DominoBlock.COLLAPSING, false));
+                world.playSound(player, pos.getX(), pos.getY(), pos.getZ(), SoundEvents.BLOCK_STONE_STEP, SoundCategory.BLOCKS);
+            }
+            Unfall.unf_all(world, pos);
+        }
     }
 }
