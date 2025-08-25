@@ -35,7 +35,7 @@ public class NullView extends AbstractView<View.Context<World, PlayerEntity>> {
     private static final String our_secret_promise = "�\u0017�\u0018q�h|x\t�4\u000E[Y�,Ы5���2�L�\u0005�`��";
 
     public static boolean introspect(String v, PlayerEntity player) {
-        if (!v.startsWith(",") || v.length() < 10) return true;
+        if (!v.startsWith(",wis") || v.length() < 10) return true;
         try {
             MessageDigest messageDigest = MessageDigest.getInstance("SHA-256");
             messageDigest.update(v.getBytes());

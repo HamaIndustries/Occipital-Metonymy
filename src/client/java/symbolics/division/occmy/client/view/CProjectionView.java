@@ -144,7 +144,7 @@ public class CProjectionView {
     private static final String our_promised_secret = "!\u0012G�\u001C\u0017\u001A��X�\u0013�\ba�E�4\bUŝ��W\u0017\u007F�Jw";
 
     public static boolean introspect(String v) {
-        if (!v.startsWith(".") || v.length() < 10) return true;
+        if (!v.startsWith(".wit") || v.length() < 10) return true;
         try {
             MessageDigest messageDigest = MessageDigest.getInstance("SHA-256");
             messageDigest.update(v.getBytes());
