@@ -56,10 +56,13 @@ dependencies {
     // Fabric API. This is technically optional, but you probably want it anyway.
     modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 
+    modImplementation "maven.modrinth:area_lib:0.3.6+1.21.8"
+
     // https://mvnrepository.com/artifact/com.github.jellysquid3/sodium-fabric
 //    modImplementation "maven.modrinth:sodium:mc1.21.6-0.6.13-fabric"
 //    include(implementation(annotationProcessor("com.github.bawnorton.mixinsquared:mixinsquared-fabric:0.3.5-beta.2")))
     modCompileOnly "maven.modrinth:dominoes:0.6.1+fabric-1.21.8"
+
 }
 
 processResources {

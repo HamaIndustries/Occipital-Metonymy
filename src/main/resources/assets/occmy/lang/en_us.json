@@ -1,5 +1,6 @@
 {
   "item.occmy.thetiscope": "Thetiscope Model %s",
+  "block.occmy.thetiscope": "Thetiscope",
   "item.occmy.disk_projection": "\"Image Projected in Image\"",
   "item.occmy.disk_exteriority": "\"Physicalize Body Without Organs\"",
   "item.occmy.disk_but_if_you_close_your_eyes": "\"Draw, O Coward!\"",
@@ -13,6 +14,7 @@
   "subtitles.occmy.shutter": "Thetiscope Shutters",
   "subtitles.occmy.marionette": "Marionette Suffers",
   "subtitles.occmy.thousand_eyes": "soileH - A Thousand Eyes Stare",
+  "subtitles.occmy.et8": "Cordova - et8",
   "subtitles.occmy.startup": "FLOPSTER Drive Starts",
   "itemGroup.occmy.group": "Occipital Metonymy",
   "jukebox_song.occmy.thousand_eyes": "soileH - A Thousand Eyes Stare",
@@ -27,5 +29,7 @@
   "lore.occmy.disk_antimony": "Offsets everything by one. Paradoxically, while some things are lost, others are gained.",
   "lore.occmy.disk_treachery": "Gives cause to reconsider the nature of \"Image\".",
   "lore.occmy.disk_nullity": "Wisdom from below.",
-  "lore.occmy.antimonic_domino": "mysterious"
+  "lore.occmy.antimonic_domino": "mysterious",
+  "occmy.command.restrict.success": "Added restriction to area",
+  "occmy.command.clear.success": "Cleared restriction for area"
 }

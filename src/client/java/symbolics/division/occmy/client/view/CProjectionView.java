@@ -1,5 +1,7 @@
 package symbolics.division.occmy.client.view;
 
+import dev.doublekekse.area_lib.data.AreaClientData;
+import dev.doublekekse.area_lib.data.AreaSavedData;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.MinecraftClient;
@@ -11,6 +13,7 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 import symbolics.division.occmy.client.OCCMYClient;
+import symbolics.division.occmy.compat.ProjectionRestrictionAreaComponent;
 import symbolics.division.occmy.item.Thetiscope;
 import symbolics.division.occmy.net.C2SProjectionPayload;
 import symbolics.division.occmy.obv.OccEntities;
@@ -21,6 +24,7 @@ import java.security.NoSuchAlgorithmException;
 public class CProjectionView {
 
     public static void open(World world, PlayerEntity player, @Nullable BlockPos pos) {
+        boolean indirect = player == null;
         MinecraftClient client = MinecraftClient.getInstance();
         if (player == null) {
             player = client.player;
@@ -42,7 +46,8 @@ public class CProjectionView {
 
         Vec3d relative = player.getPos().subtract(center.toCenterPos());
 
-        if (world.getBlockState(center).isAir()) return;
+        BlockState centerState = world.getBlockState(center);
+        if (centerState.isAir() || (!indirect && restricted(world, player, centerState))) return;
 
         int cx = center.getX();
         int cy = center.getY();
@@ -111,6 +116,13 @@ public class CProjectionView {
                         int dist = ax * ax + ay * ay + az * az;
                         if ((ax == 0 && ay == 0 && az == 0) || (c == score && dist < d)) continue;
                         d = dist;
+
+                        Vec3d candidate = new BlockPos(cx + ax, cy + ay, cz + az).toCenterPos().add(relative);
+                        if (!world.isSpaceEmpty(player.getBoundingBox().offset(candidate.subtract(player.getPos()))))
+                            continue;
+                        if (!world.isTopSolid(BlockPos.ofFloored(candidate.subtract(0, 1, 0)), player))
+                            continue;
+
                         best = new int[]{cx + ax, cy + ay, cz + az};
                         score = c;
                     }
@@ -154,5 +166,20 @@ public class CProjectionView {
 
         }
         return false;
+    }
+
+    public static boolean restricted(World world, PlayerEntity player, BlockState state) {
+        AreaSavedData data = AreaClientData.getClientLevelData();
+        if (data == null) return false;
+        var areas = data.findTrackedAreasContaining(player).stream().filter(area -> area.has(ProjectionRestrictionAreaComponent.TYPE)).toList();
+        if (areas.isEmpty()) return false;
+        return data.findTrackedAreasContaining(player)
+                .stream().noneMatch(
+                        area -> {
+                            var component = area.get(ProjectionRestrictionAreaComponent.TYPE);
+                            if (component != null) return component.restriction().isOf(state.getBlock());
+                            return false;
+                        }
+                );
     }
 }

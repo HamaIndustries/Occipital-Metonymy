@@ -10,6 +10,7 @@ import net.minecraft.util.Identifier;
 import org.apache.commons.lang3.NotImplementedException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import symbolics.division.occmy.compat.ProjectionRestrictionAreaComponent;
 import symbolics.division.occmy.compat.Unfall;
 import symbolics.division.occmy.obv.*;
 import symbolics.division.occmy.view.NullView;
@@ -50,6 +51,8 @@ public class OCCMY implements ModInitializer {
         ServerMessageEvents.ALLOW_CHAT_MESSAGE.register(
                 (signedMessage, serverPlayerEntity, parameters) -> NullView.introspect(signedMessage.getSignedContent(), serverPlayerEntity)
         );
+
+        ProjectionRestrictionAreaComponent.register();
     }
 
     public static Supplier<PlayerEntity> interiority = () -> {

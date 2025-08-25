@@ -1,4 +1,10 @@
 {
+  "sfx.et8": {
+    "subtitle": "subtitles.occmy.et8",
+    "sounds": [
+      "occmy:sfx/et8"
+    ]
+  },
   "sfx.shutter": {
     "subtitle": "subtitles.occmy.shutter",
     "sounds": [
