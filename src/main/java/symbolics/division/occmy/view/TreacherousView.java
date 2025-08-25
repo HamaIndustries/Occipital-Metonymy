@@ -17,7 +17,7 @@ import java.util.UUID;
 
 public class TreacherousView extends AbstractView<View.Context<World, PlayerEntity>> {
 
-    public static final int BETRAYAL_DISTANCE = 15;
+    public static final int BETRAYAL_DISTANCE = 64;
 
     private static final HashMap<UUID, List<BlockPos>> updates = new HashMap<>();
 
@@ -62,7 +62,7 @@ public class TreacherousView extends AbstractView<View.Context<World, PlayerEnti
 
     public static void tick(ServerPlayerEntity player) {
         Vec3d anchor = player.getAttached(OccEntities.BETRAYAL_LOCUS);
-        if (anchor != null && player.getPos().distanceTo(anchor) > BETRAYAL_DISTANCE * 3) {
+        if (anchor != null && player.getPos().distanceTo(anchor) > BETRAYAL_DISTANCE * 1.1) {
             forgive(player);
         }
     }
