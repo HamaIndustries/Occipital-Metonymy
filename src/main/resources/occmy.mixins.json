@@ -5,8 +5,7 @@
   "mixins": [
     "EyeBlossomBlockMixin",
     "LivingEntityMixin",
-    "PlayerEntityMixin",
-    "compat.DominoesCompat"
+    "PlayerEntityMixin"
   ],
   "injectors": {
     "defaultRequire": 1

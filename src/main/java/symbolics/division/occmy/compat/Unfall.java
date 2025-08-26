@@ -1,7 +1,6 @@
 package symbolics.division.occmy.compat;
 
 import dev.sisby.dominoes.DominoBlock;
-import dev.sisby.dominoes.mixin.FallingBlockEntityAccessor;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.minecraft.block.AbstractBlock;
@@ -9,8 +8,6 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.MapColor;
 import net.minecraft.block.piston.PistonBehavior;
-import net.minecraft.entity.FallingBlockEntity;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.registry.Registries;
@@ -100,22 +97,12 @@ public class Unfall {
             super(settings);
         }
 
-        @Override
-        protected void collapse(BlockState state, World world, BlockPos pos, PlayerEntity player, boolean forwards, boolean initial) {
-            if (state.get(COLLAPSED) == DominoBlock.Collapsed.NONE) {
-                Shape shape = state.get(SHAPE);
-                if (DominoBlock.Shape.STACKS.contains(shape)) {
-                    BlockPos ahead = pos.offset(shape.connections().get(forwards ? 1 : 0));
-                    FallingBlockEntity fallingBlockEntity = FallingBlockEntityAccessor.invokeConstructor(world, (double) ahead.getX() + (double) 0.5F, (double) ahead.getY(), (double) ahead.getZ() + (double) 0.5F, (BlockState) ((BlockState) ((BlockState) state.with(SHAPE, (Shape) DominoBlock.Shape.STRAIGHTS.get(DominoBlock.Shape.STACKS.indexOf(shape)))).with(COLLAPSING, true)).with(COLLAPSED, forwards ? DominoBlock.Collapsed.FORWARDS : DominoBlock.Collapsed.BACKWARDS));
-                    world.spawnEntity(fallingBlockEntity);
-                }
-
-                world.playSound(player, pos, initial ? SoundEvents.BLOCK_STONE_PLACE : SoundEvents.BLOCK_STONE_FALL, SoundCategory.BLOCKS);
-                world.setBlockState(pos, ((state.with(COLLAPSING, false)).with(COLLAPSED, forwards ? DominoBlock.Collapsed.FORWARDS : DominoBlock.Collapsed.BACKWARDS)).with(SHAPE, DominoBlock.Shape.STACKS.contains(shape) ? (Shape) DominoBlock.Shape.STRAIGHTS.get(DominoBlock.Shape.STACKS.indexOf(shape)) : shape), 2, 0);
-                world.scheduleBlockTick(pos, state.getBlock(), initial ? 5 : 2);
-                Unfall.unf_all(world, pos);
-            }
-
-        }
+//        @Override
+//        protected ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, BlockHitResult hit) {
+//            if (state.get(COLLAPSED) == DominoBlock.Collapsed.NONE) {
+//                Unfall.unf_all(world, pos);
+//            }
+//            return super.onUse(state, world, pos, player, hit);
+//        }
     }
 }
