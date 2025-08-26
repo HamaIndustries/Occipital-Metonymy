@@ -6,7 +6,7 @@
   ],
   "textures": {
     "0": "occmy:block/antimonic_domino",
-    "particle": "dominoes:block/domino"
+    "particle": "occmy:block/antimonic_domino"
   },
   "elements": [
     {
