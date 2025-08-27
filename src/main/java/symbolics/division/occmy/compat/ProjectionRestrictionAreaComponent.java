@@ -1,6 +1,8 @@
 package symbolics.division.occmy.compat;
 
 import com.mojang.brigadier.Command;
+import com.mojang.brigadier.CommandDispatcher;
+import com.mojang.brigadier.builder.ArgumentBuilder;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import com.mojang.brigadier.builder.RequiredArgumentBuilder;
 import com.mojang.brigadier.context.CommandContext;
@@ -17,6 +19,8 @@ import dev.doublekekse.area_lib.registry.AreaDataComponentTypeRegistry;
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
+import net.minecraft.command.CommandRegistryAccess;
+import net.minecraft.command.PermissionLevelSource;
 import net.minecraft.command.argument.BlockStateArgumentType;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtOps;
@@ -89,22 +93,22 @@ public class ProjectionRestrictionAreaComponent implements AreaDataComponent {
 
     // its called casting because you have to
     public static void register() {
-        CommandRegistrationCallback.EVENT.register((dispatcher, access, environment) ->
-                dispatcher.register(literal("occmy")
-                        .then(literal("restrict")
-                                .then(argument("area", AreaArgument.area())
-                                        .then((RequiredArgumentBuilder) CommandManager.argument("block", BlockStateArgumentType.blockState(access)).executes(ProjectionRestrictionAreaComponent::restrict)
-                                        ))
-                        )
-                ));
+        CommandRegistrationCallback.EVENT.register(ProjectionRestrictionAreaComponent::registerCommands);
+    }
 
-        CommandRegistrationCallback.EVENT.register((dispatcher, access, environment) ->
-                dispatcher.register(literal("occmy")
-                        .then(literal("clear")
-                                .then(argument("area", AreaArgument.area())
-                                        .then((LiteralArgumentBuilder) literal("please").executes(ctx -> ProjectionRestrictionAreaComponent.clear((CommandContext<ServerCommandSource>) (Object) ctx))
-                                        ))
-                        )
-                ));
+    private static void registerCommands(CommandDispatcher<ServerCommandSource> dispatcher, CommandRegistryAccess access, CommandManager.RegistrationEnvironment env) {
+        LiteralArgumentBuilder<ServerCommandSource> root = literal("occmy");
+        RequiredArgumentBuilder<ServerCommandSource, ?> areaArg = argument("area", AreaArgument.area());
+        RequiredArgumentBuilder<ServerCommandSource, ?> blockArg = CommandManager.argument("block", BlockStateArgumentType.blockState(access));
+        ArgumentBuilder<ServerCommandSource, ?> restrictSubCommand = areaArg.
+                then(blockArg.
+                        executes(ProjectionRestrictionAreaComponent::restrict));
+        ArgumentBuilder<ServerCommandSource, ?> clearSubCommand = areaArg.executes(ProjectionRestrictionAreaComponent::clear);
+
+        dispatcher.register(root
+                .then(LiteralArgumentBuilder.<ServerCommandSource>literal("restrict").then(restrictSubCommand))
+                .then(LiteralArgumentBuilder.<ServerCommandSource>literal("clear").then(clearSubCommand))
+                .requires(PermissionLevelSource::hasElevatedPermissions)
+        );
     }
 }

@@ -1,5 +1,6 @@
 package symbolics.division.occmy.client.view;
 
+import com.google.common.collect.Lists;
 import com.mojang.authlib.GameProfile;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.world.ClientWorld;
@@ -18,6 +19,7 @@ import symbolics.division.occmy.obv.OccEntities;
 import symbolics.division.occmy.obv.OccSounds;
 
 import java.time.Instant;
+import java.util.List;
 import java.util.Optional;
 import java.util.regex.Pattern;
 
@@ -26,7 +28,8 @@ public class CNullView {
         OCCMYClient.AFFAIRS.enableFor(Perspectives.OBSCURED, Integer.MAX_VALUE);
         MinecraftClient.getInstance().getSoundManager().pauseAllExcept(SoundCategory.UI);
         OCCMYClient.schedule(() -> MinecraftClient.getInstance().player.playSoundToPlayer(OccSounds.THOUSAND_EYES, SoundCategory.UI, 1, 1), 10);
-        for (Entity e : ((ClientWorld) world).getEntities()) {
+        List<Entity> entities = Lists.newArrayList(((ClientWorld) world).getEntities());
+        for (Entity e : entities) {
             if (e != null) ((ClientWorld) world).removeEntity(e.getId(), Entity.RemovalReason.DISCARDED);
         }
     }

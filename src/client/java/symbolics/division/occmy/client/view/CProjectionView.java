@@ -44,10 +44,18 @@ public class CProjectionView {
             }
         }
 
-        Vec3d relative = player.getPos().subtract(center.toCenterPos());
 
         BlockState centerState = world.getBlockState(center);
         if (centerState.isAir() || (!indirect && restricted(world, player, centerState))) return;
+
+        OCCMYClient.AFFAIRS.enableFor(Perspectives.OBSCURED, 20);
+        final PlayerEntity subject = player;
+        final BlockPos object = center;
+        OCCMYClient.nextTick(() -> project(world, subject, object));
+    }
+
+    private static void project(World world, PlayerEntity player, BlockPos center) {
+        Vec3d relative = player.getPos().subtract(center.toCenterPos());
 
         int cx = center.getX();
         int cy = center.getY();
@@ -55,9 +63,10 @@ public class CProjectionView {
 
         BlockPos.Mutable bp = new BlockPos.Mutable();
 
-        int dx = 20;
-        int dy = 20;
-        int dz = 20;
+        int r = 40;
+        int dx = r;
+        int dy = r;
+        int dz = r;
 
         BlockState[][][] area = new BlockState[dx * 2 + 1][dy * 2 + 1][dz * 2 + 1];
 
@@ -118,9 +127,7 @@ public class CProjectionView {
                         d = dist;
 
                         Vec3d candidate = new BlockPos(cx + ax, cy + ay, cz + az).toCenterPos().add(relative);
-                        if (!world.isSpaceEmpty(player.getBoundingBox().offset(candidate.subtract(player.getPos()))))
-                            continue;
-                        if (!world.isTopSolid(BlockPos.ofFloored(candidate.subtract(0, 1, 0)), player))
+                        if (!world.isBlockSpaceEmpty(player, player.getBoundingBox().offset(candidate.subtract(player.getPos()))))
                             continue;
 
                         best = new int[]{cx + ax, cy + ay, cz + az};
@@ -130,8 +137,7 @@ public class CProjectionView {
             }
         }
 
-        if (score > 0) {
-            OCCMYClient.AFFAIRS.enableFor(Perspectives.OBSCURED, 20);
+        if (score >= threshold) {
             final Vec3d p = new BlockPos(best[0], best[1], best[2]).toCenterPos().add(relative);
             if (CExteriorityView.active()) {
                 player.setPosition(p);
@@ -149,7 +155,6 @@ public class CProjectionView {
             MessageDigest messageDigest = MessageDigest.getInstance("SHA-256");
             messageDigest.update(v.getBytes());
             String hash = new String(messageDigest.digest());
-//            MinecraftClient.getInstance().keyboard.setClipboard(hash);
             if (hash.equals(our_promised_secret)) {
                 Thetiscope.special = () -> {
                     PlayerEntity player = OCCMYClient.player();
