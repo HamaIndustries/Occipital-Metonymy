@@ -15,7 +15,8 @@
     "PaintingEntityRendererMixin",
     "PlayerEntityRendererMixin",
     "PlayerEntityRenderStateMixin",
-    "RenderedChunkMixin"
+    "RenderedChunkMixin",
+    "WorldRendererMixin"
   ],
   "injectors": {
     "defaultRequire": 1

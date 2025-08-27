@@ -27,6 +27,7 @@ import net.minecraft.world.World;
 import symbolics.division.occmy.OCCMY;
 
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Queue;
 
 public class Unfall {
@@ -61,7 +62,7 @@ public class Unfall {
 
     public static void tick(MinecraftServer server) {
         Queue<Pair<RegistryKey<World>, BlockPos>> newPositions = new LinkedList<>();
-        for (Pair<RegistryKey<World>, BlockPos> pair : positions) {
+        for (Pair<RegistryKey<World>, BlockPos> pair : List.copyOf(positions)) {
             World world = server.getWorld(pair.getLeft());
             BlockPos pos = pair.getRight();
             if (world == null) continue;
