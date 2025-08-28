@@ -35,9 +35,14 @@ public class CProjectionView {
 
         BlockPos center = pos;
         if (center == null) {
-            if (client.crosshairTarget instanceof BlockHitResult hit) {
-                center = hit.getBlockPos();
-            } else if (client.crosshairTarget != null) {
+            HitResult hit = client.crosshairTarget;
+            if (hit == null || hit instanceof BlockHitResult bhr && world.getBlockState(bhr.getBlockPos()).isAir()) {
+                hit = player.raycast(10, 0, false);
+            }
+            if (hit instanceof BlockHitResult bhr) { // block
+                BlockState h = world.getBlockState(((BlockHitResult) hit).getBlockPos());
+                center = bhr.getBlockPos();
+            } else if (hit != null) { //ent
                 center = BlockPos.ofFloored(client.crosshairTarget.getPos().add(player.getRotationVecClient().multiply(0.5)));
             } else {
                 return;
