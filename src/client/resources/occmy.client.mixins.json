@@ -9,6 +9,7 @@
     "ClientWorldMixin",
     "EntityRendererMixin",
     "GameRendererMixin",
+    "LivingEntityRendererMixin",
     "MinecraftClientMixin",
     "MouseMixin",
     "OtherClientPlayerEntityMixin",

@@ -2,10 +2,7 @@ package symbolics.division.occmy.obv;
 
 import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
-import symbolics.division.occmy.net.C2SHollowingPayload;
-import symbolics.division.occmy.net.C2SProjectionPayload;
-import symbolics.division.occmy.net.S2CAnsibleQuale;
-import symbolics.division.occmy.net.S2CCaptureImagePayload;
+import symbolics.division.occmy.net.*;
 
 public class OccNetworking {
     public static void init() {
@@ -17,6 +14,11 @@ public class OccNetworking {
         PayloadTypeRegistry.playC2S().register(
                 C2SHollowingPayload.ID,
                 C2SHollowingPayload.CODEC
+        );
+
+        PayloadTypeRegistry.playC2S().register(
+                C2SBetrayingPayload.ID,
+                C2SBetrayingPayload.CODEC
         );
 
         PayloadTypeRegistry.playS2C().register(
@@ -31,5 +33,6 @@ public class OccNetworking {
 
         ServerPlayNetworking.registerGlobalReceiver(C2SProjectionPayload.ID, C2SProjectionPayload::HANDLER);
         ServerPlayNetworking.registerGlobalReceiver(C2SHollowingPayload.ID, C2SHollowingPayload::HANDLER);
+        ServerPlayNetworking.registerGlobalReceiver(C2SBetrayingPayload.ID, C2SBetrayingPayload::HANDLER);
     }
 }

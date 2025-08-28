@@ -27,17 +27,16 @@ public class TreacherousView extends AbstractView<View.Context<World, PlayerEnti
         else if (active(user)) {
             forgive((ServerPlayerEntity) user);
         } else {
-            depaint(world, (ServerPlayerEntity) user);
+            user.setAttached(OccEntities.BETRAYAL_LOCUS, user.getPos());
         }
     }
 
-    public static void depaint(World world, ServerPlayerEntity player) {
-        player.setAttached(OccEntities.BETRAYAL_LOCUS, player.getPos());
-        for (PaintingEntity paint : world.getEntitiesByClass(PaintingEntity.class, player.getBoundingBox().expand(BETRAYAL_DISTANCE), p -> true)) {
+    public static void depaint(World world, final ServerPlayerEntity player, Vec3d pos, Vec3d rotation) {
+        for (PaintingEntity paint : world.getEntitiesByClass(PaintingEntity.class, player.getBoundingBox().offset(pos.subtract(player.getPos())).expand(BETRAYAL_DISTANCE), p -> true)) {
             Vec3d normal = paint.getRotationVector();
             Vec3d dir = normal.multiply(-0.5);
-            Vec3d relative = player.getPos().subtract(paint.getPos());
-            if (dir.dotProduct(player.getRotationVector()) <= 0 || relative.dotProduct(normal) <= 0) continue;
+            Vec3d relative = pos.subtract(paint.getPos());
+            if (dir.dotProduct(rotation) <= 0 || relative.dotProduct(normal) <= 0) continue;
             BlockPos.stream(paint.getBoundingBox().contract(0.5).stretch(dir.x, dir.y, dir.z)).forEach(
                     p -> {
                         BlockPos bp = new BlockPos(p);

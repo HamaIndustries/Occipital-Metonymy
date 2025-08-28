@@ -1,5 +1,7 @@
 package symbolics.division.occmy.client;
 
+import dev.doublekekse.area_lib.data.AreaClientData;
+import dev.doublekekse.area_lib.data.AreaSavedData;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientEntityEvents;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
@@ -32,6 +34,7 @@ import symbolics.division.occmy.client.ent.TurnkeyModel;
 import symbolics.division.occmy.client.gfx.AntimonicConsistencyProperty;
 import symbolics.division.occmy.client.gfx.ThetiscopeFullnessProperty;
 import symbolics.division.occmy.client.view.*;
+import symbolics.division.occmy.compat.ProjectionRestrictionAreaComponent;
 import symbolics.division.occmy.ent.MarionetteEntity;
 import symbolics.division.occmy.ent.ProjectionEntity;
 import symbolics.division.occmy.net.C2SHollowingPayload;
@@ -42,6 +45,10 @@ import symbolics.division.occmy.obv.OccEntities;
 import symbolics.division.occmy.state.Necessity;
 import symbolics.division.occmy.state.Sachverhalten;
 import symbolics.division.occmy.view.Views;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
 
 public class OCCMYClient implements ClientModInitializer {
     public static final Sachverhalten AFFAIRS = new Sachverhalten();
@@ -58,6 +65,7 @@ public class OCCMYClient implements ClientModInitializer {
 
         ClientTickEvents.START_CLIENT_TICK.register(
                 client -> {
+                    updateRestriction();
                     AFFAIRS.tick();
                     if (client.player != null) {
                         client.player.setAttached(OccEntities.PROJECTION_PROTECTION, client.player.getAttachedOrSet(OccEntities.PROJECTION_PROTECTION, 0) - 1);
@@ -194,5 +202,35 @@ public class OCCMYClient implements ClientModInitializer {
         CExteriorityView.reset();
         CInversionView.reset();
         CTreacherousView.reset();
+    }
+
+    private static Map<UUID, Boolean> restrictions = new HashMap<>();
+
+    public static boolean inRestrictedArea(PlayerEntity player) {
+        boolean otherRestricted = restrictions.getOrDefault(player.getUuid(), false);
+        boolean selfRestricted = restrictions.getOrDefault(player().getUuid(), false);
+        return otherRestricted != selfRestricted;
+    }
+
+    private static void updateRestriction() {
+        AreaSavedData data = AreaClientData.getClientLevelData();
+        if (data == null) {
+            restrictions.clear();
+            return;
+        }
+
+        for (PlayerEntity player : world().getPlayers()) {
+            boolean restricted = data.findTrackedAreasContaining(player)
+                    .stream().anyMatch(
+                            area -> {
+                                var component = area.get(ProjectionRestrictionAreaComponent.TYPE);
+                                if (component != null) return component.restriction() != null;
+                                return false;
+                            }
+                    );
+            restrictions.put(player.getUuid(), restricted);
+        }
+
+
     }
 }

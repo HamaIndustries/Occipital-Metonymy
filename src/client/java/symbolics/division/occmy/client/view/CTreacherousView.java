@@ -1,15 +1,20 @@
 package symbolics.division.occmy.client.view;
 
+import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.world.World;
 import symbolics.division.occmy.client.OCCMYClient;
+import symbolics.division.occmy.net.C2SBetrayingPayload;
 import symbolics.division.occmy.obv.OccEntities;
 
 public class CTreacherousView {
 
     public static void open(World world, PlayerEntity player) {
-        if (!player.hasAttached(OccEntities.BETRAYAL_LOCUS)) OCCMYClient.AFFAIRS.enableFor(Perspectives.OBSCURED, 20);
+        if (!player.hasAttached(OccEntities.BETRAYAL_LOCUS)) {
+            OCCMYClient.AFFAIRS.enableFor(Perspectives.OBSCURED, 20);
+            ClientPlayNetworking.send(new C2SBetrayingPayload(player.getPos(), player.getRotationVector()));
+        }
     }
 
     private static boolean wasActive = false;

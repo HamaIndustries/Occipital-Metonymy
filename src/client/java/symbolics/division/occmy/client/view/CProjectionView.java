@@ -6,6 +6,7 @@ import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.BlockPos;
@@ -37,7 +38,7 @@ public class CProjectionView {
         if (center == null) {
             HitResult hit = client.crosshairTarget;
             if (hit == null || hit instanceof BlockHitResult bhr && world.getBlockState(bhr.getBlockPos()).isAir()) {
-                hit = player.raycast(10, 0, false);
+                hit = player.raycast(4, 0, false);
             }
             if (hit instanceof BlockHitResult bhr) { // block
                 BlockState h = world.getBlockState(((BlockHitResult) hit).getBlockPos());
@@ -131,10 +132,6 @@ public class CProjectionView {
                         if ((ax == 0 && ay == 0 && az == 0) || (c == score && dist < d)) continue;
                         d = dist;
 
-                        Vec3d candidate = new BlockPos(cx + ax, cy + ay, cz + az).toCenterPos().add(relative);
-                        if (!world.isBlockSpaceEmpty(player, player.getBoundingBox().offset(candidate.subtract(player.getPos()))))
-                            continue;
-
                         best = new int[]{cx + ax, cy + ay, cz + az};
                         score = c;
                     }
@@ -144,6 +141,10 @@ public class CProjectionView {
 
         if (score >= threshold) {
             final Vec3d p = new BlockPos(best[0], best[1], best[2]).toCenterPos().add(relative);
+            if (!world.isBlockSpaceEmpty(player, player.getBoundingBox().offset(p.subtract(player.getPos())))) {
+                player.playSound(SoundEvents.ITEM_SHIELD_BLOCK.value(), 0.8f, 1.2f);
+                return;
+            }
             if (CExteriorityView.active()) {
                 player.setPosition(p);
             } else {
