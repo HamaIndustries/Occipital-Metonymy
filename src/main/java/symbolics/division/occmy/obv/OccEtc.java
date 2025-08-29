@@ -1,16 +1,20 @@
 package symbolics.division.occmy.obv;
 
+import net.minecraft.entity.damage.DamageType;
 import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.recipe.RecipeType;
 import net.minecraft.recipe.SingleStackRecipe;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
+import net.minecraft.registry.RegistryKey;
+import net.minecraft.registry.RegistryKeys;
 import symbolics.division.occmy.OCCMY;
 import symbolics.division.occmy.craft.Retrospection;
 
 public class OccEtc {
     public static void init() {
         Recipe.init();
+        Damage.init();
     }
 
     public static final class Recipe {
@@ -29,5 +33,12 @@ public class OccEtc {
         );
 
 //        public static final RegistryKey<RecipePropertySet> RETROSPECTION_PROPERTY = RegistryKey.of(RecipePropertySet.REGISTRY, OCCMY.id("retrospection"));
+    }
+
+    public static final class Damage {
+        public static final RegistryKey<DamageType> HOLLOWING = RegistryKey.of(RegistryKeys.DAMAGE_TYPE, OCCMY.id("hollowing"));
+
+        public static void init() {
+        }
     }
 }

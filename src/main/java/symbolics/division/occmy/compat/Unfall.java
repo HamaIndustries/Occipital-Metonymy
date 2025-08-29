@@ -71,6 +71,14 @@ public class Unfall {
                 for (Direction dir : Direction.values()) {
                     if (!world.getBlockState(pos.offset(dir)).isOf(MYSTERIOUS_DOMINO_BLOCK))
                         newPositions.add(new Pair<>(key, pos.offset(dir)));
+                    if (!dir.getAxis().equals(Direction.Axis.Y)) {
+                        var up = pos.offset(dir).add(0, 1, 0);
+                        var down = pos.offset(dir).add(0, -1, 0);
+                        if (!world.getBlockState(up).isOf(MYSTERIOUS_DOMINO_BLOCK))
+                            newPositions.add(new Pair<>(key, up));
+                        if (!world.getBlockState(down).isOf(MYSTERIOUS_DOMINO_BLOCK))
+                            newPositions.add(new Pair<>(key, down));
+                    }
                 }
             }
         }

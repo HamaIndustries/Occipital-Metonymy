@@ -214,7 +214,7 @@ public class OCCMYClient implements ClientModInitializer {
 
     private static void updateRestriction() {
         AreaSavedData data = AreaClientData.getClientLevelData();
-        if (data == null) {
+        if (data == null || world() == null) {
             restrictions.clear();
             return;
         }

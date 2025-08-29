@@ -19,4 +19,14 @@ public class LivingEntityRendererMixin {
         }
         return original.call(livingEntity, d);
     }
+
+//    private boolean occmy$rerunning = false;
+//
+//    @Inject(
+//            method = "render(Lnet/minecraft/client/render/entity/state/LivingEntityRenderState;Lnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/client/render/VertexConsumerProvider;I)V",
+//            at = @At("TAIL")
+//    )
+//    public <S extends LivingEntityRenderState> void rerun(S livingEntityRenderState, MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i, CallbackInfo ci) {
+//        if (!occmy$rerunning && livingEntityRenderState.)
+//    }
 }
