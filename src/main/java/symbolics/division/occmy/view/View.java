@@ -17,4 +17,6 @@ public interface View {
             consumer.accept(w, u);
         }
     }
+
+    void reset(PlayerEntity user);
 }

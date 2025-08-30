@@ -31,6 +31,11 @@ public class OccNetworking {
                 S2CAnsibleQuale.CODEC
         );
 
+        PayloadTypeRegistry.playS2C().register(
+                S2CStabilizingPayload.ID,
+                S2CStabilizingPayload.CODEC
+        );
+
         ServerPlayNetworking.registerGlobalReceiver(C2SProjectionPayload.ID, C2SProjectionPayload::HANDLER);
         ServerPlayNetworking.registerGlobalReceiver(C2SHollowingPayload.ID, C2SHollowingPayload::HANDLER);
         ServerPlayNetworking.registerGlobalReceiver(C2SBetrayingPayload.ID, C2SBetrayingPayload::HANDLER);

@@ -31,6 +31,11 @@ public class NullView extends AbstractView<View.Context<World, PlayerEntity>> {
         }
     }
 
+    @Override
+    public void reset(PlayerEntity user) {
+
+    }
+
 
     private static final String our_secret_promise = "�\u0017�\u0018q�h|x\t�4\u000E[Y�,Ы5���2�L�\u0005�`��";
 

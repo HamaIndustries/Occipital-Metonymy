@@ -14,6 +14,11 @@ public class ProjectionView extends AbstractView<ProjectionView.ProjectionContex
         if (world.isClient) callback().accept(new ProjectionContext(world, user, null));
     }
 
+    @Override
+    public void reset(PlayerEntity user) {
+
+    }
+
     public void openIndirect(World world, BlockPos anchor) {
         if (world.isClient) callback().accept(new ProjectionContext(world, null, anchor));
     }

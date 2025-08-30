@@ -28,7 +28,6 @@ public class OccBloccs {
 
     public static final ParadoxBlock PARADOX = register("paradox", ParadoxBlock.of(true), AbstractBlock.Settings.create()
             .nonOpaque()
-            .solidBlock(Blocks::never)
             .suffocates(Blocks::never)
             .blockVision(Blocks::never)
             .noBlockBreakParticles()
@@ -36,7 +35,6 @@ public class OccBloccs {
 
     public static final ParadoxBlock COROLLARY = register("corollary", ParadoxBlock.of(false), AbstractBlock.Settings.create()
             .nonOpaque()
-            .solidBlock(Blocks::never)
             .suffocates(Blocks::never)
             .blockVision(Blocks::never)
             .noBlockBreakParticles()

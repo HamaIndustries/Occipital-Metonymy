@@ -40,6 +40,7 @@ import symbolics.division.occmy.ent.ProjectionEntity;
 import symbolics.division.occmy.net.C2SHollowingPayload;
 import symbolics.division.occmy.net.S2CAnsibleQuale;
 import symbolics.division.occmy.net.S2CCaptureImagePayload;
+import symbolics.division.occmy.net.S2CStabilizingPayload;
 import symbolics.division.occmy.obv.OccBloccs;
 import symbolics.division.occmy.obv.OccEntities;
 import symbolics.division.occmy.state.Necessity;
@@ -126,7 +127,7 @@ public class OCCMYClient implements ClientModInitializer {
         };
 
         ClientPlayConnectionEvents.DISCONNECT.register((handler, client) -> {
-            resetAll();
+            CGroundingView.resetAll();
             Perspectives.reset();
         });
 
@@ -137,7 +138,7 @@ public class OCCMYClient implements ClientModInitializer {
 
         ClientEntityEvents.ENTITY_UNLOAD.register((entity, clientWorld) -> {
             if (entity instanceof ClientPlayerEntity) {
-                resetAll();
+                CGroundingView.resetAll();
             }
         });
 
@@ -160,6 +161,10 @@ public class OCCMYClient implements ClientModInitializer {
                         registrationHelper.register(new TurnkeyFeatureRenderer<>((PlayerEntityRenderer) entityRenderer, context.getEntityModels()));
                     }
                 }
+        );
+
+        ClientPlayNetworking.registerGlobalReceiver(
+                S2CStabilizingPayload.ID, (s2CStabilizingPayload, context) -> CGroundingView.resetAll()
         );
     }
 
@@ -195,13 +200,6 @@ public class OCCMYClient implements ClientModInitializer {
                 e.remove(Entity.RemovalReason.DISCARDED);
             }
         }
-    }
-
-    private static void resetAll() {
-        CBestView.reset();
-        CExteriorityView.reset();
-        CInversionView.reset();
-        CTreacherousView.reset();
     }
 
     private static Map<UUID, Boolean> restrictions = new HashMap<>();

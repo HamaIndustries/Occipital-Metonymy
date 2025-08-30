@@ -8,4 +8,9 @@ public class ExteriorityView extends AbstractView<View.Context<World, PlayerEnti
     public void open(World world, PlayerEntity user) {
         if (world.isClient) callback().accept(View.Context.of(world, user));
     }
+
+    @Override
+    public void reset(PlayerEntity user) {
+
+    }
 }

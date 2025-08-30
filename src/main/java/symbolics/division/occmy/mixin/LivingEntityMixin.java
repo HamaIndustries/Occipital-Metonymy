@@ -7,8 +7,7 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
-import symbolics.division.occmy.view.AntimonicView;
-import symbolics.division.occmy.view.TreacherousView;
+import symbolics.division.occmy.view.Views;
 
 @Mixin(LivingEntity.class)
 public class LivingEntityMixin {
@@ -17,7 +16,7 @@ public class LivingEntityMixin {
             at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/LivingEntity;getEffectiveGravity()D")
     )
     public double lie(LivingEntity instance, Operation<Double> original) {
-        if (((Entity) (Object) this) instanceof PlayerEntity player && (TreacherousView.active(player) || AntimonicView.active(player))) {
+        if (((Entity) (Object) this) instanceof PlayerEntity player && Views.immaterial(player)) {
             return 0;
         }
         return original.call(instance);

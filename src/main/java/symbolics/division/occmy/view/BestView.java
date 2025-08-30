@@ -8,4 +8,9 @@ public class BestView extends AbstractView<View.Context<World, PlayerEntity>> {
     public void open(World world, PlayerEntity user) {
         if (world.isClient) callback().accept(View.Context.of(world, user));
     }
+
+    @Override
+    public void reset(PlayerEntity user) {
+
+    }
 }

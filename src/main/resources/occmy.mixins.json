@@ -3,9 +3,10 @@
   "package": "symbolics.division.occmy.mixin",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
+    "EntityMixin",
     "EyeBlossomBlockMixin",
     "LivingEntityMixin",
-    "PlayerEntityMixin"
+    "ServerPlayNetworkHandlerMixin"
   ],
   "injectors": {
     "defaultRequire": 1

@@ -36,8 +36,7 @@ public class CInversionView {
 
     public static void open(World world, PlayerEntity player) {
         if (active()) {
-            INVERTED_STATE.disable();
-            player.setAttached(OccEntities.INVERTED, false);
+            reset();
         } else {
             OCCMYClient.AFFAIRS.enableFor(INVERTED_STATE, 200);
         }
@@ -49,6 +48,11 @@ public class CInversionView {
     }
 
     public static void reset() {
-        if (INVERTED_STATE.isActive()) INVERTED_STATE.disable();
+        if (INVERTED_STATE.isActive()) {
+            INVERTED_STATE.disable();
+            PlayerEntity player = MinecraftClient.getInstance().player;
+            if (player == null) return;
+            player.setAttached(OccEntities.INVERTED, false);
+        }
     }
 }

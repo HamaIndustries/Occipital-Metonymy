@@ -45,6 +45,6 @@ public class Perspectives {
     }
 
     public static void reset() {
-        OBSCURED.cancel();
+        if (OBSCURED.isActive()) OBSCURED.cancel();
     }
 }

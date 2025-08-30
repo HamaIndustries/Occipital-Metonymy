@@ -10,7 +10,7 @@ public class AntimonicView extends AbstractView<View.Context<World, PlayerEntity
     public void open(World world, PlayerEntity user) {
         if (world.isClient) callback().accept(View.Context.of(world, user));
         else if (active(user)) {
-            user.removeAttached(OccEntities.CONTRADICTORY);
+            reset(user);
         } else {
             user.setAttached(OccEntities.CONTRADICTORY, Unit.INSTANCE);
         }
@@ -18,5 +18,10 @@ public class AntimonicView extends AbstractView<View.Context<World, PlayerEntity
 
     public static boolean active(PlayerEntity user) {
         return !user.getWorld().isClient() && user.hasAttached(OccEntities.CONTRADICTORY);
+    }
+
+    @Override
+    public void reset(PlayerEntity user) {
+        user.removeAttached(OccEntities.CONTRADICTORY);
     }
 }

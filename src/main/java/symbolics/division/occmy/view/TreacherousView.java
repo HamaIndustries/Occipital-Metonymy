@@ -25,10 +25,15 @@ public class TreacherousView extends AbstractView<View.Context<World, PlayerEnti
     public void open(World world, PlayerEntity user) {
         if (world.isClient) callback().accept(View.Context.of(world, user));
         else if (active(user)) {
-            forgive((ServerPlayerEntity) user);
+            reset(user);
         } else {
             user.setAttached(OccEntities.BETRAYAL_LOCUS, user.getPos());
         }
+    }
+
+    @Override
+    public void reset(PlayerEntity user) {
+        forgive((ServerPlayerEntity) user);
     }
 
     public static void depaint(World world, final ServerPlayerEntity player, Vec3d pos, Vec3d rotation) {

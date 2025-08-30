@@ -8,7 +8,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.BlockView;
-import symbolics.division.occmy.obv.OccItems;
 
 import java.util.function.Function;
 import java.util.function.Supplier;
@@ -37,10 +36,10 @@ public class ParadoxBlock extends TransparentBlock {
         return VoxelShapes.empty();
     }
 
-    @Override
-    protected VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
-        return context.isHolding(OccItems.BLOCK_COROLLARY) || context.isHolding(OccItems.BLOCK_PARADOX) ? VoxelShapes.fullCube() : VoxelShapes.empty();
-    }
+//    @Override
+//    protected VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
+//        return context.isHol? VoxelShapes.fullCube() : VoxelShapes.empty();
+//    }
 
     public static Function<BlockState, BlockRenderType> cb = null;
 

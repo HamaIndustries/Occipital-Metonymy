@@ -5,11 +5,14 @@ import com.google.common.collect.HashBiMap;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.DataResult;
 import io.netty.buffer.ByteBuf;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.network.codec.PacketCodec;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.dynamic.Codecs;
 import org.jetbrains.annotations.Nullable;
 import symbolics.division.occmy.OCCMY;
+
+import java.util.List;
 
 public class Views {
     private static final BiMap<Identifier, View> entries = HashBiMap.create();
@@ -27,6 +30,7 @@ public class Views {
     public static AntimonicView ANTIMONY = register("antimony", new AntimonicView());
     public static TreacherousView TREACHERY = register("treachery", new TreacherousView());
     public static NullView NULLITY = register("nullity", new NullView());
+    public static GroundingView GROUNDING = register("grounding", new GroundingView());
 
     private static <T extends View> T register(String id, T v) {
         entries.put(OCCMY.id(id), v);
@@ -41,5 +45,13 @@ public class Views {
     @Nullable
     public static Identifier getId(View v) {
         return entries.inverse().get(v);
+    }
+
+    public static boolean immaterial(PlayerEntity player) {
+        return TreacherousView.active(player) || AntimonicView.active(player);
+    }
+
+    public static List<View> all() {
+        return entries.values().stream().toList();
     }
 }
