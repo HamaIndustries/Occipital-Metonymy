@@ -114,7 +114,7 @@ public class OCCMYClient implements ClientModInitializer {
         };
 
         ClientPlayConnectionEvents.DISCONNECT.register((handler, client) -> {
-            CGroundingView.resetAll();
+            CGroundingView.resetAll(false);
             Perspectives.reset();
         });
 
@@ -125,7 +125,7 @@ public class OCCMYClient implements ClientModInitializer {
 
         ClientEntityEvents.ENTITY_UNLOAD.register((entity, clientWorld) -> {
             if (entity instanceof ClientPlayerEntity) {
-                CGroundingView.resetAll();
+                CGroundingView.resetAll(false);
             }
         });
 
@@ -151,7 +151,7 @@ public class OCCMYClient implements ClientModInitializer {
         );
 
         ClientPlayNetworking.registerGlobalReceiver(
-                S2CStabilizingPayload.ID, (s2CStabilizingPayload, context) -> CGroundingView.resetAll()
+                S2CStabilizingPayload.ID, (s2CStabilizingPayload, context) -> CGroundingView.resetAll(true)
         );
     }
 

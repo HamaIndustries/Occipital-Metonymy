@@ -1,16 +1,22 @@
 package symbolics.division.occmy.client.view;
 
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.World;
 import symbolics.division.occmy.client.OCCMYClient;
 import symbolics.division.occmy.state.Sufficiency;
 
 public class Perspectives {
     private static void shutter() {
-        Vec3d p = OCCMYClient.player().getPos();
-        OCCMYClient.world().playSound(OCCMYClient.player(), p.x, 1000, p.z, SoundEvents.BLOCK_PISTON_CONTRACT, SoundCategory.UI, 10000, 2);
+        PlayerEntity player = OCCMYClient.player();
+        if (player == null) return;
+        Vec3d p = player.getPos();
+        World world = OCCMYClient.world();
+        if (world == null) return;
+        world.playSound(OCCMYClient.player(), p.x, 1000, p.z, SoundEvents.BLOCK_PISTON_CONTRACT, SoundCategory.UI, 10000, 2);
     }
 
     public static final Obscured OBSCURED = new Obscured();

@@ -24,6 +24,8 @@ import java.util.Optional;
 import java.util.regex.Pattern;
 
 public class CNullView {
+    private static boolean active = false;
+
     public static void open(World world, PlayerEntity player) {
         OCCMYClient.AFFAIRS.enableFor(Perspectives.OBSCURED, Integer.MAX_VALUE);
         MinecraftClient.getInstance().getSoundManager().pauseAllExcept(SoundCategory.UI);
@@ -32,8 +34,16 @@ public class CNullView {
         for (Entity e : entities) {
             if (e != null) ((ClientWorld) world).removeEntity(e.getId(), Entity.RemovalReason.DISCARDED);
         }
+        active = true;
     }
 
+    public static boolean active() {
+        return active;
+    }
+
+    public static void reset() {
+        active = false;
+    }
 
     private static final Pattern YOU_ALREADY_KNOW = Pattern.compile("[oO0](?:[^0-9a-zA-Z]*|\\s)*[bB](?:[^0-9a-zA-Z]*|\\s)*[aA](?:[^0-9a-zA-Z]*|\\s)[bB](?:[^0-9a-zA-Z]*|\\s)*[oO0]");
 

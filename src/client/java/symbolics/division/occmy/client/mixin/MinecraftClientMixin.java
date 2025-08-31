@@ -16,6 +16,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import symbolics.division.occmy.client.OCCMYClient;
 import symbolics.division.occmy.client.ent.ProjectionRenderer;
+import symbolics.division.occmy.client.view.CNullView;
 import symbolics.division.occmy.client.view.Perspectives;
 
 @Mixin(MinecraftClient.class)
@@ -48,8 +49,7 @@ public class MinecraftClientMixin {
             at = @At(value = "INVOKE", target = "Lnet/minecraft/client/MinecraftClient;isIntegratedServerRunning()Z")
     )
     public void nullityAbsolution(boolean pauseOnly, CallbackInfo ci) {
-        if (Perspectives.OBSCURED.isActive()
-                && (OCCMYClient.player() == null || OCCMYClient.player().isRemoved())) {
+        if (CNullView.active()) {
             OCCMYClient.nextTick(() -> GameMenuScreen.disconnect(MinecraftClient.getInstance(), ClientWorld.QUITTING_MULTIPLAYER_TEXT));
         }
     }
