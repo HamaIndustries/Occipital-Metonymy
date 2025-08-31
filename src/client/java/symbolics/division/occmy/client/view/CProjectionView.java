@@ -5,6 +5,10 @@ import dev.doublekekse.area_lib.data.AreaSavedData;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.world.ClientWorld;
+import net.minecraft.command.argument.EntityAnchorArgumentType;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.hit.BlockHitResult;
@@ -15,8 +19,10 @@ import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 import symbolics.division.occmy.client.OCCMYClient;
 import symbolics.division.occmy.compat.ProjectionRestrictionAreaComponent;
+import symbolics.division.occmy.ent.ProjectionEntity;
 import symbolics.division.occmy.item.Thetiscope;
 import symbolics.division.occmy.net.C2SProjectionPayload;
+import symbolics.division.occmy.net.S2CCaptureImagePayload;
 import symbolics.division.occmy.obv.OccEntities;
 
 import java.security.MessageDigest;
@@ -33,6 +39,8 @@ public class CProjectionView {
             if (!player.getBlockPos().isWithinDistance(pos, 4) || protection > 0) return;
             player.setAttached(OccEntities.PROJECTION_PROTECTION, 100);
         }
+
+        if (player.isSpectator() || player.hasVehicle()) return;
 
         BlockPos center = pos;
         if (center == null) {
@@ -192,5 +200,37 @@ public class CProjectionView {
                             return false;
                         }
                 );
+    }
+
+    public static void handleCaptureImage(S2CCaptureImagePayload payload, ClientPlayNetworking.Context context) {
+        ClientWorld world = context.client().world;
+        Entity subject = world.getEntity(payload.subject());
+        PlayerEntity self = OCCMYClient.player();
+        if (self != null && recurseRiding(self, subject)) {
+            OCCMYClient.AFFAIRS.enableFor(Perspectives.OBSCURED, 20);
+        }
+        if (subject != null) {
+            subject.setAttached(OccEntities.PROJECTING, true);
+            subject.setAttached(OccEntities.OBSCURED, true);
+        }
+        spawnImage(world, payload.from());
+        spawnImage(world, payload.to());
+    }
+
+
+    private static void spawnImage(ClientWorld world, Vec3d pos) {
+        ProjectionEntity proj = OccEntities.PROJECTION.create(world, SpawnReason.LOAD);
+        world.addEntity(proj);
+        proj.setPosition(pos);
+        proj.lookAt(EntityAnchorArgumentType.EntityAnchor.EYES, MinecraftClient.getInstance().player.getEyePos());
+    }
+
+    private static boolean recurseRiding(Entity rider, Entity root) {
+        var vehicle = rider.getVehicle();
+        if (vehicle != null) {
+            if (vehicle == root) return true;
+            return recurseRiding(vehicle, root);
+        }
+        return false;
     }
 }

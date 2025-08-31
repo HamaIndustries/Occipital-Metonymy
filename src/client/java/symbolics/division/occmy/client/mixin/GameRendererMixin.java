@@ -46,9 +46,6 @@ public class GameRendererMixin {
             if (CAntimonicView.solidifyParadox()) {
                 Effects.DISHARMONY.apply(buffer);
             }
-//            if (CTreacherousView.active()) {
-//                Effects.DISQUIET.apply(buffer);
-//            }
         }
     }
 

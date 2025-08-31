@@ -72,4 +72,10 @@ public class TreacherousView extends AbstractView<View.Context<World, PlayerEnti
             forgive(player);
         }
     }
+
+    public static boolean deceived(ServerPlayerEntity player, BlockPos pos) {
+        if (updates.containsKey(player.getUuid()))
+            return updates.get(player.getUuid()).contains(pos);
+        return false;
+    }
 }

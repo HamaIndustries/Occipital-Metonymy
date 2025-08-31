@@ -20,12 +20,9 @@ import net.minecraft.client.render.entity.EmptyEntityRenderer;
 import net.minecraft.client.render.entity.PlayerEntityRenderer;
 import net.minecraft.client.render.item.property.bool.BooleanProperties;
 import net.minecraft.client.world.ClientWorld;
-import net.minecraft.command.argument.EntityAnchorArgumentType;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
-import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.util.math.Vec3d;
 import symbolics.division.occmy.OCCMY;
 import symbolics.division.occmy.block.ParadoxBlock;
 import symbolics.division.occmy.client.ent.ProjectionRenderer;
@@ -36,7 +33,6 @@ import symbolics.division.occmy.client.gfx.ThetiscopeFullnessProperty;
 import symbolics.division.occmy.client.view.*;
 import symbolics.division.occmy.compat.ProjectionRestrictionAreaComponent;
 import symbolics.division.occmy.ent.MarionetteEntity;
-import symbolics.division.occmy.ent.ProjectionEntity;
 import symbolics.division.occmy.net.C2SHollowingPayload;
 import symbolics.division.occmy.net.S2CAnsibleQuale;
 import symbolics.division.occmy.net.S2CCaptureImagePayload;
@@ -86,16 +82,7 @@ public class OCCMYClient implements ClientModInitializer {
 
         ClientPlayNetworking.registerGlobalReceiver(
                 S2CCaptureImagePayload.ID,
-                (payload, context) -> {
-                    ClientWorld world = context.client().world;
-                    Entity subject = world.getEntity(payload.subject());
-                    if (subject != null) {
-                        subject.setAttached(OccEntities.PROJECTING, true);
-                        subject.setAttached(OccEntities.OBSCURED, true);
-                    }
-                    spawnImage(world, payload.from());
-                    spawnImage(world, payload.to());
-                }
+                CProjectionView::handleCaptureImage
         );
 
         ClientPlayNetworking.registerGlobalReceiver(
@@ -166,13 +153,6 @@ public class OCCMYClient implements ClientModInitializer {
         ClientPlayNetworking.registerGlobalReceiver(
                 S2CStabilizingPayload.ID, (s2CStabilizingPayload, context) -> CGroundingView.resetAll()
         );
-    }
-
-    private void spawnImage(ClientWorld world, Vec3d pos) {
-        ProjectionEntity proj = OccEntities.PROJECTION.create(world, SpawnReason.LOAD);
-        world.addEntity(proj);
-        proj.setPosition(pos);
-        proj.lookAt(EntityAnchorArgumentType.EntityAnchor.EYES, MinecraftClient.getInstance().player.getEyePos());
     }
 
     public static void nextTick(Runnable r) {
