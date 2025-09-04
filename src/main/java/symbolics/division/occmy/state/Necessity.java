@@ -4,8 +4,8 @@ public class Necessity extends Gestalt {
     boolean fired = false;
     Runnable cb;
 
-    public Necessity(Runnable cb, int ticks) {
-        super(ticks);
+    public Necessity(Runnable cb) {
+        super();
         this.cb = cb;
     }
 

@@ -14,7 +14,7 @@ public final class Sachverhalten {
     private final List<ISachverhalt> anonymousStates = new ReferenceArrayList<>();
 
     public void enableFor(ISachverhalt state, int ticks) {
-        enable(state);
+        anonymousStates.add(state);
         state.enableFor(ticks);
     }
 
@@ -24,6 +24,7 @@ public final class Sachverhalten {
 
     public void enable(ISachverhalt state) {
         anonymousStates.add(state);
+        state.enable();
     }
 
     public void tick() {

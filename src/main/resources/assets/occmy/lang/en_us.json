@@ -34,5 +34,6 @@
   "occmy.command.clear.success": "Cleared restriction for area",
   "sticker.occmy.obabo": "***** Sticker",
   "sticker.occmy.noborder": "Thetiscope Disk Sticker",
-  "death.attack.hollowing": "%s was hollowed"
+  "death.attack.hollowing": "%s was hollowed",
+  "occmy.command.fightclub.success": "Updated BWO restriction status."
 }

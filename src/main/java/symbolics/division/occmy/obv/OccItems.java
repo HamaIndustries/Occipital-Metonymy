@@ -66,7 +66,7 @@ public class OccItems {
     }
 
     private static Item disk(String id, View view) {
-        return register(id, Item::new, new Item.Settings().component(OccComponents.VIEW, view));
+        return register(id, Item::new, new Item.Settings().component(OccComponents.VIEW, view).maxCount(1));
     }
 
 

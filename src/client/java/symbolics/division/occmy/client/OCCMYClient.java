@@ -161,7 +161,7 @@ public class OCCMYClient implements ClientModInitializer {
 
     public static void schedule(Runnable r, int ticks) {
         synchronized (AFFAIRS) {
-            AFFAIRS.enable(new Necessity(r, ticks));
+            AFFAIRS.enableFor(new Necessity(r), ticks);
         }
     }
 

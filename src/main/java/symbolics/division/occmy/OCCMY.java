@@ -10,6 +10,7 @@ import net.minecraft.util.Identifier;
 import org.apache.commons.lang3.NotImplementedException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import symbolics.division.occmy.compat.FightClubAreaComponent;
 import symbolics.division.occmy.compat.ProjectionRestrictionAreaComponent;
 import symbolics.division.occmy.compat.Unfall;
 import symbolics.division.occmy.obv.*;
@@ -53,6 +54,7 @@ public class OCCMY implements ModInitializer {
         );
 
         ProjectionRestrictionAreaComponent.register();
+        FightClubAreaComponent.register();
     }
 
     public static Supplier<PlayerEntity> interiority = () -> {

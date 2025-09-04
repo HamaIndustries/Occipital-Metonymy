@@ -54,10 +54,8 @@ public class EntityMixin {
     public boolean wallEyes(Operation<Boolean> original) {
         if (occmy$player && ((Object) this) instanceof ServerPlayerEntity player) {
             boolean v = Views.immaterial(player);
-            return original.call() && !v;
+            return original.call() && !v && !Views.matryoshka(player, o -> (o instanceof ServerPlayerEntity other && Views.immaterial(other)));
         }
         return original.call();
     }
-
-
 }

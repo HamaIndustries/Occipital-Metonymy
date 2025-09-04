@@ -24,6 +24,7 @@ import symbolics.division.occmy.item.Thetiscope;
 import symbolics.division.occmy.net.C2SProjectionPayload;
 import symbolics.division.occmy.net.S2CCaptureImagePayload;
 import symbolics.division.occmy.obv.OccEntities;
+import symbolics.division.occmy.view.Views;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -206,7 +207,7 @@ public class CProjectionView {
         ClientWorld world = context.client().world;
         Entity subject = world.getEntity(payload.subject());
         PlayerEntity self = OCCMYClient.player();
-        if (self != null && recurseRiding(self, subject)) {
+        if (self != null && subject != null && Views.matryoshka(self, subject::equals)) {
             OCCMYClient.AFFAIRS.enableFor(Perspectives.OBSCURED, 20);
         }
         if (subject != null) {
@@ -217,20 +218,10 @@ public class CProjectionView {
         spawnImage(world, payload.to());
     }
 
-
     private static void spawnImage(ClientWorld world, Vec3d pos) {
         ProjectionEntity proj = OccEntities.PROJECTION.create(world, SpawnReason.LOAD);
         world.addEntity(proj);
         proj.setPosition(pos);
         proj.lookAt(EntityAnchorArgumentType.EntityAnchor.EYES, MinecraftClient.getInstance().player.getEyePos());
-    }
-
-    private static boolean recurseRiding(Entity rider, Entity root) {
-        var vehicle = rider.getVehicle();
-        if (vehicle != null) {
-            if (vehicle == root) return true;
-            return recurseRiding(vehicle, root);
-        }
-        return false;
     }
 }

@@ -5,6 +5,7 @@ import com.google.common.collect.HashBiMap;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.DataResult;
 import io.netty.buffer.ByteBuf;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.network.codec.PacketCodec;
 import net.minecraft.util.Identifier;
@@ -13,6 +14,7 @@ import org.jetbrains.annotations.Nullable;
 import symbolics.division.occmy.OCCMY;
 
 import java.util.List;
+import java.util.function.Predicate;
 
 public class Views {
     private static final BiMap<Identifier, View> entries = HashBiMap.create();
@@ -47,11 +49,21 @@ public class Views {
         return entries.inverse().get(v);
     }
 
+    // server observer
     public static boolean immaterial(PlayerEntity player) {
         return TreacherousView.active(player) || AntimonicView.active(player);
     }
 
     public static List<View> all() {
         return entries.values().stream().toList();
+    }
+
+    public static boolean matryoshka(Entity leaf, Predicate<Entity> fruit) {
+        Entity stem = leaf.getVehicle();
+        if (stem != null) {
+            if (fruit.test(stem)) return true;
+            return matryoshka(stem, fruit);
+        }
+        return false;
     }
 }
