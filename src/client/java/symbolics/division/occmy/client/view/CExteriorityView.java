@@ -35,7 +35,6 @@ public class CExteriorityView {
     };
 
     public static void reset() {
-        complex = false;
         ClientWorld world = OCCMYClient.world();
         if (world != null) {
             for (Entity e : world.getEntities()) {
@@ -45,13 +44,16 @@ public class CExteriorityView {
             }
         }
 
-        PlayerEntity player = OCCMYClient.player();
-        if (player != null && !player.isRemoved()) {
-            player.setPosition(anchor);
-            player.setYaw(yaw);
-            player.setPitch(pitch);
+        if (complex) {
+            PlayerEntity player = OCCMYClient.player();
+            if (player != null && !player.isRemoved()) {
+                player.setPosition(anchor);
+                player.setYaw(yaw);
+                player.setPitch(pitch);
+            }
         }
         SAFETY.disable();
+        complex = false;
     }
 
     public static void open(World world, PlayerEntity player) {

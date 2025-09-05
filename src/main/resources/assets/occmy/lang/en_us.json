@@ -8,6 +8,7 @@
   "item.occmy.disk_antimony": "\"Pseudologic Fantasia\"",
   "item.occmy.disk_treachery": "\"The Betrayal\"",
   "item.occmy.disk_nullity": "\"A Thousand Eyes Stare\"",
+  "item.occmy.disk_grounding": "\"Harken Now to Earthen Hymns\"",
   "item.occmy.paradox": "Paradox",
   "item.occmy.corollary": "Corollary",
   "item.occmy.flopster_drive_model_b": "FLOPSTER Drive Model B",
@@ -35,5 +36,6 @@
   "sticker.occmy.obabo": "***** Sticker",
   "sticker.occmy.noborder": "Thetiscope Disk Sticker",
   "death.attack.hollowing": "%s was hollowed",
-  "occmy.command.fightclub.success": "Updated BWO restriction status."
+  "occmy.command.fightclub.success": "Updated BWO restriction status.",
+  "occmy.music.stereo.thousand_eyes": "soileH - A Thousand Eyes Stare"
 }
