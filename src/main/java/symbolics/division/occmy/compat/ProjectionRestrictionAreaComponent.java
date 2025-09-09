@@ -98,6 +98,7 @@ public class ProjectionRestrictionAreaComponent implements AreaDataComponent {
 
     private static void registerCommands(CommandDispatcher<ServerCommandSource> dispatcher, CommandRegistryAccess access, CommandManager.RegistrationEnvironment env) {
         LiteralArgumentBuilder<ServerCommandSource> root = literal("occmy");
+        LiteralArgumentBuilder<ServerCommandSource> sub = literal("area");
         RequiredArgumentBuilder<ServerCommandSource, ?> areaArg = argument("area", AreaArgument.area());
         RequiredArgumentBuilder<ServerCommandSource, ?> blockArg = CommandManager.argument("block", BlockStateArgumentType.blockState(access));
         ArgumentBuilder<ServerCommandSource, ?> restrictSubCommand = areaArg.
@@ -106,9 +107,10 @@ public class ProjectionRestrictionAreaComponent implements AreaDataComponent {
         ArgumentBuilder<ServerCommandSource, ?> clearSubCommand = areaArg.executes(ProjectionRestrictionAreaComponent::clear);
 
         dispatcher.register(root
-                .then(LiteralArgumentBuilder.<ServerCommandSource>literal("restrict").then(restrictSubCommand))
-                .then(LiteralArgumentBuilder.<ServerCommandSource>literal("clear").then(clearSubCommand))
-                .requires(PermissionLevelSource::hasElevatedPermissions)
+                .then(sub
+                        .then(LiteralArgumentBuilder.<ServerCommandSource>literal("restrict").then(restrictSubCommand))
+                        .then(LiteralArgumentBuilder.<ServerCommandSource>literal("clear").then(clearSubCommand))
+                        .requires(PermissionLevelSource::hasElevatedPermissions))
         );
     }
 }

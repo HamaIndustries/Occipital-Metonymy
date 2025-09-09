@@ -35,6 +35,8 @@ public class OccEntities {
     public static final AttachmentType<Integer> PROJECTION_PROTECTION = AttachmentRegistry.create(OCCMY.id("cooldown"));
     public static final AttachmentType<Unit> ENJOINED = AttachmentRegistry.create(OCCMY.id("enjoined"),
             builder -> builder.persistent(Unit.CODEC).syncWith(Unit.PACKET_CODEC, AttachmentSyncPredicate.all()).copyOnDeath());
+    public static final AttachmentType<Unit> IMMUNE = AttachmentRegistry.create(OCCMY.id("immune"),
+            builder -> builder.persistent(Unit.CODEC).syncWith(Unit.PACKET_CODEC, AttachmentSyncPredicate.all()).copyOnDeath());
 
 
     public static final RegistryKey<EntityType<?>> PROJECTION_KEY = RegistryKey.of(

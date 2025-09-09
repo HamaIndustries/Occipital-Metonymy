@@ -21,6 +21,11 @@ public class OccNetworking {
                 C2SBetrayingPayload.CODEC
         );
 
+        PayloadTypeRegistry.playC2S().register(
+                C2SRotaryPayload.ID,
+                C2SRotaryPayload.CODEC
+        );
+
         PayloadTypeRegistry.playS2C().register(
                 S2CCaptureImagePayload.ID,
                 S2CCaptureImagePayload.CODEC
@@ -39,5 +44,6 @@ public class OccNetworking {
         ServerPlayNetworking.registerGlobalReceiver(C2SProjectionPayload.ID, C2SProjectionPayload::HANDLER);
         ServerPlayNetworking.registerGlobalReceiver(C2SHollowingPayload.ID, C2SHollowingPayload::HANDLER);
         ServerPlayNetworking.registerGlobalReceiver(C2SBetrayingPayload.ID, C2SBetrayingPayload::HANDLER);
+        ServerPlayNetworking.registerGlobalReceiver(C2SRotaryPayload.ID, C2SRotaryPayload::HANDLER);
     }
 }

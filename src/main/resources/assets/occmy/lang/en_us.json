@@ -37,5 +37,6 @@
   "sticker.occmy.noborder": "Thetiscope Disk Sticker",
   "death.attack.hollowing": "%s was hollowed",
   "occmy.command.fightclub.success": "Updated BWO restriction status.",
-  "occmy.music.stereo.thousand_eyes": "soileH - A Thousand Eyes Stare"
+  "occmy.music.stereo.thousand_eyes": "soileH - A Thousand Eyes Stare",
+  "occmy.command.fightclub.client.success": "set fightclub status to %s"
 }

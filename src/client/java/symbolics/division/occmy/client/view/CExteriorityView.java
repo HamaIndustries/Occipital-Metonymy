@@ -14,6 +14,7 @@ import symbolics.division.occmy.OCCMY;
 import symbolics.division.occmy.client.OCCMYClient;
 import symbolics.division.occmy.client.ent.IStringedEntity;
 import symbolics.division.occmy.compat.FightClubAreaComponent;
+import symbolics.division.occmy.obv.OccEntities;
 import symbolics.division.occmy.state.Gestalt;
 
 public class CExteriorityView {
@@ -110,6 +111,7 @@ public class CExteriorityView {
     }
 
     private static boolean fightClub(PlayerEntity player) {
+        if (player.hasAttached(OccEntities.IMMUNE)) return false;
         AreaSavedData data = AreaClientData.getClientLevelData();
         if (player == null || data == null) return true;
         return data.findTrackedAreasContaining(player).stream().noneMatch(

@@ -20,7 +20,9 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.server.command.CommandManager;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.text.Text;
+import net.minecraft.util.Unit;
 import symbolics.division.occmy.OCCMY;
+import symbolics.division.occmy.obv.OccEntities;
 
 import static com.mojang.brigadier.builder.LiteralArgumentBuilder.literal;
 import static com.mojang.brigadier.builder.RequiredArgumentBuilder.argument;
@@ -56,6 +58,21 @@ public class FightClubAreaComponent implements AreaDataComponent {
         return Command.SINGLE_SUCCESS;
     }
 
+    public static int optOut(CommandContext<ServerCommandSource> context) throws CommandSyntaxException {
+        boolean fun = BoolArgumentType.getBool(context, "allow");
+        if (context.getSource().getEntity() == null) {
+            return 0;
+        }
+        if (fun) {
+            context.getSource().getEntity().removeAttached(OccEntities.IMMUNE);
+        } else {
+            context.getSource().getEntity().setAttached(OccEntities.IMMUNE, Unit.INSTANCE);
+        }
+
+        context.getSource().sendFeedback(() -> Text.translatable("occmy.command.fightclub.client.success", Boolean.toString(fun)), true);
+        return Command.SINGLE_SUCCESS;
+    }
+
     // its called casting because you have to
     public static void register() {
         CommandRegistrationCallback.EVENT.register(FightClubAreaComponent::registerCommands);
@@ -64,14 +81,20 @@ public class FightClubAreaComponent implements AreaDataComponent {
     private static void registerCommands(CommandDispatcher<ServerCommandSource> dispatcher, CommandRegistryAccess access, CommandManager.RegistrationEnvironment env) {
         LiteralArgumentBuilder<ServerCommandSource> root = literal("occmy");
         RequiredArgumentBuilder<ServerCommandSource, ?> areaArg = argument("area", AreaArgument.area());
+        LiteralArgumentBuilder<ServerCommandSource> clientArg = literal("client");
         RequiredArgumentBuilder<ServerCommandSource, ?> allowArg = CommandManager.argument("allow", BoolArgumentType.bool());
 
         dispatcher.register(root
                 .then(LiteralArgumentBuilder.<ServerCommandSource>literal("fightclub")
                         .then(areaArg
                                 .then(allowArg
-                                        .executes(FightClubAreaComponent::funPolice))))
-                .requires(PermissionLevelSource::hasElevatedPermissions)
+                                        .executes(FightClubAreaComponent::funPolice))
+                                .requires(PermissionLevelSource::hasElevatedPermissions))
+                        .then(clientArg
+                                .then(allowArg
+                                        .executes(FightClubAreaComponent::optOut))))
+
+
         );
     }
 }
