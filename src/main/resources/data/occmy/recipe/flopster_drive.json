@@ -1,0 +1,7 @@
+{
+  "type": "occmy:retrospection",
+  "ingredient": "minecraft:dragon_egg",
+  "result": {
+    "id": "occmy:flopster_drive_model_b"
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "type": "occmy:retrospection",
+  "ingredient": "minecraft:nether_star",
+  "result": {
+    "id": "occmy:disk_nullity"
+  }
+}

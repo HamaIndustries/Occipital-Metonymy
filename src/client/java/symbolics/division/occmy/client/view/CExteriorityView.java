@@ -1,7 +1,5 @@
 package symbolics.division.occmy.client.view;
 
-import dev.doublekekse.area_lib.data.AreaClientData;
-import dev.doublekekse.area_lib.data.AreaSavedData;
 import net.minecraft.client.render.Camera;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.util.math.MatrixStack;
@@ -13,7 +11,6 @@ import net.minecraft.world.World;
 import symbolics.division.occmy.OCCMY;
 import symbolics.division.occmy.client.OCCMYClient;
 import symbolics.division.occmy.client.ent.IStringedEntity;
-import symbolics.division.occmy.compat.FightClubAreaComponent;
 import symbolics.division.occmy.obv.OccEntities;
 import symbolics.division.occmy.state.Gestalt;
 
@@ -111,11 +108,6 @@ public class CExteriorityView {
     }
 
     private static boolean fightClub(PlayerEntity player) {
-        if (player.hasAttached(OccEntities.IMMUNE)) return false;
-        AreaSavedData data = AreaClientData.getClientLevelData();
-        if (player == null || data == null) return true;
-        return data.findTrackedAreasContaining(player).stream().noneMatch(
-                a -> a.has(FightClubAreaComponent.TYPE)
-        );
+        return !player.hasAttached(OccEntities.IMMUNE);
     }
 }

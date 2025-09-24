@@ -1,0 +1,7 @@
+{
+  "type": "occmy:retrospection",
+  "ingredient": "minecraft:wheat",
+  "result": {
+    "id": "occmy:paradox"
+  }
+}

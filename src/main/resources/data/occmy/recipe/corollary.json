@@ -1,0 +1,7 @@
+{
+  "type": "occmy:retrospection",
+  "ingredient": "minecraft:wheat_seeds",
+  "result": {
+    "id": "occmy:corollary"
+  }
+}

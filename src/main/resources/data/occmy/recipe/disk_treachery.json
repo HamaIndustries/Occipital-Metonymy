@@ -1,0 +1,7 @@
+{
+  "type": "occmy:retrospection",
+  "ingredient": "minecraft:painting",
+  "result": {
+    "id": "occmy:disk_treachery"
+  }
+}

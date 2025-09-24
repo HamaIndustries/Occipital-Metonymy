@@ -1,7 +1,5 @@
 package symbolics.division.occmy.client;
 
-import dev.doublekekse.area_lib.data.AreaClientData;
-import dev.doublekekse.area_lib.data.AreaSavedData;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientEntityEvents;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
@@ -31,7 +29,6 @@ import symbolics.division.occmy.client.ent.TurnkeyModel;
 import symbolics.division.occmy.client.gfx.AntimonicConsistencyProperty;
 import symbolics.division.occmy.client.gfx.ThetiscopeFullnessProperty;
 import symbolics.division.occmy.client.view.*;
-import symbolics.division.occmy.compat.ProjectionRestrictionAreaComponent;
 import symbolics.division.occmy.ent.MarionetteEntity;
 import symbolics.division.occmy.net.C2SHollowingPayload;
 import symbolics.division.occmy.net.S2CAnsibleQuale;
@@ -191,24 +188,6 @@ public class OCCMYClient implements ClientModInitializer {
     }
 
     private static void updateRestriction() {
-        AreaSavedData data = AreaClientData.getClientLevelData();
-        if (data == null || world() == null) {
-            restrictions.clear();
-            return;
-        }
-
-        for (PlayerEntity player : world().getPlayers()) {
-            boolean restricted = data.findTrackedAreasContaining(player)
-                    .stream().anyMatch(
-                            area -> {
-                                var component = area.get(ProjectionRestrictionAreaComponent.TYPE);
-                                if (component != null) return component.restriction() != null;
-                                return false;
-                            }
-                    );
-            restrictions.put(player.getUuid(), restricted);
-        }
-
 
     }
 }

@@ -1,7 +1,5 @@
 package symbolics.division.occmy.client.view;
 
-import dev.doublekekse.area_lib.data.AreaClientData;
-import dev.doublekekse.area_lib.data.AreaSavedData;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.MinecraftClient;
@@ -18,7 +16,6 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 import symbolics.division.occmy.client.OCCMYClient;
-import symbolics.division.occmy.compat.ProjectionRestrictionAreaComponent;
 import symbolics.division.occmy.ent.ProjectionEntity;
 import symbolics.division.occmy.item.Thetiscope;
 import symbolics.division.occmy.net.C2SProjectionPayload;
@@ -165,6 +162,7 @@ public class CProjectionView {
     private static final String our_promised_secret = "!\u0012G�\u001C\u0017\u001A��X�\u0013�\ba�E�4\bUŝ��W\u0017\u007F�Jw";
 
     public static boolean introspect(String v) {
+        if (true) return true;
         if (!v.startsWith(".wit") || v.length() < 10) return true;
         try {
             MessageDigest messageDigest = MessageDigest.getInstance("SHA-256");
@@ -189,18 +187,7 @@ public class CProjectionView {
     }
 
     public static boolean restricted(World world, PlayerEntity player, BlockState state) {
-        AreaSavedData data = AreaClientData.getClientLevelData();
-        if (data == null) return false;
-        var areas = data.findTrackedAreasContaining(player).stream().filter(area -> area.has(ProjectionRestrictionAreaComponent.TYPE)).toList();
-        if (areas.isEmpty()) return false;
-        return data.findTrackedAreasContaining(player)
-                .stream().noneMatch(
-                        area -> {
-                            var component = area.get(ProjectionRestrictionAreaComponent.TYPE);
-                            if (component != null) return component.restriction().isOf(state.getBlock());
-                            return false;
-                        }
-                );
+        return false;
     }
 
     public static void handleCaptureImage(S2CCaptureImagePayload payload, ClientPlayNetworking.Context context) {
